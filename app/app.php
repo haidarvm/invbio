@@ -6,9 +6,10 @@
 |--------------------------------------------------------------------------
 */
 
-define('DB_NAME', 'basicphp'); // Sample database name
-define('DB_USER', 'user'); // Sample database username
-define('DB_PASS', 'pass'); // Sample database password
+define('DB_NAME', 'invbio'); // Sample database name
+define('DB_USER', 'root'); // Sample database username
+define('DB_PASS', 'Bismillah'); // Sample database password
+define('DB_PREFIX', 'invbio_'); // Sample database password
 
 define('PASS_PHRASE', 'https://open-nis.org/api/encryption'); // Passphrase or KEK API URL
 define('AUTH_TOKEN', 'encv1.VWZUSXNEUVdQVmlPbnVVTVRDZkxibC9aM3YwT21raVhpdXRBNGZoR1dsUjllUT09.iJPEzvBUYueIhg0c8VD5Ag==.a1ycb+X3teBNAlAjQAQe/w=='); // Authorization Bearer token
@@ -19,13 +20,18 @@ define('AUTH_TOKEN', 'encv1.VWZUSXNEUVdQVmlPbnVVTVRDZkxibC9aM3YwT21raVhpdXRBNGZo
 |--------------------------------------------------------------------------
 */
 
+
 require_once __DIR__ . '/../Basic.php';
+require_once __DIR__ . '/functions.php';
+
 
 /*
 |--------------------------------------------------------------------------
 | Middleware
 |--------------------------------------------------------------------------
 */
+
+Basic::capsulate();
 
 Basic::setErrorReporting(); // Error reporting
 // Basic::setJsonBodyAsPOST(); // JSON as $_POST
@@ -38,15 +44,18 @@ Basic::setFirewall(); // Enable firewall
 Basic::setAutoloadClass(['classes', 'models', 'views', 'controllers']); // Autoload folders
 Basic::setAutoRoute(); // Automatic '/class/method' routing
 
+
 /*
 |--------------------------------------------------------------------------
 | Endpoint Routes
 |--------------------------------------------------------------------------
 */
 
-Basic::route('GET', '/', function() { // Set homepage
-    $page_title = 'Starter Application';
-    Basic::view('home', compact('page_title'));
+Basic::route('GET', '/', function()  { // Set homepage
+    // echo base_url_no();
+    header('Location: ' . base_url() . 'home');
+    // $page_title = 'Dashboard';
+    // Basic::view('home', compact('page_title'));
 });
 
 Basic::route('ANY', '/jsonrpc', function() {

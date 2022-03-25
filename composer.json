@@ -1,0 +1,6 @@
+{
+    "require": {
+        "symfony/http-foundation": "^6.0",
+        "illuminate/database": "^8.0"
+    }
+}
