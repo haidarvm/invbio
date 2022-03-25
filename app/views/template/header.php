@@ -41,7 +41,7 @@
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
-        <a href="index.html">
+        <a href="<?=base_url();?>">
           <img src="<?=base_url();?>assets/img/logo.png" width="120" alt="logo" />
         </a>
       </div>
