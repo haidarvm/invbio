@@ -4,6 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aplikasi Inventory BioFarma Electrical">
+    <meta name="title" content="InvBio">
+    <meta name="keywords" content="Inventory , Biofarma, electrical">
+    <meta name="author" content="hydant">
+    <meta name="googlebot-news" content="index,follow" />
+    <meta name="googlebot" content="index,follow" />
+    <meta name="robots" content="index,follow" />
+    <meta http-equiv="content-language" content="In-Id" />
+    <meta property="og:site_name" content="<?php echo base_url();?>" />
+    <meta property="og:title" content="Dashboard" />
+    <meta property="og:description" content="Aplikasi Inventory BioFarma Electrical" />
+    <meta property="og:url" content="<?=base_url();?>" />
+    <meta property="og:image" content="<?=base_url();?>assets/img/logo.png" />
+    <meta property="og:type" content="website" />
     <link
       rel="shortcut icon"
       href="<?=base_url();?>assets/images/favicon.svg"
@@ -28,7 +42,7 @@
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
         <a href="index.html">
-          <img src="<?=base_url();?>assets/images/logo/logo.png" width="120" alt="logo" />
+          <img src="<?=base_url();?>assets/img/logo.png" width="120" alt="logo" />
         </a>
       </div>
       <nav class="sidebar-nav">
