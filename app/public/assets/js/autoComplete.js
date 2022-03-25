@@ -9,7 +9,7 @@ const autoCompleteJS = new autoComplete({
 					.setAttribute("placeholder", "Loading...");
 				// Fetch External Data Source
 				const source = await fetch(
-					"http://inv.test/api/auto_item"
+					base_url + "api/auto_item"
 				);
 				const data = await source.json();
 				// Post Loading placeholder text
