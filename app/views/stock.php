@@ -1,8 +1,7 @@
 <?php
-$css  = '
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.02.min.css">
-      <style>
-      </style>';
+$css  = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.02.min.css">
+        <style>
+        </style>';
 require_once 'template/header.php';
 // require_once 'template/menu.php';
 ?>
@@ -14,12 +13,12 @@ require_once 'template/header.php';
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="titlemb-30">
-                        <h2>Stock Managment</h2>
+                        <h4>Stock Managment</h4>
                     </div>
                 </div>
                 <!-- end col -->
                 <div class="col-md-6">
-                    <div class="breadcrumb-wrapper mb-30">
+                    <div class="breadcrumb-wrapper ">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
@@ -42,7 +41,7 @@ require_once 'template/header.php';
             <div class="col">
                 <div class="card-style settings-card-1 mb-30">
                     <div class="title  mb-30  d-flex  justify-content-between  align-items-center">
-                        <h6>Stock</h6>
+                        <h6></h6>
                         <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
                             <li class="nav-item " role="presentation">
                                 <button class="nav-link active" id="in-tab" data-bs-toggle="tab" data-bs-target="#in"
@@ -55,7 +54,6 @@ require_once 'template/header.php';
                             </li>
                         </ul>
                         <button class="border-0 bg-transparent">
-                            <i class="lni lni-pencil-alt"></i>
                         </button>
                     </div>
                     <form class="forms-sample" action="<?=base_url();?>stock/save" method="POST">
@@ -89,8 +87,8 @@ require_once 'template/header.php';
                                 <input type="hidden" class="item_id" name="item_id" value="" />
                             </div>
                         </div>
-                        <button class="main-btn primary-btn rounded-md btn-hover mt-50 mr-15">Save</button>
-                        <button class="main-btn danger-btn-outline rounded-md btn-hover mt-50">Cancel</button>
+                        <button class="main-btn primary-btn rounded-md btn-hover mr-15">Save</button>
+                        <button class="main-btn danger-btn-outline rounded-md btn-hover">Cancel</button>
                     </form>
                 </div>
             </div>

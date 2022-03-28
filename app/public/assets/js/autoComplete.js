@@ -58,7 +58,7 @@ const autoCompleteJS = new autoComplete({
 			item.style = "display: flex; justify-content: space-between;";
 			// Modify Results Item Content
 			item.innerHTML = `
-      <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:1000px">
+      <span style="text-overflow: ellipsis; white-space: nowrap;  width:800px">
         ${data.match}
       </span>`;
 		},
