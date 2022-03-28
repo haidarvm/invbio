@@ -1,6 +1,6 @@
 <?php
 $css  = '
-    	<link rel="stylesheet" href="' . base_url() . 'assets/css/autoComplete.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.02.min.css">
       <style>
       </style>';
 require_once 'template/header.php';
@@ -65,7 +65,7 @@ require_once 'template/header.php';
                             </div>
                             <div class="profile-meta">
                                 <h5 class="text-bold text-dark mb-10">Product</h5>
-                                <input type="text" id="autoComplete" placeholder="Power meter" value="" />
+                                <input type="text" id="autoComplete" placeholder="Power meter" value="" size="100"/>
                             </div>
                         </div>
                         <div class="input-style-1">
@@ -77,14 +77,14 @@ require_once 'template/header.php';
                             <div class="tab-pane fade show active" id="in" role="tabpanel" aria-labelledby="in-tab">
                                 <div class="input-style-1">
                                     <label>Stock In</label>
-                                    <input type="text" name="quantity_in" value="" />
+                                    <input type="number" name="quantity_in" value="" />
                                 </div>
                             </div>
                             <!-- Stock Out -->
                             <div class="tab-pane fade" id="out" role="tabpanel" aria-labelledby="out-tab">
                                 <div class="input-style-1">
                                     <label>Stock Out</label>
-                                    <input type="text" name="quantity_out" value="" />
+                                    <input type="number" name="quantity_out" value="" />
                                 </div>
                                 <input type="hidden" class="item_id" name="item_id" value="" />
                             </div>

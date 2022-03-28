@@ -22,7 +22,7 @@ const autoCompleteJS = new autoComplete({
 				return error;
 			}
 		},
-		keys: ["item_name", "item_code"],
+		keys: ["item_name", "category_name"],
 		cache: true,
 		filter: (list) => {
 			// Filter duplicates
@@ -53,17 +53,16 @@ const autoCompleteJS = new autoComplete({
 	},
 	resultItem: {
 		element: (item, data) => {
+			console.log(data);
 			// Modify Results Item Style
 			item.style = "display: flex; justify-content: space-between;";
 			// Modify Results Item Content
 			item.innerHTML = `
-      <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+      <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width:1000px">
         ${data.match}
-      </span>
-      <span style="display: flex; align-items: center; font-size: 13px; font-weight: 100; text-transform: uppercase; color: rgba(0,0,0,.2);">
-        ${data.key}
       </span>`;
 		},
+		// <span style="display: flex; align-items: center; font-size: 13px; font-weight: 100; text-transform: uppercase; color: rgba(0,0,0,.2);width:1000px;"> ${data.value.category_name}</span>
 		highlight: true
 	},
 	events: {
@@ -115,41 +114,25 @@ autoCompleteJS.input.addEventListener("selection", function (event) {
 //   console.log(event.detail);
 // });
 
-// Toggle Search Engine Type/Mode
-document.querySelector(".toggler").addEventListener("click", () => {
-	// Holds the toggle button selection/alignment
-	const toggle = document.querySelector(".toggle").style.justifyContent;
 
-	if (toggle === "flex-start" || toggle === "") {
-		// Set Search Engine mode to Loose
-		document.querySelector(".toggle").style.justifyContent = "flex-end";
-		document.querySelector(".toggler").innerHTML = "Loose";
-		autoCompleteJS.searchEngine = "loose";
-	} else {
-		// Set Search Engine mode to Strict
-		document.querySelector(".toggle").style.justifyContent = "flex-start";
-		document.querySelector(".toggler").innerHTML = "Strict";
-		autoCompleteJS.searchEngine = "strict";
-	}
-});
 
 // Blur/unBlur page elements
-const action = (action) => {
-	const title = document.querySelector("h1");
-	const mode = document.querySelector(".mode");
-	const selection = document.querySelector(".selection");
-	const footer = document.querySelector(".footer");
+// const action = (action) => {
+// 	const title = document.querySelector("h1");
+// 	const mode = document.querySelector(".mode");
+// 	const selection = document.querySelector(".selection");
+// 	const footer = document.querySelector(".footer");
 
-	if (action === "dim") {
-		title.style.opacity = 1;
-		mode.style.opacity = 1;
-		selection.style.opacity = 1;
-	} else {
-		title.style.opacity = 0.3;
-		mode.style.opacity = 0.2;
-		selection.style.opacity = 0.1;
-	}
-};
+// 	if (action === "dim") {
+// 		title.style.opacity = 1;
+// 		mode.style.opacity = 1;
+// 		selection.style.opacity = 1;
+// 	} else {
+// 		title.style.opacity = 0.3;
+// 		mode.style.opacity = 0.2;
+// 		selection.style.opacity = 0.1;
+// 	}
+// };
 
 // Blur/unBlur page elements on input focus
 ["focus", "blur"].forEach((eventType) => {
