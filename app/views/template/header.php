@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="<?=base_url();?>assets/css/fullcalendar.css" />
     <link rel="stylesheet" href="<?=base_url();?>assets/css/main.css" />
     <?php echo !empty($css) ? $css : "" ;?>
-    <link rel="stylesheet" href="<?=base_url();?>assets/css/custom.css" />
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/custom.css?v=1.3" />
   </head>
   <body>
     <!-- ======== sidebar-nav start =========== -->
