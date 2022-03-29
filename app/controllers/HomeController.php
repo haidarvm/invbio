@@ -9,9 +9,8 @@ class HomeController {
     }
 
     public function index() {
-        $page_title = 'Inventory BioFarma Electrical';
-        $stock = $this->stock->getAll();
-        $data =  compact('stock', 'page_title');
+        $data['page_title'] = 'Inventory BioFarma Electrical';
+        $data['stock'] = $this->stock->getAll();
         Basic::view('dashboard', $data);
     }
 }

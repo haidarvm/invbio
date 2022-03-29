@@ -13,9 +13,8 @@ class StockController {
     }
 
     public function index() {
-        $page_title = 'Inventory BioFarma Electrical';
-        $this->stock = new StockModel;
-        Basic::view('stock', compact('page_title'));
+        $data['page_title'] = 'Inventory BioFarma Electrical';
+        Basic::view('stock', $data);
     }
 
     public function save() {

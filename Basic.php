@@ -131,6 +131,7 @@ class Basic
 	public static function view($view, $data=NULL)
 	{
 		$file = '../views/' . $view . '.php';
+		// print_r($data);exit;
 		if (! empty($data)) extract($data); // Convert array keys to variables
 		if (file_exists($file) && is_readable($file) && pathinfo($file)['extension'] === 'php') require_once $file; // Render page view
 	}

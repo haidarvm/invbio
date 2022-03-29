@@ -87,6 +87,14 @@ require_once 'template/header.php';
                                 <input type="hidden" class="item_id" name="item_id" value="" />
                             </div>
                         </div>
+                        <?php
+                        $form = new Basic_Form;
+                        $form->input('text', 'desc', 'Ket');
+                        ?>
+                        <div class="input-style-1">
+                            <label>Keterangan</label>
+                            <input type="text" name="desc" value="" />
+                        </div>
                         <button class="main-btn primary-btn rounded-md btn-hover mr-15">Save</button>
                         <button class="main-btn danger-btn-outline rounded-md btn-hover">Cancel</button>
                     </form>

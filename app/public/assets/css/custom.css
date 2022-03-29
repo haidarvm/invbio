@@ -1,5 +1,5 @@
 .autoComplete_wrapper>input {
-width: 700px !important;
+width: 550px !important;
 border-radius: 5px !important;
 border: .05rem solid rgba(132, 132, 132, 0.5) !important;
 }
@@ -9,5 +9,5 @@ border: .05rem solid rgba(132, 132, 132, 0.5) !important;
 }
 
 .header {
-    padding: 20px 0;
+    padding: 10px 0;
 }

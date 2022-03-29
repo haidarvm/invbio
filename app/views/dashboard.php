@@ -1,5 +1,5 @@
 <?php
-$css  = '
+$css  = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/datatables.min.css">
       <style>
       </style>';
 require_once 'template/header.php';?>
@@ -21,7 +21,7 @@ require_once 'template/header.php';?>
                                     <a href="#0">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Stock
+                                    <?=$page_title?>
                                 </li>
                             </ol>
                         </nav>
@@ -42,7 +42,7 @@ require_once 'template/header.php';?>
                                     Berikut stock tersedia semua barang
                                 </p>
                                 <div class="table-wrapper table-responsive">
-                                    <table class="table">
+                                    <table class="table" id="stocklist">
                                         <thead>
                                             <tr>
                                                 <th>
@@ -115,12 +115,32 @@ require_once 'template/header.php';?>
 </section>
 <?php
 // Show Footer
-$javascript = '<script>            
+$javascript ='<script>            
               var base_url = "' . base_url() . '";
              
               </script>
               <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
-              
-              ';
+              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
+              <script>   
+              $(document).ready( function () {
+                $("#stocklist").DataTable({
+
+                        dom: "Bfrtip",
+                        buttons: [
+                            {
+                                extend: "collection",
+                                text: "Export",
+                                buttons: [
+                                    "copy",
+                                    "excel",
+                                    "csv",
+                                    "pdf",
+                                    "print"
+                                ]
+                            }
+                        ]
+                    });
+            });
+                </script>';
 require_once 'template/footer.php';
 ?>
