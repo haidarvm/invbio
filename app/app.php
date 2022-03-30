@@ -35,7 +35,7 @@ Basic::capsulate();
 
 Basic::setErrorReporting(); // Error reporting
 // Basic::setJsonBodyAsPOST(); // JSON as $_POST
-Basic::setFirewall(); // Enable firewall
+// Basic::setFirewall(); // Enable firewall
 // Basic::setHttps(); // Require TLS/HTTPS
 
 // setcookie('token', Basic::encrypt('{"username":"user","role":"admin"}', PASS_PHRASE), NULL, NULL, NULL, NULL, TRUE); // Sample token
@@ -57,6 +57,67 @@ Basic::route('GET', '/', function()  { // Set homepage
     // $page_title = 'Dashboard';
     // Basic::view('home', compact('page_title'));
 });
+
+Basic::route('GET', '/stock', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->index();
+});
+
+Basic::route('GET', '/stock_all', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->list_all();
+});
+
+Basic::route('GET', '/stock/new', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->new();
+});
+
+Basic::route('GET', '/stock/new_multi', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->new_multi();
+});
+
+Basic::route('POST', '/stock/save', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->save();
+});
+
+Basic::route('POST', '/stock/save_multi', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->save_multi();
+});
+
+Basic::route('GET', '/stock_in', function()  { // Set homepage
+    $stock = new StockAllController("stock_in");
+    $stock->index();
+});
+
+Basic::route('GET', '/stock_out', function()  { // Set homepage
+    $stock = new StockAllController("stock_out");
+    $stock->index();
+});
+
+Basic::route('GET', '/stock/edit/(:any)', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->edit_item(uri(3));
+});
+
+Basic::route('GET', '/stock_in/edit/(:num)', function()  { // Set homepage
+    $stock = new StockAllController("stock_in");
+    $stock->edit();
+});
+
+Basic::route('GET', '/stock_out/edit/(:num)', function()  { // Set homepage
+    $stock = new StockAllController("stock_out");
+    $stock->edit();
+});
+
+Basic::route('POST', '/stock/update/(:any)', function()  { // Set homepage
+    $stock = new StockAllController(uri(3));
+    $stock->update();
+});
+
 
 Basic::route('ANY', '/jsonrpc', function() {
     Basic::setJsonRpc(); // JSON-RPC endpoint

@@ -1,3 +1,29 @@
+-- alter table
+ALTER TABLE `invbio_stock` ADD `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL  AFTER `created_at`;
+ALTER TABLE `invbio_stock_in` ADD `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL  AFTER `created_at`;
+ALTER TABLE `invbio_stock_out` ADD `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL  AFTER `created_at`;
+ALTER TABLE `invbio_item` ADD `location` VARCHAR(300) NULL AFTER `unit`;
+ALTER TABLE `invbio_stock_in` ADD `rak` VARCHAR(200) NOT NULL AFTER `desc`; 
+
+ALTER TABLE `invbio_stock_in` ADD `desc` VARCHAR(2000) NULL AFTER `quantity`;
+ALTER TABLE `invbio_stock_out` ADD `desc` VARCHAR(2000) NULL AFTER `quantity`; 
+
+
+-- select all trx by item
+select `item_name`, `invbio_i`.`item_id`, `item_code`, `category_name`, invbio_in.stock_id as stock_id_in, invbio_out.stock_id as stock_id_out, invbio_in.quantity as quantity_in, invbio_out.quantity as quantity_out, `invbio_in`.`created_at` from `invbio_stock_in` as `invbio_in` left join `invbio_item` as `invbio_i` on `invbio_i`.`item_id` = `invbio_in`.`item_id` left join `invbio_stock_out` as `invbio_out` on `invbio_in`.`item_id` = `invbio_out`.`item_id` left join `invbio_category` as `invbio_c` on `invbio_c`.`category_id` = `invbio_i`.`category_id` where `invbio_in`.`item_id` = 3 order by `invbio_in`.`created_at` desc
+
+-- Trigger On insert Stock In
+CREATE TRIGGER update_stock
+AFTER 
+ON invbio_stock
+FOR EACH ROW
+BEGIN
+SET quantity = new.quantity, item_id = new.item_id 
+END
+
+-- Trigger On insert Stock Out
+
+
 LOAD DATA LOCAL INFILE '/home/haidar/Documents/dataProductBioFarma.csv' IGNORE INTO TABLE invbio_category
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"' 

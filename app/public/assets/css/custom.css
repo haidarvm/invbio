@@ -1,13 +1,32 @@
+.autoComplete_wrapper {
+    width: 100%;
+}
+.card-style .dropdown-toggle {
+
+    background: rgb(218, 35, 35);
+}
 .autoComplete_wrapper>input {
-width: 550px !important;
-border-radius: 5px !important;
-border: .05rem solid rgba(132, 132, 132, 0.5) !important;
+    width: 100% !important;
+    padding: 20px;
+    border-radius: 5px !important;
+    color: #000 !important;
+    border: .05rem solid rgba(132, 132, 132, 0.5) !important;
 }
 
-.autoComplete_wrapper > ul { 
+.autoComplete_wrapper>ul {
     max-height: 400px;
+    z-index: 3000;
 }
 
 .header {
     padding: 10px 0;
+}
+.min-width {
+/* width: 100%; */
+}
+
+.input-style-1 input,
+.input-style-1 textarea {
+    color: #000000;
+    /* background: rgb(241, 241, 241); */
 }

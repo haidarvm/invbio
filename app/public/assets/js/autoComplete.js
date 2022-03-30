@@ -22,7 +22,7 @@ const autoCompleteJS = new autoComplete({
 				return error;
 			}
 		},
-		keys: ["item_name", "category_name"],
+		keys: ["item_name"],
 		cache: true,
 		filter: (list) => {
 			// Filter duplicates
@@ -53,7 +53,6 @@ const autoCompleteJS = new autoComplete({
 	},
 	resultItem: {
 		element: (item, data) => {
-			console.log(data);
 			// Modify Results Item Style
 			item.style = "display: flex; justify-content: space-between;";
 			// Modify Results Item Content
@@ -100,11 +99,10 @@ autoCompleteJS.input.addEventListener("selection", function (event) {
 	// Prepare User's Selected Value
 	const selection = feedback.selection.value[feedback.selection.key];
 	// Render selected choice to selection div
-	document.querySelector(".selection").innerHTML = selection;
+	// document.querySelector(".selection").innerHTML = selection;
 	// Replace Input value with the selected value
 	autoCompleteJS.input.value = selection;
 	// Console log autoComplete data feedback
-	console.log(feedback);
     $('input:hidden[name=item_id]').val(feedback.selection.value.item_id);
 	console.log(feedback.selection.value.item_id);
     
@@ -138,11 +136,11 @@ autoCompleteJS.input.addEventListener("selection", function (event) {
 ["focus", "blur"].forEach((eventType) => {
 	autoCompleteJS.input.addEventListener(eventType, () => {
 		// Blur page elements
-		if (eventType === "blur") {
-			action("dim");
-		} else if (eventType === "focus") {
-			// unBlur page elements
-			action("light");
-		}
+		// if (eventType === "blur") {
+		// 	action("dim");
+		// } else if (eventType === "focus") {
+		// 	// unBlur page elements
+		// 	action("light");
+		// }
 	});
 });
