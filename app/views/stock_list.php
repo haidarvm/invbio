@@ -1,6 +1,7 @@
 <?php
 $css  = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/datatables.min.css">
-      <style>
+<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/bootstrap-datepicker3.min.css">
+        <style>
       </style>';
 require_once 'template/header.php';?>
 <section class="section">
@@ -12,10 +13,20 @@ require_once 'template/header.php';?>
                     <div class="row align-items-center">
                         <div class="col-lg-12">
                             <div class="card-style mb-30">
+                                <?php
+                                $form = new Bas_Form;
+                                $form->open(base_url().$table, '', 'get');
+                                echo '<div class="row">';
+                                $form->input_on('text', 'date_start','Start Date',!empty($date_start) ? $date_start : dateIndo(),'','','datepicker', 'input_start');
+                                $form->input_on('text', 'date_end','End Date', !empty($date_end) ? $date_end : dateIndo() ,'','','datepicker','input_end');
+                                $form->button_xs('Filter', 'primary-btn mt-30');
+                                echo '</div>';
+                                ?>
                                 <h6 class="mb-10"><?=$page_title;?> Available </h6>
                                 <p class="text-sm mb-20">
                                     Available Stock All Item
                                 </p>
+                                
                                 <div class="table-wrapper table-responsive">
                                     <table class="table" id="datatable">
                                         <thead>
@@ -86,13 +97,15 @@ require_once 'template/header.php';?>
                                                 <?php
                                                     }?>
                                                 <td class="min-width">
-                                                    <p class="text-danger"><?=$row->quantity. ' <span class="text-sm text-gray">'. $row->unit;?></span> </p>
+                                                    <p class="text-danger">
+                                                        <?=$row->quantity. ' <span class="text-sm text-gray">'. $row->unit;?></span>
+                                                    </p>
                                                 </td>
                                                 <?php
                                                 if (!empty($table) && $table == "stock_in") {
                                                     ?>
                                                 <td class="min-width">
-                                                    <p><?=$row->rak;?></p>
+                                                    <p><?=$row->location;?></p>
                                                 </td>
                                                 <?php
                                                     }?>
@@ -116,7 +129,7 @@ require_once 'template/header.php';?>
                                                             ?>
                                                             <a class="text-success" <?=$edit;?>><i
                                                                     class="lni lni-pencil"></i></a> |
-                                                            <a class="text-danger" href=""><i
+                                                            <a class="text-danger" href="#"><i
                                                                     class="lni lni-trash-can"></a></i>
                                                         </span>
                                                     </div>
@@ -139,7 +152,8 @@ require_once 'template/header.php';?>
 // Show Footer
 $order = $table == "stock_in" ? 5 : 4;
 $order = !empty($item) ? 5 : $order;
-$columns = $table == "stock_in" ? '[0,1,2,3,4,5]' : '[0,1,2,3,4]';
+$columns = !empty($column) ? $column : '[0,1,2,3,4]';
+$columns = $table == "stock_in" ? '[0,1,2,3,4,5]' : $columns;
 $javascript ='<script>            
               var base_url = "' . base_url() . '";
               var orderby = "'.$order.'";
@@ -149,7 +163,8 @@ $javascript ='<script>
               </script>
               <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
               <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/table.js"></script>
+              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/bootstrap-datepicker.min.js"></script>
+              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js"></script>
             ';
 require_once 'template/footer.php';
 ?>

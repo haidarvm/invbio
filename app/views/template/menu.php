@@ -51,7 +51,7 @@
                             <a href="<?=base_url();?>item"><i class="lni lni-cog"></i> Item </a>
                         </li>
                         <li>
-                            <a href="#"><i class="lni lni-sort-alpha-asc"></i> Category </a>
+                            <a href="#"><i class="lni lni-sort-alpha-asc"></i> Acccount Name </a>
                         </li>
                     </ul>
                 </li>

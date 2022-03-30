@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $('.datepicker').datepicker({
+        format: 'dd-mm-yyyy'
+    });
     $("#datatable").DataTable({
         colReorder: true,
         ordering: true,

@@ -65,7 +65,7 @@ require_once 'template/header.php';?>
                                                         <span class="text-danger">
                                                             <a class="text-success" href="<?=base_url().'user/edit/'.$row->user_id;?>"><i
                                                                     class="lni lni-pencil"></i></a> |
-                                                            <a class="text-danger" href=""><i
+                                                            <a class="text-danger" href="#"><i
                                                                     class="lni lni-trash-can"></a></i>
                                                         </span>
                                                     </div>

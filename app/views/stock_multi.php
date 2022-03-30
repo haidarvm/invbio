@@ -29,9 +29,6 @@ require_once 'template/header.php';
                                     <th>
                                         <h6 class="text-danger">Stock Out</h6>
                                     </th>
-                                    <th>
-                                        <h6>Rak</h6>
-                                    </th>
                                 </tr>
                                 <!-- end table row-->
                             </thead>
@@ -40,16 +37,13 @@ require_once 'template/header.php';
                                 for ($x = 0; $x <= 10; $x++) { ?>
                                     <tr>
                                         <td class="min-width">
-                                            <?php $form->input_only('text', 'item', 'Item','','','','sm-12');?>
+                                            <?php $form->input_only('text', 'item', 'Item','','','','col-sm-12');?>
                                         </td>
                                         <td class="min-width">
                                             <?php $form->input_only('text', 'quantity_in', 'QTY IN');?>
                                         </td>
                                         <td class="min-width">
                                             <?php $form->input_only('text', 'quantity_out', 'QTY OUT');?>
-                                        </td>
-                                        <td class="min-width">
-                                            <?php $form->input_only('text', 'rak', 'Rak');?>
                                         </td>
                                     </tr>
                                 <?php } 

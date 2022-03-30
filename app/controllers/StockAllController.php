@@ -16,9 +16,19 @@ class StockAllController {
     }
 
     public function index() {
+        $get = $this->request->query->all();
+        // print_r($get);exit; [date_start] => Array ( [0] => 17-03-2022 ) [date_end] => Array ( [0] => 30-03-2022 )
+        if (!empty($get['date_start'])) {
+            $date_start = $get['date_start'][0];
+            $date_end = $get['date_end'][0];
+            $data['date_start'] = $date_start;
+            $data['date_end'] = $date_end;
+            $data['stock'] = $this->stock->getAll('', '', toSqlDate($date_start), toSqlDate($date_end));
+        } else {
+            $data['stock'] = $this->stock->getAll();
+        }
         $data['page_title'] = strtoupper($this->table);
         $data['table'] = $this->table;
-        $data['stock'] = $this->stock->getAll();
         view('stock_list', $data);
     }
 
@@ -34,19 +44,37 @@ class StockAllController {
 
     // multiple list stock in out
     public function edit_item() {
-        // echo "edit_item";exit;
+        $get = $this->request->query->all();
+        if (!empty($get['date_start'])) {
+            $date_start = $get['date_start'][0];
+            $date_end = $get['date_end'][0];
+            $data['date_start'] = $date_start;
+            $data['date_end'] = $date_end;
+            $data['stock'] = $this->stock->getAllTrxu(uri(3), '', toSqlDate($date_start), toSqlDate($date_end));
+        } else {
+            $data['stock'] = $this->stock->getAllTrxu(uri(3));
+        }
         $data['page_title'] = 'Edit '.strtoupper($this->table);
         $data['table'] = $this->table;
         $data['item'] = uri(3);
-        $data['stock'] = $this->stock->getAllTrxu(uri(3));
+        $data['column'] = '[0,1,2,3,4,5]';
         view('stock_list', $data);
     }
 
     public function list_all() {
+        $get = $this->request->query->all();
+        if (!empty($get['date_start'])) {
+            $date_start = $get['date_start'][0];
+            $date_end = $get['date_end'][0];
+            $data['date_start'] = $date_start;
+            $data['date_end'] = $date_end;
+            $data['stock'] = $this->stock->getAllTrxu(uri(3), '', toSqlDate($date_start), toSqlDate($date_end));
+        } else {
+            $data['stock'] = $this->stock->getAllTrxu(uri(3));
+        }
         $data['page_title'] = "STOCK ALL";
         $data['table'] = $this->table;
         $data['item'] = 'all';
-        $data['stock'] = $this->stock->getAllTrxu();
         view('stock_list', $data);
     }
 
@@ -60,11 +88,16 @@ class StockAllController {
 
     public function update() {
         $post = $this->request->request->all();
-        print_r($post);exit;
+        // print_r($post);exit;
         // $this->stock->table = $table;
         // echo $this->table;
         // edit current stock
-        // $this->editStock($post['item_id'], $post['type']);
+        $this->stock->editStock($post['item_id'], $this->table, $post['old_quantity'], $post['quantity']);
+        unset($post['old_quantity']);
+        unset($post['item_id']);
+        // echo $this->table;exit;
+        $this->stock->table = uri(3);
+        // echo $this->stock->table;exit;
         $this->stock->where('stock_id', $post['stock_id'])->update($post);
         header('Location: ' . base_url() . $this->table);
     }

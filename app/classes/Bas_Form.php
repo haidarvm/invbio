@@ -14,7 +14,7 @@ class Bas_Form
 	public function open($action, $class=null, $method='post')
 	{
 		?>
-	<form class="<?= $class ?>" action="<?= $action ?>" method="<?= $method ?>">
+<form class="<?= $class ?>" action="<?= $action ?>" method="<?= $method ?>">
     <?php
 	}
 
@@ -35,8 +35,9 @@ class Bas_Form
     <div class="mb-3 row input-style-1">
         <label for="<?= $type ?>" class="col-sm-2 col-form-label <?= $style ?>"><?= $label ?> :</label>
         <div class="col-sm-10">
-            <input type="<?= $type ?>" id="<?= $id ?>" placeholder="<?= $placeholder ?>" name="<?= $name ?>"
-                value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?>  <?php if ($disabled === TRUE) echo 'disabled'; ?>/>
+            <input type="<?= $type ?>" <?= !empty($id) ? 'id="'.$id.'"' : '' ?>
+                <?= !empty($placeholder) ? 'id="'.$placeholder.'"' : '' ?> name="<?= $name ?>" value="<?= $value ?>"
+                <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
         </div>
     </div>
     <?php
@@ -45,11 +46,26 @@ class Bas_Form
 	public function input_only($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
 	{
 		?>
-	<div class="row input-style-1">
-	<div class="<?= !empty($style) ? 'col-'.$style : 'col-sm-6'; ?>">
-		<input type="<?= $type ?>" id="<?= $id ?>" placeholder="<?= $placeholder ?>" name="<?= $name ?>[]"
-			value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?>  <?php if ($disabled === TRUE) echo 'disabled'; ?>/>
+    <div class="row input-style-1">
+        <div class="<?= !empty($style) ? $style : 'col-sm-6'; ?>">
+            <input type="<?= $type ?>" id="<?= $id ?>" placeholder="<?= $placeholder ?>" name="<?= $name ?>[]"
+                value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?>
+                <?php if ($disabled === TRUE) echo 'disabled'; ?> />
+        </div>
     </div>
+    <?php
+	}
+
+	public function input_on($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
+	{
+		?>
+    <div class="col-sm-2">
+        <div class="input-style-1">
+            <label><?= $placeholder ?> </label>
+            <input type="<?= $type ?>" class="<?= !empty($style) ? $style : 'col-sm-6'; ?>" id="<?= $id ?>"
+                placeholder="<?= $placeholder ?>" name="<?= $name ?>[]" value="<?= $value ?>"
+                <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
+        </div>
     </div>
     <?php
 	}
@@ -81,6 +97,17 @@ class Bas_Form
     <?php
 	}
 
+	public function button_xs($name, $style)
+	{
+		?>
+    <div class="col-sm-3">
+        <div class="input-style-1">
+            <button class="main-btn <?=$style;?> rounded-md btn-hover mr-15"><?=$name;?></button>
+        </div>
+    </div>
+    <?php
+	}
+
 	public function a_button($href,$name, $style=null)
 	{
 		?>
@@ -91,18 +118,18 @@ class Bas_Form
 	public function dropdown($name, $label, $data, $value)
 	{
 		?>
-		<div class="mb-3 row select-style-1">
+    <div class="mb-3 row select-style-1">
         <label class="col-sm-2 col-form-label "><?= $label ?> :</label>
         <div class="col-sm-10">
-			<div class="select-position">
-				<select name="<?=$name?>">
-					<?php foreach($data as $row) { ?>
-					<option value="<?=$row->list_id;?>"><?=$row->list_name;?></option>
-					<?php } ?>
-				</select>
-			</div>
-		</div>
-		</div>
+            <div class="select-position">
+                <select name="<?=$name?>">
+                    <?php foreach($data as $row) { ?>
+                    <option value="<?=$row->list_id;?>"><?=$row->list_name;?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+    </div>
     <?php
 	}
 

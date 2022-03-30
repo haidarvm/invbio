@@ -11,18 +11,20 @@ class StockModel extends Db  {
         $this->table = "stock";
     }
 
-    public function getAll($item_id=null, $category=null, $date=null) {
+    public function getAll($item_id=null, $category=null, $date_start=null, $date_end=null) {
         $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', 'quantity', 'unit', $this->table.'.created_at')
         // ->from($this->table)
         ->leftJoin('item AS i', 'i.item_id', '=', $this->table.'.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
-        $this->table == 'stock_in' ? $data->addSelect("rak") : '';
+        $this->table == 'stock_in' ? $data->addSelect($this->table.".location") : '';
         !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
+        !empty($date_start) ? $data->whereDate($this->table.'.created_at', '>=', $date_start) : '';
+        !empty($date_end) ? $data->whereDate($this->table.'.created_at', '<=', $date_end) : '';
         // echo $item_id;exit;
         return $data->orderByDesc($this->table.'.created_at')->get();
     }
 
-    public function getAllTrxu($item_id=null, $category=null, $date=null) {
+    public function getAllTrxu($item_id=null, $category=null,$date_start=null, $date_end=null) {
         $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'in' as status"), 'quantity', 'unit','in.created_at')
         ->leftJoin('item AS i', 'i.item_id', '=', 'in.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
@@ -35,13 +37,13 @@ class StockModel extends Db  {
         return $stock_out->get();
     }
 
-    public function getAllTrx($item_id=null, $category=null, $date=null) {
+    public function getAllTrx($item_id=null, $category=null, $date_start=null, $date_end=null) {
         $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name',$this->raw(DB_PREFIX.'in.stock_id as stock_id_in'), $this->raw(DB_PREFIX.'out.stock_id as stock_id_out') , $this->raw(DB_PREFIX.'in.quantity as quantity_in'), $this->raw(DB_PREFIX.'out.quantity as quantity_out') ,'in.created_at')
         ->from("stock_in AS in")
         ->leftJoin('item AS i', 'i.item_id', '=', 'in.item_id')
         ->leftJoin("stock_out AS out", 'in.item_id', '=', 'out.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
-        $this->table == 'stock_in' ? $data->addSelect("rak") : '';
+        $this->table == 'stock_in' ? $data->addSelect($this->table.".location") : '';
         !empty($item_id) ? $data->where('in.item_id', $item_id) : "";
         // echo $item_id;exit;
         return $data->orderByDesc('in.created_at')->get();
@@ -70,7 +72,8 @@ class StockModel extends Db  {
     public function editStock($item_id, $type, $old_quantity, $new_quantity) {
         // if edit stock in = decrement old value than increment new value
         $this->table = "stock";
-        $item = ['item_id', $item_id];
+        // echo $this->table.' ';
+        $item = ['item_id' => $item_id];
         $this->where($item)->decrement('quantity', $old_quantity);
         $type == "stock_in" ? $this->where($item)->increment('quantity', $new_quantity) : $this->where($item)->decrement('quantity', $new_quantity);
         // if edit stock out = decrement old value than decrement new value

@@ -17,6 +17,17 @@ function uri($int) {
     return Basic::segment($int);
 }
 
+function dateSql() {
+    return date("Y-m-d");
+}
+
+function toSqlDate($date) {
+    return date("Y-m-d",strtotime($date));
+}
+function dateIndo() {
+    return date("d-m-Y");
+}
+
 function indoDate($date) {
     return date('d-m-Y', strtotime($date));
     // return strftime('%u %b %y', strtotime($date));

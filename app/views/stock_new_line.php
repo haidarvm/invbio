@@ -42,8 +42,8 @@ require_once 'template/header.php';
                         <!-- Stock IN -->
                         <div class="tab-pane fade show active" id="in" role="tabpanel" aria-labelledby="in-tab">
                             <?php
-                                $form->input_line('text', 'rak', 'Tempat Rak');
                                 $form->input_line('number', 'quantity_in', 'Stock In', '', '');
+                                $form->input_line('text', 'location', 'Location');
                                 ?>
                         </div>
                         <!-- Stock Out -->
@@ -55,7 +55,7 @@ require_once 'template/header.php';
                         </div>
                     </div>
                     <?php
-                        $form->input_line('text', 'desc', 'Keterangan');
+                        $form->input_line('text', 'desc', 'Description');
                         $form->input_hidden('item_id');
                         $form->input_hidden('table');
                         $form->button('Save', 'primary-btn ');

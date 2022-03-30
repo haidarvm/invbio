@@ -71,7 +71,7 @@ require_once 'template/header.php';?>
                                                         <span class="text-danger">
                                                             <a class="text-success" href="<?=base_url().'item/edit/'.$row->item_id;?>"><i
                                                                     class="lni lni-pencil"></i></a> |
-                                                            <a class="text-danger" href=""><i
+                                                            <a class="text-danger" href="#"><i
                                                                     class="lni lni-trash-can"></a></i>
                                                         </span>
                                                     </div>
@@ -100,7 +100,7 @@ $javascript ='<script>
               </script>
               <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
               <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/table.js"></script>
+              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js"></script>
             ';
 require_once 'template/footer.php';
 ?>

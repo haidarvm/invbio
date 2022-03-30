@@ -12,9 +12,9 @@ require_once 'template/header.php';
         <div class="row">
             <div class="col">
                 <div class="card-style settings-card-1 mb-30">
-                    <form class="forms-sample" action="<?=base_url(),'stock/update/'.$table;?>" method="POST">
                         <?php
                         $form = new Bas_Form;
+                        $form->open(base_url().'stock/update/'.$table);
                         ?>
                         <div class="d-flex align-items-center justify-content-center">
                             <!-- <img src="<?=base_url();?>assets/img/powermonitor.jpg" alt="" width="120" /> -->
@@ -30,15 +30,16 @@ require_once 'template/header.php';
                             </div>
                         </div>
                         <?php
-                        // $form->input_line('text', 'product', 'Product', '', $stock->item_name,true);
                         $form->input_line('text', 'quantity', $page_title, '', $stock->quantity, '',true, 'text-danger');
-                        $form->input_line('text', 'desc', 'Keterangan');
-                        $form->input_line('text', 'created_at', 'Tanggal', '', tglJamDate($stock->created_at),true);
+                        $form->input_line('text', 'desc', 'Description');
+                        $form->input_line('text', 'created_at', 'Date', '', tglJamDate($stock->created_at),true);
                         $form->input_hidden('stock_id',$stock->stock_id);
+                        $form->input_hidden('item_id',$stock->item_id);
+                        $form->input_hidden('old_quantity',$stock->quantity);
+                        $form->button('Save', 'primary-btn ');
+                        $form->a_button( base_url().$table, "Cancel",'danger-btn-outline');
+                        $form->close();
                         ?>
-                        <button class="main-btn primary-btn rounded-md btn-hover mr-15">Save</button>
-                        <button class="main-btn danger-btn-outline rounded-md btn-hover">Cancel</button>
-                    </form>
                 </div>
             </div>
             <!-- end card -->
