@@ -164,7 +164,12 @@ $javascript ='<script>
               <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
               <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
               <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/bootstrap-datepicker.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js"></script>
+              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js?v=1"></script>
+              <script>
+                $(".datepicker").datepicker({
+                    format: "dd-mm-yyyy"
+                });
+              </script>
             ';
 require_once 'template/footer.php';
 ?>
