@@ -22,7 +22,7 @@
                 <li class="nav-item ">
                     <a href="<?=base_url();?>stock/new">
                         <span class="icon"><i class="lni lni-inbox"></i></span>
-                        <span class="text">Input Stock</span>
+                        <span class="text">Update Stock</span>
                     </a>
                 </li>
                 <li class="nav-item ">
