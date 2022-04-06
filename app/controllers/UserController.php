@@ -1,10 +1,11 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController {
+class UserController extends Admin{
     protected $user;
 
     public function __construct() {
+        parent::__construct();
         $this->user = new UserModel();
         $this->request =  Request::createFromGlobals();
     }

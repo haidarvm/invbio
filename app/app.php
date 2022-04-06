@@ -5,6 +5,10 @@
 | Configuration - Constants and Variables
 |--------------------------------------------------------------------------
 */
+define('URL_PROTOCOL', '//');
+define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
+// define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
+define('URL', URL_PROTOCOL . URL_DOMAIN .'/');
 
 define('DB_NAME', 'invbio'); // Sample database name
 define('DB_USER', 'root'); // Sample database username
@@ -118,6 +122,10 @@ Basic::route('POST', '/stock/update/(:any)', function()  { // Set homepage
     $stock->update();
 });
 
+Basic::route('GET', '/logout', function()  { // Set homepage
+    $auth = new AuthController;
+    $auth->logout();
+});
 
 Basic::route('ANY', '/jsonrpc', function() {
     Basic::setJsonRpc(); // JSON-RPC endpoint

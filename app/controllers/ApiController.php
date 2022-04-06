@@ -2,12 +2,13 @@
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApiController {
+class ApiController extends PublicController {
     protected $stock;
     protected $product;
     protected $request;
 
     public function __construct() {
+        parent::__construct();
         $this->stock = new StockModel;
         $this->item = new ItemModel;
         $this->request =  Request::createFromGlobals();

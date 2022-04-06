@@ -22,7 +22,7 @@ class Bas_Form
 	{
 		?>
     <div class="input-style-1">
-        <label class="control-label col-sm-2 <?= $style ?>" for="<?= $name ?>"><?= $label ?> :</label>
+        <label class="control-label col-sm-4 <?= $style ?>" for="<?= $name ?>"><?= $label ?> :</label>
         <input type="<?= $type ?>" id="<?= $name ?>" placeholder="<?= $placeholder ?>" name="<?= $name ?>"
             value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?> />
     </div>

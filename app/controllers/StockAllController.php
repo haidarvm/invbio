@@ -1,13 +1,14 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class StockAllController {
+class StockAllController extends Admin{
     protected $stock;
     protected $item;
     protected $request;
     public $table;
 
     public function __construct($table) {
+        parent::__construct();
         $this->stock = new StockModel;
         $this->table = $table;
         $this->stock->table = $table;

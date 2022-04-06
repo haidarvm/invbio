@@ -1,11 +1,12 @@
 <?php
 
-class HomeController {
+class HomeController extends Admin {
     protected $stock;
     protected $item;
     public $table;
 
     public function __construct() {
+        parent::__construct();
         $this->stock = new StockModel;
         $this->table = "stock";
         $this->stock->table = "stock";

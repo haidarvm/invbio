@@ -1,10 +1,11 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class ItemController {
+class ItemController extends Admin {
     protected $item;
 
     public function __construct() {
+        parent::__construct();
         $this->item = new ItemModel();
         $this->category = new CategoryModel();
         $this->request =  Request::createFromGlobals();
