@@ -1,8 +1,12 @@
 <?php
-$css  = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/datatables.min.css">
-<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/bootstrap-datepicker3.min.css">
-        <style>
-      </style>';
+function css() {
+    ?>
+<link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/datatables.min.css">
+<link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/bootstrap-datepicker3.min.css">
+<style>
+</style>
+<?php
+}
 require_once 'template/header.php';?>
 <section class="section">
     <div class="container-fluid">
@@ -26,7 +30,7 @@ require_once 'template/header.php';?>
                                 <p class="text-sm mb-20">
                                     Available Stock All Item
                                 </p>
-                                
+
                                 <div class="table-wrapper table-responsive">
                                     <table class="table" id="datatable">
                                         <thead>
@@ -109,8 +113,8 @@ require_once 'template/header.php';?>
                                                 </td>
                                                 <?php
                                                     }?>
-                                                <td class="min-width">
-                                                    <p><?=tglJamDate($row->created_at);?></p>
+                                                <td class="min-width datetime">
+                                                    <p><?=$table == 'stock' ? tglJamDate($row->updated_at) : tglJamDate($row->created_at);?></p>
                                                 </td>
                                                 <td>
                                                     <div class="action">
@@ -150,26 +154,35 @@ require_once 'template/header.php';?>
 </section>
 <?php
 // Show Footer
-$order = $table == "stock_in" ? 5 : 4;
-$order = !empty($item) ? 5 : $order;
+// GLOBAL $order; 
+$order =  $table == "stock_in" ? 5 : 4;
+define('ORDER', !empty($item) ? 5 : $order);
 $columns = !empty($column) ? $column : '[0,1,2,3,4]';
 $columns = $table == "stock_in" ? '[0,1,2,3,4,5]' : $columns;
-$javascript ='<script>            
-              var base_url = "' . base_url() . '";
-              var orderby = "'.$order.'";
-              console.log(orderby);
-              var pageshow = 50;
-              var exportcolumns = '.$columns.';
-              </script>
-              <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/bootstrap-datepicker.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js?v=1"></script>
-              <script>
-                $(".datepicker").datepicker({
-                    format: "dd-mm-yyyy"
-                });
-              </script>
-            ';
+function javascript() {
+    ?>
+<script>
+var base_url = "<?=URL;?>";
+var orderby = "<?= ORDER;?>";
+console.log(orderby);
+var pageshow = 50;
+var exportcolumns = '.$columns.';
+</script>
+<script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datetime-moment.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/script.js?v=1.1"></script>
+
+<script>
+$(".datepicker").datepicker({
+    format: "dd-mm-yyyy"
+});
+// moment.locale();         // en
+// moment.format();
+</script>
+<?php
+}
 require_once 'template/footer.php';
 ?>

@@ -40,7 +40,7 @@
     <script src="<?=base_url();?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?=base_url();?>assets/js/polyfill.js"></script>
     <script src="<?=base_url();?>assets/js/main.js"></script>
-    <?php echo !empty($javascript) ? '<!-- Load js for this page -->' . $javascript . '<!--  END Load  js for this page -->' : '' ; // echo 'uwais';?>
+    <?php function_exists('javascript') ? javascript() : ''; ?><!--  END Load  js for this page -->
     </body>
 
     </html>

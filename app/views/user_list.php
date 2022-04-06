@@ -1,8 +1,6 @@
 <?php
-$css  = '
-      <style>
-      </style>';
-require_once 'template/header.php';?>
+require_once 'template/header.php';
+?>
 <section class="section">
     <div class="container-fluid">
         <?php require_once 'template/title_breadcrumb.php'; ?>
@@ -84,10 +82,13 @@ require_once 'template/header.php';?>
     </div>
 </section>
 <?php
-// Show Footer
-$javascript ='<script>            
-              var base_url = "' . base_url() . '";
-              </script>
-            ';
+function javascript() {
+    ?>
+<script>
+var base_url = "<?=URL;?>";
+</script>
+</script>
+<?php
+}
 require_once 'template/footer.php';
 ?>

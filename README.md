@@ -1,20 +1,4 @@
-# Task List
-- change logo **done**
-- bug shorting date on stock should use update_at ... `progress`
-1. Menu update stock:  **done**
-Tab: stock in, stock out, multiple in, multiple out
-Pas menu stock out ada info: qty dan location. Sekalian alert kalau qty kurang dari 5pcs
-- bugs on script.js if no datepicker ... progress check
-- Features multiple in/out .. `progress`
-- Tampilan ramah tablet 10 inch ... `progress`
-- export files with filename & title (unknown table stock) ... `progress`
-- bug stock all filter date
-- menu active by url
-- Item Image upload
-- Home menu with big cards button
-- Login Authentication  admin, operator ... **done**
-
-# chart using highcharts stock line
+# chart using highcharts stock line `progress`
 - chart perbarang gabungan stock in stock out
 - chart gabungan stock in stock out
 - chart stock in chart
@@ -22,9 +6,17 @@ Pas menu stock out ada info: qty dan location. Sekalian alert kalau qty kurang d
 - deletion stock in / out
 - transaction commit, rollback on insert, edit, delete stock in / out
 
-# client request
-- Login UAL : admin, operator **done**
-- Stock alert if threshold config
+# Task List
+- Features multiple in/out .. `progress`
+- Tab: stock in, stock out, multiple in, multiple out
+- Stock alert if threshold config / kurang dari 5pcs
+- Pas menu stock out ada info: qty dan location. Sekalian alert kalau qty kurang dari 5pcs
+- Tampilan ramah tablet 10 inch ... `progress`
+- export files with filename & title (unknown table stock) ... `progress`
+- bug stock all filter date
+- menu active by url
+- Item Image upload
+- Home menu with big cards button
 
 # new task for deletion stock in / out
 if delete stock in  
@@ -33,6 +25,11 @@ if delete stock out
 table stock increment qty from stock out by stock_id
 
 # **done**
+- bug shorting date on stock should use update_at ... **done** still bug should repair JS datatable add moment js datetime
+- bugs on script.js if no datepicker ... **done**
+- change logo **done**
+- Menu update stock:  **done**
+- Login Authentication  admin, operator ... **done**
 - Rubah/Update table tambah kolom lokasi rak ... **done**
 - Report ramah print/pdf ... **done**
 - detail nama barang + lokasi rak ... **done**

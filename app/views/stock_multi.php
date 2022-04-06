@@ -1,7 +1,7 @@
 <?php
-$css  = '<link rel="stylesheet" href="' . base_url() . 'assets/css/autoComplete.min.css">
-        <style>
-        </style>';
+$css  = '<link rel="stylesheet" href="<?=URL;?>assets/css/autoComplete.min.css">
+<style>
+</style>';
 require_once 'template/header.php';
 // require_once 'template/menu.php';
 ?>
@@ -35,17 +35,17 @@ require_once 'template/header.php';
                             <tbody>
                                 <?php 
                                 for ($x = 0; $x <= 10; $x++) { ?>
-                                    <tr>
-                                        <td class="min-width">
-                                            <?php $form->input_only('text', 'item', 'Item','','','','col-sm-12');?>
-                                        </td>
-                                        <td class="min-width">
-                                            <?php $form->input_only('text', 'quantity_in', 'QTY IN');?>
-                                        </td>
-                                        <td class="min-width">
-                                            <?php $form->input_only('text', 'quantity_out', 'QTY OUT');?>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td class="min-width">
+                                        <?php $form->input_only('text', 'item', 'Item','','','','col-sm-12');?>
+                                    </td>
+                                    <td class="min-width">
+                                        <?php $form->input_only('text', 'quantity_in', 'QTY IN');?>
+                                    </td>
+                                    <td class="min-width">
+                                        <?php $form->input_only('text', 'quantity_out', 'QTY OUT');?>
+                                    </td>
+                                </tr>
                                 <?php } 
                                 ?>
                             </tbody>
@@ -64,13 +64,15 @@ require_once 'template/header.php';
     </div>
 </section>
 <?php
-// Show Footer SET rules cannot both 0 or null
-$javascript = '<script>            
-              var base_url = "' . base_url() . '";
-              </script>
-              <script src="' . base_url() . 'assets/js/autoComplete.min.js"></script>
-              <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
-              <!--<script src="' . base_url() . 'assets/js/autoComplete.js"></script>-->
-              ';
+function javascript() {
+    ?>
+<script>
+var base_url = "<?=URL;?>";
+</script>
+<script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
+<script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
+<!--<script src="<?=URL;?>assets/js/autoComplete.js"></script>-->
+<?php
+}
 require_once 'template/footer.php';
 ?>

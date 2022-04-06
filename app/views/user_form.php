@@ -1,9 +1,5 @@
 <?php
-$css  = '
-        <style>
-        </style>';
 require_once 'template/header.php';
-// require_once 'template/menu.php';
 ?>
 <!-- ========== section start ========== -->
 <section class="section">
@@ -33,9 +29,13 @@ require_once 'template/header.php';
     </div>
 </section>
 <?php
-$javascript = '<script>            
-              var base_url = "' . base_url() . '";
-              </script>
-              </script>';
+function javascript() {
+    ?>
+<script>
+var base_url = "<?=URL;?>";
+</script>
+</script>
+<?php
+}
 require_once 'template/footer.php';
 ?>

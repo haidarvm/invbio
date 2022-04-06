@@ -56,7 +56,7 @@ function tglJamDate($date) {
 }
 
 function indosDate($date) {
-    return date('d M Y', strtotime($date));
+    return date('d-M-Y', strtotime($date));
 }
 
 function indoFullDate($date) {

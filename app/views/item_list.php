@@ -1,7 +1,11 @@
 <?php
-$css  = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/datatables.min.css">
-    <style>
-      </style>';
+function css() {
+    ?>
+<link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/datatables.min.css">
+<style>
+</style>
+<?php
+}
 require_once 'template/header.php';?>
 <section class="section">
     <div class="container-fluid">
@@ -69,7 +73,8 @@ require_once 'template/header.php';?>
                                                 <td>
                                                     <div class="action">
                                                         <span class="text-danger">
-                                                            <a class="text-success" href="<?=base_url().'item/edit/'.$row->item_id;?>"><i
+                                                            <a class="text-success"
+                                                                href="<?=base_url().'item/edit/'.$row->item_id;?>"><i
                                                                     class="lni lni-pencil"></i></a> |
                                                             <a class="text-danger" href="#"><i
                                                                     class="lni lni-trash-can"></a></i>
@@ -92,15 +97,21 @@ require_once 'template/header.php';?>
 <?php
 // Show Footer
 $order = 5;
-$javascript ='<script>            
-              var base_url = "' . base_url() . '";
-              var orderby = "'.$order.'";
-              var pageshow = 50;
-              var exportcolumns = [0,1,2,3,4];
-              </script>
-              <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js"></script>
-            ';
+define('ORDER', 5);
+function javascript() {
+    ?>
+    <script>            
+var base_url = "<?=URL;?>";
+var orderby = "<?= ORDER;?>";
+var pageshow = 50;
+var exportcolumns = [0,1,2,3,4];
+</script>
+<script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datetime-moment.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/script.js"></script>
+<?php
+}
 require_once 'template/footer.php';
 ?>

@@ -37,9 +37,12 @@ require_once 'template/header.php';
     </div>
 </section>
 <?php
-$javascript = '<script>            
-              var base_url = "' . base_url() . '";
-              </script>
-              </script>';
+function javascript() {
+    ?>
+
+<script>
+var base_url = "<?=URL;?>";
+<?php
+}
 require_once 'template/footer.php';
 ?>
