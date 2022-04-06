@@ -13,7 +13,7 @@ class HomeController {
     }
 
     public function index() {
-        $data['page_title'] = 'Inventory BioFarma Electrical';
+        $data['page_title'] = 'Electrical Network PT BIOFARMA Inventory';
         $data['table'] = $this->table;
         $data['stock'] = $this->stock->getAll();
         view('stock_list', $data);
