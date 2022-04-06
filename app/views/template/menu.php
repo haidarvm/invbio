@@ -1,7 +1,7 @@
 <aside class="sidebar-nav-wrapper">
         <div class="navbar-logo">
             <a href="<?=base_url();?>">
-                <img src="<?=base_url();?>assets/img/logo.png" width="120" alt="logo" />
+                <img src="<?=base_url();?>assets/img/logo.png" width="90" alt="logo" />
             </a>
         </div>
         <nav class="sidebar-nav">
