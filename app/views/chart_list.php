@@ -70,7 +70,7 @@ var exportcolumns = '.$columns.';
 $(".datepicker").datepicker({
     format: "dd-mm-yyyy"
 });
-$.getJSON('http://inv.test/api/stock/<?=URLPARAM;?>', function (data) {
+$.getJSON('<?=URL?>api/stock/<?=URLPARAM;?>', function (data) {
     // Create the chart
         // console.log(data);
     Highcharts.stockChart('highcharts', {
