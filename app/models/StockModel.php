@@ -17,11 +17,22 @@ class StockModel extends Db  {
         ->leftJoin('item AS i', 'i.item_id', '=', $this->table.'.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
         $this->table == 'stock_in' ? $data->addSelect($this->table.".location") : '';
+        $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
         !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
-        !empty($date_start) ? $data->whereDate($this->table.'.created_at', '>=', $date_start) : '';
-        !empty($date_end) ? $data->whereDate($this->table.'.created_at', '<=', $date_end) : '';
+        !empty($date_start) ? $data->whereDate($dates, '>=', $date_start) : '';
+        !empty($date_end) ? $data->whereDate($dates, '<=', $date_end) : '';
         // echo $item_id;exit;
-        return $data->orderByDesc($this->table.'.created_at')->get();
+        return $data->orderByDesc($dates)->get();
+    }
+
+    public function getAllApi($item_id=null,$date_start=null, $date_end=null) {
+        $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
+        $data = $this->select($this->raw('(UNIX_TIMESTAMP('.DB_PREFIX.$dates.')*1000) as dateunix'), 'quantity');
+        !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
+        !empty($date_start) ? $data->whereDate($dates, '>=', $date_start) : '';
+        !empty($date_end) ? $data->whereDate($dates, '<=', $date_end) : '';
+        // echo $item_id;exit;
+        return $data->orderBy($dates)->get();
     }
 
     public function getAllTrxu($item_id=null, $category=null,$date_start=null, $date_end=null) {
@@ -55,8 +66,6 @@ class StockModel extends Db  {
     }
 
     public function insertLatest($data) {
-        // echo $this->table;exit;
-        // print_r($data);exit;
        return $this->insertGetId($data);
     }
 

@@ -20,8 +20,8 @@ class StockAllController extends Admin{
         $get = $this->request->query->all();
         // print_r($get);exit; [date_start] => Array ( [0] => 17-03-2022 ) [date_end] => Array ( [0] => 30-03-2022 )
         if (!empty($get['date_start'])) {
-            $date_start = $get['date_start'][0];
-            $date_end = $get['date_end'][0];
+            $date_start = $get['date_start'];
+            $date_end = $get['date_end'];
             $data['date_start'] = $date_start;
             $data['date_end'] = $date_end;
             $data['stock'] = $this->stock->getAll('', '', toSqlDate($date_start), toSqlDate($date_end));
@@ -47,8 +47,8 @@ class StockAllController extends Admin{
     public function edit_item() {
         $get = $this->request->query->all();
         if (!empty($get['date_start'])) {
-            $date_start = $get['date_start'][0];
-            $date_end = $get['date_end'][0];
+            $date_start = $get['date_start'];
+            $date_end = $get['date_end'];
             $data['date_start'] = $date_start;
             $data['date_end'] = $date_end;
             $data['stock'] = $this->stock->getAllTrxu(uri(3), '', toSqlDate($date_start), toSqlDate($date_end));
@@ -65,8 +65,8 @@ class StockAllController extends Admin{
     public function list_all() {
         $get = $this->request->query->all();
         if (!empty($get['date_start'])) {
-            $date_start = $get['date_start'][0];
-            $date_end = $get['date_end'][0];
+            $date_start = $get['date_start'];
+            $date_end = $get['date_end'];
             $data['date_start'] = $date_start;
             $data['date_end'] = $date_end;
             $data['stock'] = $this->stock->getAllTrxu(uri(3), '', toSqlDate($date_start), toSqlDate($date_end));

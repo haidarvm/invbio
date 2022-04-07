@@ -1,10 +1,19 @@
 .autoComplete_wrapper {
     width: 100%;
 }
-.card-style .dropdown-toggle {
 
+.card-style .dropdown-toggle {
     background: rgb(218, 35, 35);
 }
+
+.sidebar-nav-wrapper .navbar-logo {
+    margin: 0;
+}
+
+.input-group> :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    padding: 5px;
+}
+
 .autoComplete_wrapper>input {
     width: 100% !important;
     padding: 20px 40px;
@@ -21,8 +30,9 @@
 .header {
     padding: 10px 0;
 }
+
 .min-width {
-/* width: 100%; */
+    /* width: 100%; */
 }
 
 .input-style-1 input,

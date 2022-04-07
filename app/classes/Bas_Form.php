@@ -43,7 +43,7 @@ class Bas_Form
     <?php
 	}
 
-	public function input_only($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
+	public function input_only_multi($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
 	{
 		?>
     <div class="row input-style-1">
@@ -60,13 +60,31 @@ class Bas_Form
 	{
 		?>
     <div class="col-sm-2">
-        <div class="input-style-1">
+        <div class="input-style-1 ">
             <label><?= $placeholder ?> </label>
             <input type="<?= $type ?>" class="<?= !empty($style) ? $style : 'col-sm-6'; ?>" id="<?= $id ?>"
-                placeholder="<?= $placeholder ?>" name="<?= $name ?>[]" value="<?= $value ?>"
+                placeholder="<?= $placeholder ?>" name="<?= $name ?>" value="<?= $value ?>"
                 <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
         </div>
     </div>
+
+    <?php
+    }
+    public function input_on_small($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null, $button=null, $col=null)
+	{
+		?>
+    <div class="<?= !empty($col) ? $col :  'col-sm-5';?>">
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm"><?= $placeholder ?> </span>
+            <input type="<?= $type ?>" class="<?= !empty($style) ? $style : 'col-sm-6'; ?>" id="<?= $id ?>"
+                placeholder="<?= $placeholder ?>" name="<?= $name ?>" value="<?= $value ?>"
+                <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
+                <?php if($button) { ?>
+                <button class="btn btn-primary" ><?=$button;?></button>
+                <?php } ?>
+        </div>
+    </div>
+
     <?php
 	}
 

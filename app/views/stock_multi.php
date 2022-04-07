@@ -37,13 +37,13 @@ require_once 'template/header.php';
                                 for ($x = 0; $x <= 10; $x++) { ?>
                                 <tr>
                                     <td class="min-width">
-                                        <?php $form->input_only('text', 'item', 'Item','','','','col-sm-12');?>
+                                        <?php $form->input_only_multi('text', 'item', 'Item','','','','col-sm-12');?>
                                     </td>
                                     <td class="min-width">
-                                        <?php $form->input_only('text', 'quantity_in', 'QTY IN');?>
+                                        <?php $form->input_only_multi('text', 'quantity_in', 'QTY IN');?>
                                     </td>
                                     <td class="min-width">
-                                        <?php $form->input_only('text', 'quantity_out', 'QTY OUT');?>
+                                        <?php $form->input_only_multi('text', 'quantity_out', 'QTY OUT');?>
                                     </td>
                                 </tr>
                                 <?php } 

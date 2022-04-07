@@ -1,7 +1,7 @@
 <!-- ========== footer start =========== -->
 <div class="row mt-80 justify-content-center">
     <!-- end col -->
-    <div class="col-lg-6">
+    <div class="col-lg-5">
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row">

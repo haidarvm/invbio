@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-sm-8 mx-auto text-center">
                                         <img src="<?=base_url();?>assets/img/logo.png" width="120" alt="logo" />
-                                        <h6 class="mb-15 mt-25">Sign In</h6>
+                                        <h6 class="mb-15 mt-25">Login</h6>
                                         <p class="text-sm mb-25">
                                             <?=$page_title;?>
                                         </p>
@@ -47,9 +47,9 @@
                                     <?php 
                                         $form = new Bas_Form;
                                         $form->open(base_url().'auth/login');
-                                        $form->input("text",'username',"User Name", 'username', '','',true );
-                                        $form->input("password",'password',"Password", 'password', '','',true );
-                                        $form->button("Sign In", " primary-btn");
+                                        $form->input("text",'username',"User Name", 'username', '','' );
+                                        $form->input("password",'password',"Password", 'password', '','' );
+                                        $form->button("Login", " primary-btn");
                                         $form->close();
                                         ?>
                                 </div>

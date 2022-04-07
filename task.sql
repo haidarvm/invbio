@@ -14,6 +14,10 @@ ALTER TABLE `invbio_stock_in` ADD `rak` VARCHAR(200) NOT NULL AFTER `desc`;
 ALTER TABLE `invbio_stock_in` ADD `desc` VARCHAR(2000) NULL AFTER `quantity`;
 ALTER TABLE `invbio_stock_out` ADD `desc` VARCHAR(2000) NULL AFTER `quantity`; 
 
+-- report API
+select (UNIX_TIMESTAMP(invbio_stock.created_at)*1000) as dateunix,created_at, updated_at, `quantity` from `invbio_stock` order by `invbio_stock`.`created_at` desc; 
+
+
 -- get all with date start end 
  select `item_name`, `invbio_i`.`item_id`, `item_code`, `category_name`, `stock_id`, `quantity`, `units`, `invbio_stock_in`.`created_at`, `invbio_stock_in`.`location` from `invbio_stock_in` left join `invbio_item` as `invbio_i` on `invbio_i`.`item_id` = `invbio_stock_in`.`item_id` left join `invbio_category` as `invbio_c` on `invbio_c`.`category_id` = `invbio_i`.`category_id` order by `invbio_stock_in`.`created_at` desc
 

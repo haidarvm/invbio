@@ -1,12 +1,15 @@
+
 # chart using highcharts stock line `progress`
-- chart perbarang gabungan stock in stock out
+- chart perbarang gabungan stock in stock out  `progress`
 - chart gabungan stock in stock out
-- chart stock in chart
-- chart stock out chart
-- deletion stock in / out
-- transaction commit, rollback on insert, edit, delete stock in / out
+- for dashboard use https://apexcharts.com/
 
 # Task List
+- Report ramah print/pdf ... `progress with datatable header`
+- deletion stock in / out
+- transaction commit, rollback on insert, edit, delete stock in / out
+- Report Filter with product only
+- Design Filter Date `progress`
 - Features multiple in/out .. `progress`
 - Tab: stock in, stock out, multiple in, multiple out
 - Stock alert if threshold config / kurang dari 5pcs
@@ -25,20 +28,25 @@ if delete stock out
 table stock increment qty from stock out by stock_id
 
 # **done**
+- chart stock  **done**
+- chart stock in **done**
+- chart stock out **done**
 - bug shorting date on stock should use update_at ... **done** still bug should repair JS datatable add moment js datetime
 - bugs on script.js if no datepicker ... **done**
 - change logo **done**
 - Menu update stock:  **done**
 - Login Authentication  admin, operator ... **done**
 - Rubah/Update table tambah kolom lokasi rak ... **done**
-- Report ramah print/pdf ... **done**
 - detail nama barang + lokasi rak ... **done**
-- report with date from to ... **done** hard
+- report with date from to ... **done** 
 - Master CRUD employee ... **done**
 - Master CRUD ITEM  ... **done**
 - Custom report ada features filter ... **done**
 - add Description / Keterangan .. **done**
 - add desc .. **done**
+
+# Bug
+- on stock filter by date not work ... **done**
 # EDIT STOCK IN / OUT Task **done**
 - kalau edit di stock maka list semua stok in & out per item itu
 - kalau edit stock in / out maka update lalu update juga di table stok cara nya :

@@ -20,13 +20,15 @@ require_once 'template/header.php';?>
                                 <?php
                                 $form = new Bas_Form;
                                 $form->open(base_url().$table, '', 'get');
-                                echo '<div class="row">';
-                                $form->input_on('text', 'date_start','Start Date',!empty($date_start) ? $date_start : dateIndo(),'','','datepicker', 'input_start');
-                                $form->input_on('text', 'date_end','End Date', !empty($date_end) ? $date_end : dateIndo() ,'','','datepicker','input_end');
-                                $form->button_xs('Filter', 'primary-btn mt-30');
+                                echo '<div class="row ">';
+                                $form->input_on_small('text', 'date_start','Start Date',!empty($date_start) ? $date_start : dateIndo(),'','','datepicker ', 'input_start', '');
+                                echo ' <div class="w-100 d-none d-md-block"></div>';
+                                $form->input_on_small('text', 'date_end','End Date', !empty($date_end) ? $date_end : dateIndo() ,'','','datepicker','input_end', "filter", 'col-sm-7');
+                                // $form->button_xs('Filter', 'btn btn-primary btn-sm ');
+                                $form->close();
                                 echo '</div>';
                                 ?>
-                                <h6 class="mb-10"><?=$page_title;?> Available </h6>
+                                <h6 class="mb-10  mt-20"><?=str_unslug($page_title, '_');?> Available </h6>
                                 <p class="text-sm mb-20">
                                     Available Stock All Item
                                 </p>
@@ -114,7 +116,8 @@ require_once 'template/header.php';?>
                                                 <?php
                                                     }?>
                                                 <td class="min-width datetime">
-                                                    <p><?=$table == 'stock' ? tglJamDate($row->updated_at) : tglJamDate($row->created_at);?></p>
+                                                    <p><?=$table == 'stock' ? tglJamDate($row->updated_at) : tglJamDate($row->created_at);?>
+                                                    </p>
                                                 </td>
                                                 <td>
                                                     <div class="action">

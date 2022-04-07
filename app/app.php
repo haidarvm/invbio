@@ -62,6 +62,33 @@ Basic::route('GET', '/', function()  { // Set homepage
     // Basic::view('home', compact('page_title'));
 });
 
+Basic::route('GET', '/chart', function()  { // Set homepage
+    $chart = new ChartAllController("stock");
+    $chart->index();
+});
+
+Basic::route('GET', '/chart/stock', function()  { // Set homepage
+    $chart = new ChartAllController("stock");
+    $chart->index();
+});
+
+Basic::route('GET', '/chart/stock_in', function()  { // Set homepage
+    $chart = new ChartAllController("stock_in");
+    $chart->index();
+});
+
+Basic::route('GET', '/chart/stock_out', function()  { // Set homepage
+    $chart = new ChartAllController("stock_out");
+    $chart->index();
+});
+
+Basic::route('GET', '/chart_all', function()  { // Set homepage
+    $chart = new ChartAllController("stock");
+    $chart->list_all();
+});
+
+
+
 Basic::route('GET', '/stock', function()  { // Set homepage
     $stock = new StockAllController("stock");
     $stock->index();
