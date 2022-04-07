@@ -5,15 +5,19 @@
 | Configuration - Constants and Variables
 |--------------------------------------------------------------------------
 */
+$ini = parse_ini_file(__DIR__ . '/../config.ini');
+
 define('URL_PROTOCOL', '//');
 define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
 // define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
 define('URL', URL_PROTOCOL . URL_DOMAIN .'/');
 
-define('DB_NAME', 'invbio'); // Sample database name
-define('DB_USER', 'root'); // Sample database username
-define('DB_PASS', 'Bismillah'); // Sample database password
-define('DB_PREFIX', 'invbio_'); // Sample database password
+define('DB_DRIVER', $ini['db_driver']); // Sample database name
+define('DB_HOST', $ini['db_host']); // Sample database name
+define('DB_NAME', $ini['db_name']); // Sample database name
+define('DB_USER',  $ini['db_user']); // Sample database username
+define('DB_PASS', $ini['db_pass']); // Sample database password
+define('DB_PREFIX', $ini['db_prefix']); // Sample database prefix
 
 define('PASS_PHRASE', 'https://open-nis.org/api/encryption'); // Passphrase or KEK API URL
 define('AUTH_TOKEN', 'encv1.VWZUSXNEUVdQVmlPbnVVTVRDZkxibC9aM3YwT21raVhpdXRBNGZoR1dsUjllUT09.iJPEzvBUYueIhg0c8VD5Ag==.a1ycb+X3teBNAlAjQAQe/w=='); // Authorization Bearer token
