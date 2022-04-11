@@ -7,6 +7,7 @@ class HomeController extends Admin {
 
     public function __construct() {
         parent::__construct();
+        $this->stockc = new StockAllController('stock');
         $this->stock = new StockModel;
         $this->table = "stock";
         $this->stock->table = "stock";
@@ -14,10 +15,7 @@ class HomeController extends Admin {
     }
 
     public function index() {
-        $data['page_title'] = 'Electrical Network PT BIOFARMA Inventory';
-        $data['table'] = $this->table;
-        $data['stock'] = $this->stock->getAll();
-        view('stock_list', $data);
+        return $this->stockc->index();
     }
 
     public function new() {

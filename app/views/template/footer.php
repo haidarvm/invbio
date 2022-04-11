@@ -40,7 +40,8 @@
     <script src="<?=base_url();?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?=base_url();?>assets/js/polyfill.js"></script>
     <script src="<?=base_url();?>assets/js/main.js"></script>
-    <?php function_exists('javascript') ? javascript() : ''; ?><!--  END Load  js for this page -->
+    <?php function_exists('javascript') ? javascript() : ''; ?>
+    <!--  END Load  js for this page -->
     </body>
 
     </html>

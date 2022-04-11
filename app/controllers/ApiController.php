@@ -46,24 +46,27 @@ class ApiController extends PublicController {
     public function stock() {
         $this->stock->table  = !empty(uri(3)) ? uri(3) :  uri(2);
         $get = $this->request->query->all();
+        $item_id = checkValAr($get,'item_id');
         // print_r($get);exit;
         // echo $this->stock->table;exit;
         if (!empty($get['date_start'])) {
             // echo 'ada';exit;
             $date_start = $get['date_start'];
-            $date_end = $get['date_end'];
-            $stock = $this->stock->getAllApi('',toSqlDate($date_start), toSqlDate($date_end));
+            $date_end = checkValAr($get,'date_end');
+            $stock = $this->stock->getAllApiChart($item_id,toSqlDate($date_start), toSqlDate($date_end));
         } else {
-            $stock =  $this->stock->getAllApi();
+            $stock =  $this->stock->getAllApiChart($item_id);
         }
         $arrays = [];
         foreach($stock as  $row) {
             $arrays[] = [$row->dateunix, $row->quantity];
         }
-        // print_r($arrays);exit;
-        // $response = $this->response->setContent($arrays);
+        $data['item_id'] = $item_id;
+        $data['item'] = checkIf($this->item->getItem($item_id));
+        // print_r($stock);exit;
+        // $response = $this->response->setContent(json_encode($arrays,JSON_NUMERIC_CHECK));
         $response = new JsonResponse($arrays);
-        return $response->send();
+        return $response->setEncodingOptions(JSON_NUMERIC_CHECK)->send();
     }
 
     public function hello() {

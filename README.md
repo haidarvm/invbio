@@ -1,25 +1,26 @@
-
+- bug if stock less than actual stock than alert 
+- Add current stock on choose auto complete item (add current stock in query)
+- Style on autocomplate should be red 
+- php back url before
 # chart using highcharts stock line `progress`
-- chart perbarang gabungan stock in stock out  `progress`
-- chart gabungan stock in stock out
 - for dashboard use https://apexcharts.com/
 
 # Task List
-- Report ramah print/pdf ... `progress with datatable header`
+- Input Multiple Stock `progress` `1`
+- Home menu with big cards button [https://bootsnipp.com/snippets/raZdP] `2`
+- chart gabungan stock in stock out [https://jsfiddle.net/fdt9t2yr/1/] `3`
+- add current stock on update stock `4` 
+- aleft if stock approach to on input stock `5`
+- aleft if stock less than 5 put on top menu `6`
+- Tampilan ramah tablet 10 inch (install to apk) ... `progress` `7` 
+- multiple item on report, chart [https://codepen.io/pilotvijai/pen/KjEyyG] 
 - deletion stock in / out
 - transaction commit, rollback on insert, edit, delete stock in / out
-- Report Filter with product only
-- Design Filter Date `progress`
-- Features multiple in/out .. `progress`
 - Tab: stock in, stock out, multiple in, multiple out
 - Stock alert if threshold config / kurang dari 5pcs
-- Pas menu stock out ada info: qty dan location. Sekalian alert kalau qty kurang dari 5pcs
-- Tampilan ramah tablet 10 inch ... `progress`
-- export files with filename & title (unknown table stock) ... `progress`
-- bug stock all filter date
+- Pas menu update stock ada info: qty dan location. Sekalian alert kalau qty kurang dari 5pcs
 - menu active by url
 - Item Image upload
-- Home menu with big cards button
 
 # new task for deletion stock in / out
 if delete stock in  
@@ -28,6 +29,14 @@ if delete stock out
 table stock increment qty from stock out by stock_id
 
 # **done**
+- bug stock all filter date **done**
+- Report ramah print/pdf (with headerfilename & title )... **done**
+- export files... **done**
+- Report Filter with product only **done**
+- bug if date empty **done**
+- Add All date in report / chart ,,, **done**
+- Design Filter Date **done**
+- chart with export plugin **done**
 - chart stock  **done**
 - chart stock in **done**
 - chart stock out **done**

@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="<?=base_url();?>assets/css/fullcalendar.css" />
     <link rel="stylesheet" href="<?=base_url();?>assets/css/main.css" />
     <?php function_exists('css') ? css() : ''; ?>
-    <link rel="stylesheet" href="<?=base_url();?>assets/css/custom.css?v=1.3" />
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/custom.css?v=1.4" />
 </head>
 
 <body>

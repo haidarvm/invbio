@@ -3,6 +3,7 @@ function css() {
     ?>
 <link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/datatables.min.css">
 <link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="<?=URL;?>assets/css/autoComplete.min.css">
 <style>
 </style>
 <?php
@@ -18,19 +19,11 @@ require_once 'template/header.php';?>
                         <div class="col-lg-12">
                             <div class="card-style mb-30">
                                 <?php
-                                $form = new Bas_Form;
-                                $form->open(base_url().$table, '', 'get');
-                                echo '<div class="row ">';
-                                $form->input_on_small('text', 'date_start','Start Date',!empty($date_start) ? $date_start : dateIndo(),'','','datepicker ', 'input_start', '');
-                                echo ' <div class="w-100 d-none d-md-block"></div>';
-                                $form->input_on_small('text', 'date_end','End Date', !empty($date_end) ? $date_end : dateIndo() ,'','','datepicker','input_end', "filter", 'col-sm-7');
-                                // $form->button_xs('Filter', 'btn btn-primary btn-sm ');
-                                $form->close();
-                                echo '</div>';
+                                require_once 'filter.php';
                                 ?>
-                                <h6 class="mb-10  mt-20"><?=str_unslug($page_title, '_');?> Available </h6>
+                                <h6 class="mb-10  mt-20"><?=str_unslug($page_title, '_');?> - <?= checkVal($item,'item_name');?> Available </h6>
                                 <p class="text-sm mb-20">
-                                    Available Stock All Item
+                                    Available Stock All Item 
                                 </p>
 
                                 <div class="table-wrapper table-responsive">
@@ -47,7 +40,7 @@ require_once 'template/header.php';?>
                                                     <h6>Acccount Name</h6>
                                                 </th>
                                                 <?php
-                                                if (!empty($item)) {
+                                                if (!empty($all)) {
                                                     ?>
                                                 <th>
                                                     <h6>Status</h6>
@@ -95,7 +88,7 @@ require_once 'template/header.php';?>
                                                     <p><?=$row->category_name;?></p>
                                                 </td>
                                                 <?php
-                                                if (!empty($item)) {
+                                                if (!empty($all)) {
                                                     ?>
                                                 <td class="min-width">
                                                     <p class="text-danger"><?=strtoupper($row->status);?></p>
@@ -124,13 +117,16 @@ require_once 'template/header.php';?>
                                                         <span class="text-danger">
                                                             <?php 
                                                             // echo $item;
-                                                            if(empty($item) && $table == "stock") {
-                                                                $edit = "href='".base_url().$table."/edit/".$row->item_id."'";
-                                                            } elseif(!empty($item) && $table == "stock") {
-                                                                $edit = "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'";
-                                                            } else {
-                                                                $edit = "href='".base_url().$table."/edit/".$row->stock_id."'";
-                                                            }
+                                                            // echo $row->status;
+                                                            // if(empty($item) && $table == "stock") {
+                                                            //     $edit = "href='".base_url().$table."/edit/".$row->item_id."'";
+                                                            // } elseif(!empty($item) && $table == "stock") {
+                                                            //     $edit = "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'";
+                                                            // } else {
+                                                            //     $edit = "href='".base_url().$table."/edit/".$row->stock_id."'";
+                                                            // }
+                                                            $edit_id = $row->status == "stock" ? $row->item_id : $row->stock_id;
+                                                            $edit = "href='".base_url().$row->status."/edit/".$edit_id."'";
                                                             // $edit = empty($item) && $table == "stock" ? "href='".base_url().$table."/edit/".$row->item_id."'"  : "href='".base_url().$table."/edit/".$row->stock_id."'";
                                                             // $edit = !empty($item) && $table == "stock" ? "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'"  :  $edit;
                                                             ?>
@@ -149,7 +145,6 @@ require_once 'template/header.php';?>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -157,11 +152,10 @@ require_once 'template/header.php';?>
 </section>
 <?php
 // Show Footer
-// GLOBAL $order; 
-$order =  $table == "stock_in" ? 5 : 4;
+$order =  in_array($table,["stock_in", 'stock_all']) ? 5 : 4;
 define('ORDER', !empty($item) ? 5 : $order);
 $columns = !empty($column) ? $column : '[0,1,2,3,4]';
-$columns = $table == "stock_in" ? '[0,1,2,3,4,5]' : $columns;
+define("COLUMNS",$table == "stock_in" ? '[0,1,2,3,4,5]' : $columns);
 function javascript() {
     ?>
 <script>
@@ -169,21 +163,21 @@ var base_url = "<?=URL;?>";
 var orderby = "<?= ORDER;?>";
 console.log(orderby);
 var pageshow = 50;
-var exportcolumns = '.$columns.';
+var exportcolumns = <?=COLUMNS;?>;
 </script>
 <script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
+<script src="<?=URL;?>assets/js/autoComplete.js?v=1.1"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/moment.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datetime-moment.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatable.js?v=1.2"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/script.js?v=1.1"></script>
 
 <script>
-$(".datepicker").datepicker({
-    format: "dd-mm-yyyy"
-});
-// moment.locale();         // en
-// moment.format();
+create_autocomplete("#autocomplete01");
+
 </script>
 <?php
 }

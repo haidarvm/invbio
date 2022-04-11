@@ -1,9 +1,12 @@
 <?php
-$css  = '<link rel="stylesheet" href="<?=URL;?>assets/css/autoComplete.min.css">
+function css() {
+    ?>
+<link rel="stylesheet" href="<?=URL;?>assets/css/autoComplete.min.css">
 <style>
-</style>';
+</style>
+<?php
+}
 require_once 'template/header.php';
-// require_once 'template/menu.php';
 ?>
 <!-- ========== section start ========== -->
 <section class="section">
@@ -34,12 +37,12 @@ require_once 'template/header.php';
                             </thead>
                             <tbody>
                                 <?php 
-                                for ($x = 0; $x <= 10; $x++) { ?>
+                                for ($x = 1; $x <= 10; $x++) { ?>
                                 <tr>
                                     <td class="min-width">
-                                        <?php $form->input_only_multi('text', 'item', 'Item','','','','col-sm-12');?>
+                                        <?php $form->input_only_multi('text', 'item', 'Item','','','','col-sm-12'. '','autocomplete'.$x,'autoComplete');?>
                                     </td>
-                                    <td class="min-width">
+                                    <td class="min-width ">
                                         <?php $form->input_only_multi('text', 'quantity_in', 'QTY IN');?>
                                     </td>
                                     <td class="min-width">
@@ -69,9 +72,23 @@ function javascript() {
 <script>
 var base_url = "<?=URL;?>";
 </script>
-<script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
 <script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
+<script src="<?=URL;?>assets/js/autoComplete.js?v=1.2"></script>
 <!--<script src="<?=URL;?>assets/js/autoComplete.js"></script>-->
+<script>
+
+create_autocomplete("#autocomplete1");
+create_autocomplete("#autocomplete2");
+create_autocomplete("#autocomplete3");
+create_autocomplete("#autocomplete4");
+create_autocomplete("#autocomplete5");
+create_autocomplete("#autocomplete6");
+create_autocomplete("#autocomplete7");
+create_autocomplete("#autocomplete8");
+create_autocomplete("#autocomplete9");
+create_autocomplete("#autocomplete10");
+</script>
 <?php
 }
 require_once 'template/footer.php';

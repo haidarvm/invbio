@@ -29,13 +29,13 @@ class Bas_Form
     <?php
 	}
 
-	public function input_line($type, $name, $label, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
+	public function input_line($type, $name, $label, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null, $class=null)
 	{
 		?>
     <div class="mb-3 row input-style-1">
         <label for="<?= $type ?>" class="col-sm-2 col-form-label <?= $style ?>"><?= $label ?> :</label>
         <div class="col-sm-10">
-            <input type="<?= $type ?>" <?= !empty($id) ? 'id="'.$id.'"' : '' ?>
+            <input type="<?= $type ?>" <?= !empty($id) ? 'id="'.$id.'"' : '' ?>  <?= !empty($class) ? 'class="'.$class.'"' : '' ?>
                 <?= !empty($placeholder) ? 'id="'.$placeholder.'"' : '' ?> name="<?= $name ?>" value="<?= $value ?>"
                 <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
         </div>
@@ -43,16 +43,26 @@ class Bas_Form
     <?php
 	}
 
-	public function input_only_multi($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
+	public function input_only_multi($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null, $class=null)
 	{
 		?>
     <div class="row input-style-1">
-        <div class="<?= !empty($style) ? $style : 'col-sm-6'; ?>">
+        <div class="<?= !empty($style) ? $style : 'col-sm-4'; ?>">
             <input type="<?= $type ?>" id="<?= $id ?>" placeholder="<?= $placeholder ?>" name="<?= $name ?>[]"
-                value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?>
+                value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?> class=<?= !empty($class) ? $class : ''; ?>
                 <?php if ($disabled === TRUE) echo 'disabled'; ?> />
         </div>
     </div>
+    <?php
+	}
+
+    public function input_only_search($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null)
+	{
+		?>
+        <div class="<?= !empty($style) ? $style : 'col-sm-4'; ?>">
+            <input type="<?= $type ?>" id="<?= $id ?>" placeholder="<?= $placeholder ?>" name="<?= $name ?>" size="25" value="<?= $value ?>" <?php if ($required === TRUE) echo 'required'; ?>
+                <?php if ($disabled === TRUE) echo 'disabled'; ?> style="padding:10px;"/>
+        </div>
     <?php
 	}
 
@@ -70,13 +80,14 @@ class Bas_Form
 
     <?php
     }
-    public function input_on_small($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null, $button=null, $col=null)
+    public function input_on_small($type, $name, $placeholder=null, $value=null, $disabled=null, $required=FALSE, $style=null, $id=null, $button=null, $col=null, $size= null)
 	{
+        $size = !empty($size) ? 'size='.$size :  'size=6';
 		?>
     <div class="<?= !empty($col) ? $col :  'col-sm-5';?>">
-        <div class="input-group input-group-sm mb-3">
+        <div class="input-group input-group-sm mb-3 ">
             <span class="input-group-text" id="inputGroup-sizing-sm"><?= $placeholder ?> </span>
-            <input type="<?= $type ?>" class="<?= !empty($style) ? $style : 'col-sm-6'; ?>" id="<?= $id ?>"
+            <input type="<?= $type ?>" <?=$size?> class="<?= !empty($style) ? $style : 'col-sm-6'; ?>" id="<?= $id ?>"
                 placeholder="<?= $placeholder ?>" name="<?= $name ?>" value="<?= $value ?>"
                 <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
                 <?php if($button) { ?>
@@ -115,12 +126,13 @@ class Bas_Form
     <?php
 	}
 
-	public function button_xs($name, $style)
+	public function button_xs($name, $style, $id = null)
 	{
+        $id = !empty($id) ? 'id="'.$id.'"' :  '';
 		?>
-    <div class="col-sm-3">
+    <div class="col-sm-1">
         <div class="input-style-1">
-            <button class="main-btn <?=$style;?> rounded-md btn-hover mr-15"><?=$name;?></button>
+            <button class="main-btn <?=$style;?>  rounded-md btn-hover mr-15" <?=$id;?>><?=$name;?></button>
         </div>
     </div>
     <?php

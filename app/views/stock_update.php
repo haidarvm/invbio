@@ -39,7 +39,7 @@ require_once 'template/header.php';
                         </div>
                     </div>
                     <?php
-                        $form->input_line('text', 'product', 'Product', '', '', '', '','','autoComplete');
+                        $form->input_line('text', 'item_name', 'Item', '', '', '', '','','autocomplete01');
                         ?>
                     <div class="tab-content" id="myTabContent">
                         <!-- Stock IN -->
@@ -83,6 +83,9 @@ var base_url = "<?=URL;?>";
 <script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
 <script src="<?=URL;?>assets/js/autoComplete.js"></script>
 <script>
+
+create_autocomplete("#autocomplete01");
+
 $("input[name=table]").val("stock_in");
 $("input[name=quantity_in]").attr("required", true);
 $("#in-tab").bind("click", function(e) {

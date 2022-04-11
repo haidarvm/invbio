@@ -18,28 +18,30 @@ class StockAllController extends Admin{
 
     public function index() {
         $get = $this->request->query->all();
-        // print_r($get);exit; [date_start] => Array ( [0] => 17-03-2022 ) [date_end] => Array ( [0] => 30-03-2022 )
+        $item_id = checkValAr($get,'item_id');
         if (!empty($get['date_start'])) {
-            $date_start = $get['date_start'];
-            $date_end = $get['date_end'];
+            $date_start = checkValAr($get,'date_start');
+            $date_end = checkValAr($get,'date_end');
             $data['date_start'] = $date_start;
             $data['date_end'] = $date_end;
-            $data['stock'] = $this->stock->getAll('', '', toSqlDate($date_start), toSqlDate($date_end));
+            $data['stock'] = $this->stock->getAll($item_id, '', toSqlDate($date_start), toSqlDate($date_end));
         } else {
-            $data['stock'] = $this->stock->getAll();
+            $data['stock'] = $this->stock->getAll($item_id);
         }
+        $data['item_id'] = $item_id;
+        $data['item'] = checkIf($this->item->getItem($item_id));
         $data['page_title'] = strtoupper($this->table);
         $data['table'] = $this->table;
         view('stock_list', $data);
     }
 
     public function new() {
-        $data['page_title'] = 'New Stock';
-        view('stock_new_line', $data);
+        $data['page_title'] = 'Update Stock';
+        view('stock_update', $data);
     }
 
     public function new_multi() {
-        $data['page_title'] = 'New Stock Multi';
+        $data['page_title'] = 'Update Stock Multi';
         view('stock_multi', $data);
     }
 
@@ -64,6 +66,7 @@ class StockAllController extends Admin{
 
     public function list_all() {
         $get = $this->request->query->all();
+        $item_id = checkValAr($get,'item_id');
         if (!empty($get['date_start'])) {
             $date_start = $get['date_start'];
             $date_end = $get['date_end'];
@@ -73,9 +76,11 @@ class StockAllController extends Admin{
         } else {
             $data['stock'] = $this->stock->getAllTrxu(uri(3));
         }
+        $data['item_id'] = $item_id;
+        $data['item'] = checkIf($this->item->getItem($item_id));
         $data['page_title'] = "STOCK ALL";
-        $data['table'] = $this->table;
-        $data['item'] = 'all';
+        $data['table'] = 'stock_all';
+        $data['all'] = 'all';
         view('stock_list', $data);
     }
 

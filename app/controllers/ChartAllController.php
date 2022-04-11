@@ -18,21 +18,25 @@ class ChartAllController extends Admin{
 
     public function index() {
         $get = $this->request->query->all();
+        $item_id = checkValAr($get,'item_id');
         $data['current_url'] = getLastUrl($this->request->getRequestUri());
-        // echo getLastUrl($data['current_url']);exit;
+        // echo ($data['current_url']);exit;
         // print_r($get);exit; //[date_start] => Array ( [0] => 17-03-2022 ) [date_end] => Array ( [0] => 30-03-2022 )
         if (!empty($get['date_start'])) {
             $date_start = $get['date_start'];
-            $date_end = $get['date_end'];
+            $date_end = checkValAr($get,'date_end');
+            $item_id = checkValAr($get,'item_id');
             $data['date_start'] = $date_start;
             $data['date_end'] = $date_end;
             // $data['stock'] = $this->stock->getAll('', '', toSqlDate($date_start), toSqlDate($date_end));
         } else {
             // $data['stock'] = $this->stock->getAll();
         }
+        $data['item_id'] = $item_id;
+        $data['item'] = checkIf($this->item->getItem($item_id));
         $data['page_title'] = strtoupper($this->table);
         $data['table'] = $this->table;
-        view('chart_list', $data);
+        view('chart', $data);
     }
 
 

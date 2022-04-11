@@ -28,7 +28,7 @@
                 <li class="nav-item ">
                     <a href="<?=base_url();?>stock/new_multi">
                         <span class="icon"><i class="lni lni-bricks"></i></span>
-                        <span class="text">Input Stock Multi</span>
+                        <span class="text">Update Stock Multi</span>
                     </a>
                 </li>
                 <li class="nav-item nav-item-has-children">
@@ -45,10 +45,10 @@
                     </a>
                     <ul id="ddmenu_4" class=" dropdown-nav">
                         <li>
-                            <a href="<?=base_url();?>user"><i class="lni lni-users"></i> User </a>
+                            <a href="<?=base_url();?>item"><i class="lni lni-cog"></i> Item </a>
                         </li>
                         <li>
-                            <a href="<?=base_url();?>item"><i class="lni lni-cog"></i> Item </a>
+                            <a href="<?=base_url();?>user"><i class="lni lni-users"></i> User </a>
                         </li>
                         <li>
                             <a href="#"><i class="lni lni-sort-alpha-asc"></i> Acccount Name </a>

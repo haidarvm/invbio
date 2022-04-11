@@ -17,17 +17,18 @@ class StockModel extends Db  {
         ->leftJoin('item AS i', 'i.item_id', '=', $this->table.'.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
         $this->table == 'stock_in' ? $data->addSelect($this->table.".location") : '';
+        $data->addSelect($this->raw("'".$this->table."' as status"));
         $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
         !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
         !empty($date_start) ? $data->whereDate($dates, '>=', $date_start) : '';
         !empty($date_end) ? $data->whereDate($dates, '<=', $date_end) : '';
-        // echo $item_id;exit;
-        return $data->orderByDesc($dates)->get();
+        $query = $data->orderByDesc($dates);
+        return $query->get();
     }
 
-    public function getAllApi($item_id=null,$date_start=null, $date_end=null) {
+    public function getAllApiChart($item_id=null,$date_start=null, $date_end=null) {
         $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
-        $data = $this->select($this->raw('(UNIX_TIMESTAMP('.DB_PREFIX.$dates.')*1000) as dateunix'), 'quantity');
+        $data = $this->select($this->raw('REPLACE(UNIX_TIMESTAMP('.DB_PREFIX.$dates.'),".","") as dateunix'), 'quantity');
         !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
         !empty($date_start) ? $data->whereDate($dates, '>=', $date_start) : '';
         !empty($date_end) ? $data->whereDate($dates, '<=', $date_end) : '';
@@ -36,12 +37,12 @@ class StockModel extends Db  {
     }
 
     public function getAllTrxu($item_id=null, $category=null,$date_start=null, $date_end=null) {
-        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'in' as status"), 'quantity', 'unit','in.created_at')
+        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'stock_in' as status"), 'quantity', 'unit','in.created_at', 'in.updated_at')
         ->leftJoin('item AS i', 'i.item_id', '=', 'in.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
         $stock_in = $data->from("stock_in AS in");
         !empty($item_id) ? $stock_in->where('in.item_id', $item_id) : "";
-        $stock_out = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'out' as status"),'quantity', 'unit','out.created_at')
+        $stock_out = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'stock_out' as status"),'quantity', 'unit','out.created_at', 'out.updated_at')
         ->leftJoin('item AS i', 'i.item_id', '=', 'out.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id')->from('stock_out as out')->union($stock_in);
         !empty($item_id) ? $stock_out->where('out.item_id', $item_id) : "";

@@ -13,9 +13,16 @@ function base_url_no() {
 }
 
 function checkVal($val =null, $key = null, $other=null) {
-    $exval = explode('-', $val);
+    // $exval = explode('-', $val);
     // echo $exval[0]. $exval[1];exit;
     $data = !empty($val->$key) ? $val->$key : '';
+    return !empty($data) ? $data : $other;
+}
+
+function checkValAr($val =null, $key = null, $other=null) {
+    // $exval = explode('-', $val);
+    // echo $exval[0]. $exval[1];exit;
+    $data = !empty($val[$key]) ? $val[$key] : '';
     return !empty($data) ? $data : $other;
 }
 

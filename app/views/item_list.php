@@ -110,7 +110,7 @@ var exportcolumns = [0,1,2,3,4];
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/moment.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datetime-moment.js"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/script.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatable.js"></script>
 <?php
 }
 require_once 'template/footer.php';
