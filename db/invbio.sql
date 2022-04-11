@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.5.13-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.19  Distrib 10.6.7-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: invbio
 -- ------------------------------------------------------
--- Server version	10.5.13-MariaDB-log
+-- Server version	10.6.7-MariaDB-1:10.6.7+maria~focal-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -109,10 +109,10 @@ CREATE TABLE `invbio_stock` (
   `stock_id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(8) NOT NULL,
   `quantity` mediumint(9) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp(3) NOT NULL DEFAULT current_timestamp(3),
+  `updated_at` timestamp(3) NOT NULL DEFAULT current_timestamp(3) ON UPDATE current_timestamp(3),
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `invbio_stock` (
 
 LOCK TABLES `invbio_stock` WRITE;
 /*!40000 ALTER TABLE `invbio_stock` DISABLE KEYS */;
-INSERT INTO `invbio_stock` VALUES (1,2,7,'2022-03-29 08:22:02','2022-03-30 04:00:28'),(2,3,75,'2022-03-29 08:39:17','2022-03-30 05:00:25'),(3,6,20,'2022-03-29 10:28:23','2022-03-30 03:59:56'),(6,81,1,'2022-03-29 15:37:59','2022-03-30 05:00:44'),(7,101,2,'2022-03-29 16:18:11','2022-03-30 03:59:56'),(8,327,7,'2022-03-29 16:19:19','2022-03-30 03:59:56'),(9,333,1,'2022-03-30 05:22:10','2022-03-30 05:31:25'),(10,7,21,'2022-03-30 08:28:34','2022-03-30 08:28:34');
+INSERT INTO `invbio_stock` VALUES (1,2,10,'2022-03-29 08:22:02.000','2022-04-08 12:34:37.860'),(2,3,72,'2022-03-29 08:39:17.000','2022-04-10 00:32:46.629'),(3,6,21,'2022-03-29 10:28:23.000','2022-04-06 12:23:59.000'),(6,81,-2,'2022-03-29 15:37:59.000','2022-04-08 12:35:12.668'),(7,101,2,'2022-03-29 16:18:11.000','2022-03-30 03:59:56.000'),(8,327,7,'2022-03-29 16:19:19.000','2022-03-29 03:59:56.000'),(9,333,-4,'2022-03-30 05:22:10.000','2022-04-08 12:34:27.080'),(10,7,40,'2022-03-30 08:28:34.000','2022-04-08 12:39:42.685'),(11,41,1,'2022-04-10 16:23:04.601','2022-04-10 16:23:33.564');
 /*!40000 ALTER TABLE `invbio_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,10 +139,10 @@ CREATE TABLE `invbio_stock_in` (
   `desc` varchar(2000) DEFAULT NULL,
   `location` varchar(200) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp(3) NOT NULL DEFAULT current_timestamp(3),
+  `updated_at` timestamp(3) NOT NULL DEFAULT current_timestamp(3) ON UPDATE current_timestamp(3),
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +151,7 @@ CREATE TABLE `invbio_stock_in` (
 
 LOCK TABLES `invbio_stock_in` WRITE;
 /*!40000 ALTER TABLE `invbio_stock_in` DISABLE KEYS */;
-INSERT INTO `invbio_stock_in` VALUES (1,2,10,'','',1,'2022-03-29 08:22:02','2022-03-30 03:57:44'),(2,3,21,'','',1,'2022-03-29 08:39:17','2022-03-30 03:57:44'),(3,2,2,'edit ini','',1,'2022-03-29 09:07:43','2022-03-30 03:57:44'),(4,6,10,'','baris 3 kiri',1,'2022-03-29 10:30:21','2022-03-30 03:57:44'),(7,81,2,'','1',1,'2022-03-29 15:37:59','2022-03-30 05:00:44'),(8,101,3,'3','3',1,'2022-03-29 16:18:11','2022-03-30 03:57:44'),(9,327,4,'','4',1,'2022-03-29 16:19:19','2022-03-30 03:57:44'),(10,3,2,'2',NULL,1,'2022-03-29 17:45:09','2022-03-30 03:57:44'),(11,3,1,'1','1',1,'2022-03-29 17:52:23','2022-03-30 03:57:44'),(12,3,1,'1','1',1,'2022-03-29 17:57:04','2022-03-30 03:57:44'),(13,3,30,'',NULL,1,'2022-03-29 17:57:29','2022-03-30 03:57:44'),(14,3,4,'',NULL,1,'2022-03-29 19:27:17','2022-03-30 05:00:25'),(15,333,3,'ganti jadi 3 jadi sisa stok tinggal 1 harusnya',NULL,1,'2022-03-30 05:22:10','2022-03-30 05:31:25'),(16,7,21,'',NULL,1,'2022-03-30 08:28:34','2022-03-30 08:28:34');
+INSERT INTO `invbio_stock_in` VALUES (1,2,10,'','',1,'2022-03-29 08:22:02.000','2022-03-30 03:57:44.000'),(2,3,21,'','',1,'2022-03-29 08:39:17.000','2022-03-30 03:57:44.000'),(3,2,2,'edit ini','',1,'2022-03-29 09:07:43.000','2022-03-30 03:57:44.000'),(4,6,10,'','baris 3 kiri',1,'2022-03-29 10:30:21.000','2022-03-30 03:57:44.000'),(7,81,2,'','1',1,'2022-03-29 15:37:59.000','2022-03-30 05:00:44.000'),(8,101,3,'3','3',1,'2022-03-29 16:18:11.000','2022-03-30 03:57:44.000'),(9,327,4,'','4',1,'2022-03-29 16:19:19.000','2022-03-30 03:57:44.000'),(10,3,2,'2',NULL,1,'2022-03-29 17:45:09.000','2022-03-30 03:57:44.000'),(11,3,1,'1','1',1,'2022-03-29 17:52:23.000','2022-03-30 03:57:44.000'),(12,3,1,'1','1',1,'2022-03-29 17:57:04.000','2022-03-30 03:57:44.000'),(13,3,30,'',NULL,1,'2022-03-29 17:57:29.000','2022-03-30 03:57:44.000'),(14,3,4,'',NULL,1,'2022-03-29 19:27:17.000','2022-03-30 05:00:25.000'),(15,333,3,'ganti jadi 3 jadi sisa stok tinggal 1 harusnya',NULL,1,'2022-03-30 05:22:10.000','2022-03-30 05:31:25.000'),(16,7,21,'',NULL,1,'2022-03-30 08:28:34.000','2022-03-30 08:28:34.000'),(17,6,1,'',NULL,1,'2022-04-06 12:23:59.000','2022-04-06 12:23:59.000'),(18,7,39,'',NULL,1,'2022-04-08 07:31:23.000','2022-04-08 12:39:42.685'),(19,2,3,'',NULL,1,'2022-04-08 10:25:42.691','2022-04-08 12:34:37.860'),(20,41,2,'',NULL,1,'2022-04-10 16:23:04.599','2022-04-10 16:23:04.599');
 /*!40000 ALTER TABLE `invbio_stock_in` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,10 +168,10 @@ CREATE TABLE `invbio_stock_out` (
   `quantity` mediumint(9) NOT NULL,
   `desc` varchar(2000) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp(3) NOT NULL DEFAULT current_timestamp(3),
+  `updated_at` timestamp(3) NOT NULL DEFAULT current_timestamp(3) ON UPDATE current_timestamp(3),
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `invbio_stock_out` (
 
 LOCK TABLES `invbio_stock_out` WRITE;
 /*!40000 ALTER TABLE `invbio_stock_out` DISABLE KEYS */;
-INSERT INTO `invbio_stock_out` VALUES (1,2,5,'keluar 5',1,'2022-03-29 08:25:46','2022-03-30 03:59:24'),(2,3,3,'',1,'2022-03-29 08:39:35','2022-03-30 03:59:24'),(3,81,1,'cek',1,'2022-03-29 15:44:13','2022-03-30 03:59:24'),(4,101,2,'',1,'2022-03-29 16:18:37','2022-03-30 03:59:24'),(5,3,1,'1',1,'2022-03-29 17:56:47','2022-03-30 03:59:24'),(6,333,2,'keluar 2 jadi harus nya stock ready 2',1,'2022-03-30 05:22:38','2022-03-30 05:22:38');
+INSERT INTO `invbio_stock_out` VALUES (1,2,5,'keluar 5',1,'2022-03-29 08:25:46.000','2022-03-30 03:59:24.000'),(2,3,3,'',1,'2022-03-29 08:39:35.000','2022-03-30 03:59:24.000'),(3,81,2,'',1,'2022-03-29 15:44:13.000','2022-04-08 12:35:12.000'),(4,101,2,'',1,'2022-03-29 16:18:37.000','2022-03-30 03:59:24.000'),(5,3,1,'1',1,'2022-03-29 17:56:47.000','2022-03-30 03:59:24.000'),(6,333,3,'',1,'2022-03-30 05:22:38.000','2022-04-08 12:34:27.000'),(7,7,20,'',1,'2022-04-08 07:32:25.000','2022-04-08 07:32:25.000'),(8,3,3,'',1,'2022-04-10 00:32:46.000','2022-04-10 00:32:46.000'),(9,41,1,'',1,'2022-04-10 16:23:33.563','2022-04-10 16:23:33.563');
 /*!40000 ALTER TABLE `invbio_stock_out` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +210,7 @@ CREATE TABLE `invbio_user` (
 
 LOCK TABLES `invbio_user` WRITE;
 /*!40000 ALTER TABLE `invbio_user` DISABLE KEYS */;
-INSERT INTO `invbio_user` VALUES (1,'admin','10d0b55e0ce96e1ad711adaac266c9200cbc27e4',NULL,1,'administrator','2022-03-29 09:16:52','2022-03-30 05:04:38'),(2,'operator','10d0b55e0ce96e1ad711adaac266c9200cbc27e4',NULL,2,'operator','2022-03-30 00:19:52','2022-03-30 05:04:38');
+INSERT INTO `invbio_user` VALUES (1,'admin','d033e22ae348aeb5660fc2140aec35850c4da997',NULL,1,'administrator','2022-03-29 09:16:52','2022-04-06 13:53:59'),(2,'operator','10d0b55e0ce96e1ad711adaac266c9200cbc27e4',NULL,2,'operator','2022-03-30 00:19:52','2022-03-30 05:04:38');
 /*!40000 ALTER TABLE `invbio_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 15:41:25
+-- Dump completed on 2022-04-11 10:18:11
