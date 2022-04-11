@@ -15,11 +15,8 @@ class HomeController extends Admin {
     }
 
     public function index() {
-        return $this->stockc->index();
+        $data['page_title'] = 'home';
+        view('home', $data);
     }
 
-    public function new() {
-        $data['page_title'] = 'New Stock';
-        view('stock_new_line', $data);
-    }
 }
