@@ -7,12 +7,11 @@
 
 # Task List
 - Input Multiple Stock `progress` `1`
-- Home menu with big cards button [https://bootsnipp.com/snippets/raZdP] `2`
-- chart gabungan stock in stock out [https://jsfiddle.net/fdt9t2yr/1/] `3`
-- add current stock on update stock `4` 
-- aleft if stock approach to on input stock `5`
-- aleft if stock less than 5 put on top menu `6`
-- Tampilan ramah tablet 10 inch (install to apk) ... `progress` `7` 
+- chart gabungan stock in stock out monthly [https://jsfiddle.net/fdt9t2yr/1/] `2`
+- add current stock on update stock `3` 
+- aleft if stock approach to on input stock `4`
+- aleft if stock less than 5 put on top menu `5`
+- Tampilan ramah tablet 10 inch (install to apk) ... `progress` `6` 
 - multiple item on report, chart [https://codepen.io/pilotvijai/pen/KjEyyG] 
 - deletion stock in / out
 - transaction commit, rollback on insert, edit, delete stock in / out
@@ -29,6 +28,7 @@ if delete stock out
 table stock increment qty from stock out by stock_id
 
 # **done**
+- Home menu with big cards button [https://bootsnipp.com/snippets/raZdP] **done**
 - bug stock all filter date **done**
 - Report ramah print/pdf (with headerfilename & title )... **done**
 - export files... **done**

@@ -37,16 +37,17 @@ require_once 'template/header.php';
                             </thead>
                             <tbody>
                                 <?php 
-                                for ($x = 1; $x <= 10; $x++) { ?>
+                                for ($x = 0; $x <= 10; $x++) { ?>
                                 <tr>
                                     <td class="min-width">
-                                        <?php $form->input_only_multi('text', 'item', 'Item','','','','col-sm-12'. '','autocomplete'.$x,'autoComplete');?>
+                                        <?php $form->input_only_multi('text', 'item', 'Item','','','','col-sm-12'. '','autocomplete'.$x,'autoComplete');
+                                        $form->input_hidden('autocomplete'.$x);?>
                                     </td>
                                     <td class="min-width ">
-                                        <?php $form->input_only_multi('text', 'quantity_in', 'QTY IN');?>
+                                        <?php $form->input_only_multi('number', 'quantity_in', 'QTY IN', '',  '', '', 'col-sm-6');?>
                                     </td>
                                     <td class="min-width">
-                                        <?php $form->input_only_multi('text', 'quantity_out', 'QTY OUT');?>
+                                        <?php $form->input_only_multi('number', 'quantity_out', 'QTY OUT', '',  '', '', 'col-sm-6');?>
                                     </td>
                                 </tr>
                                 <?php } 
@@ -74,20 +75,12 @@ var base_url = "<?=URL;?>";
 </script>
 <script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
 <script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
-<script src="<?=URL;?>assets/js/autoComplete.js?v=1.2"></script>
+<script src="<?=URL;?>assets/js/autoCompleteMulti.js?v=1.2"></script>
 <!--<script src="<?=URL;?>assets/js/autoComplete.js"></script>-->
 <script>
-
-create_autocomplete("#autocomplete1");
-create_autocomplete("#autocomplete2");
-create_autocomplete("#autocomplete3");
-create_autocomplete("#autocomplete4");
-create_autocomplete("#autocomplete5");
-create_autocomplete("#autocomplete6");
-create_autocomplete("#autocomplete7");
-create_autocomplete("#autocomplete8");
-create_autocomplete("#autocomplete9");
-create_autocomplete("#autocomplete10");
+<?php for($i =0; $i <= 10; $i++){ 
+echo 'create_autocomplete("#autocomplete' . $i. '");';
+} ?>
 </script>
 <?php
 }

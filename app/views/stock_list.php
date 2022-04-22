@@ -76,8 +76,11 @@ require_once 'template/header.php';?>
                                                             <img src="<?=base_url();?>assets/img/powermonitor.jpg"
                                                                 alt="" />
                                                         </div>
+                                                        <?php
+                                                        $class = $row->quantity <= '5' ? 'text-danger' : '';
+                                                        ?>
                                                         <div class="lead-text">
-                                                            <p><?=$row->item_name;?></p>
+                                                            <p class="<?=$class;?>"><?=$row->item_name;?></p>
                                                         </div>
                                                     </div>
                                                 </td>

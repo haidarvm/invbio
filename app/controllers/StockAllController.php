@@ -109,7 +109,6 @@ class StockAllController extends Admin{
     }
 
     public function save() {
-        // $data['item_id'] = $this->request->request->get('item_id');
         $post = $this->request->request->all();
         // print_r($post);exit;
         $data = ['item_id' => $post['item_id'], 'desc' =>  $post['desc'] , 'user_id' => 1];
@@ -119,21 +118,32 @@ class StockAllController extends Admin{
         $this->stock->table = $post['table'];
         $this->stock->insertLatest($data);
         $this->stock->updateStock($data['item_id'], $post['table'],$data['quantity']);
-        header('Location: ' . base_url() . 'home');
+        header('Location: ' . base_url() . 'stock');
     }
 
     public function save_multi() {
-        // $data['item_id'] = $this->request->request->get('item_id');
         $post = $this->request->request->all();
-        print_r($post);exit;
-        $data = ['item_id' => $post['item_id'], 'desc' =>  $post['desc'] , 'user_id' => 1];
-        !empty($post['rak']) ? $data['rak'] = $post['rak'] : '';
-        $data['quantity'] = !empty($post['quantity_in']) ? $post['quantity_in'] : $post['quantity_out'];
-        // print_r($data);exit;
-        $this->stock->table = $post['table'];
-        $this->stock->insertLatest($data);
-        $this->stock->updateStock($data['item_id'], $post['table'],$data['quantity']);
-        header('Location: ' . base_url() . 'home');
+        print("<pre>".print_r($post,true)."</pre>");
+        foreach($post['quantity_in']  as $key => $qty_in ) {
+            if (!empty($qty_in)) {
+                echo 'key :' . $key . ' QTY in : ' . $qty_in . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
+                $this->stock->updateStock($post['autocomplete' . $key] , 'stock_in',$qty_in);
+                $this->stock->table = 'stock_in';
+                $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_in ,'user_id' => 1];
+                $this->stock->insertLatest($data);
+            }
+        }
+        foreach($post['quantity_out']  as $key => $qty_out ) {
+            if (!empty($qty_out)) {
+                echo 'key :' . $key . ' QTY out : ' . $qty_out . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
+                $this->stock->updateStock($post['autocomplete' . $key] , 'stock_out',$qty_out);
+                $this->stock->table = 'stock_out';
+                $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_out ,'user_id' => 1];
+                $this->stock->insertLatest($data);
+            }
+        }
+        exit;
+        header('Location: ' . base_url() . 'stock');
     }
     
     public function table() {

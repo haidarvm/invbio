@@ -101,10 +101,15 @@ class Bas_Form
 
 	public function input_hidden($name, $value=null) {
 		?>
-    <input type="hidden" class="<?= $name ?>" name="<?= $name ?>" value="<?= $value ?>" />
+    <input type="hidden" name="<?= $name ?>" value="<?= $value ?>" />
     <?php
 	}
 
+    public function input_hidden_multi($name, $value=null) {
+		?>
+    <input type="hidden"  name="<?= $name ?>[]" value="<?= $value ?>" />
+    <?php
+	}
 
 	public function textArea($name, $label, $value=NULL, $required=FALSE)
 	{
