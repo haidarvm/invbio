@@ -123,10 +123,10 @@ class StockAllController extends Admin{
 
     public function save_multi() {
         $post = $this->request->request->all();
-        print("<pre>".print_r($post,true)."</pre>");
+        // print("<pre>".print_r($post,true)."</pre>");
         foreach($post['quantity_in']  as $key => $qty_in ) {
             if (!empty($qty_in)) {
-                echo 'key :' . $key . ' QTY in : ' . $qty_in . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
+                // echo 'key :' . $key . ' QTY in : ' . $qty_in . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
                 $this->stock->updateStock($post['autocomplete' . $key] , 'stock_in',$qty_in);
                 $this->stock->table = 'stock_in';
                 $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_in ,'user_id' => 1];
@@ -135,14 +135,14 @@ class StockAllController extends Admin{
         }
         foreach($post['quantity_out']  as $key => $qty_out ) {
             if (!empty($qty_out)) {
-                echo 'key :' . $key . ' QTY out : ' . $qty_out . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
+                // echo 'key :' . $key . ' QTY out : ' . $qty_out . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
                 $this->stock->updateStock($post['autocomplete' . $key] , 'stock_out',$qty_out);
                 $this->stock->table = 'stock_out';
                 $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_out ,'user_id' => 1];
                 $this->stock->insertLatest($data);
             }
         }
-        exit;
+        // exit;
         header('Location: ' . base_url() . 'stock');
     }
     
