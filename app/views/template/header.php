@@ -64,49 +64,10 @@
                                 <button class="dropdown-toggle" type="button" id="notification"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="lni lni-alarm"></i>
-                                    <span>2</span>
+                                    <span class="quantity">0</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notification">
-                                    <li>
-                                        <a href="#0">
-                                            <div class="image">
-                                                <img src="<?=base_url();?>assets/images/lead/lead-6.png" alt="" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>
-                                                    Ridwan Fauzi
-                                                    <span class="text-regular">
-                                                        comment on a product.
-                                                    </span>
-                                                </h6>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consect etur adipiscing
-                                                    elit Vivamus tortor.
-                                                </p>
-                                                <span>10 mins ago</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#0">
-                                            <div class="image">
-                                                <img src="<?=base_url();?>assets/images/lead/lead-1.png" alt="" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>
-                                                    Jonathon
-                                                    <span class="text-regular">
-                                                        like on a product.
-                                                    </span>
-                                                </h6>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consect etur adipiscing
-                                                    elit Vivamus tortor.
-                                                </p>
-                                                <span>10 mins ago</span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                             <!-- notification end -->

@@ -69,6 +69,14 @@ class ApiController extends PublicController {
         return $response->setEncodingOptions(JSON_NUMERIC_CHECK)->send();
     }
 
+    public function alert() {
+        $alert = new AlertModel;
+        $min = 5;
+        $data = $alert->getLessQty($min);
+        $response = new JsonResponse($data);
+        return $response->send();
+    }
+
     public function hello() {
         $response = new JsonResponse(['Hello' => 'World']);
         return $response->send();

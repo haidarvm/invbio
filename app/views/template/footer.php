@@ -40,6 +40,15 @@
     <script src="<?=base_url();?>assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?=base_url();?>assets/js/polyfill.js"></script>
     <script src="<?=base_url();?>assets/js/main.js"></script>
+    <script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
+    <script>
+    $.getJSON("<?=base_url();?>api/alert", function(result) {
+        $(".quantity").html(result.length)
+        $.each(result, function(i, field) {
+            $(".dropdown-menu").append("<li><a href=\"#"+i+"\"><div class=\"content\"><h6>" +field.item_name + "</h6><p> QTY = " + field.quantity+ "</p></div></a></li> ");
+        });
+    });
+    </script>
     <?php function_exists('javascript') ? javascript() : ''; ?>
     <!--  END Load  js for this page -->
     </body>

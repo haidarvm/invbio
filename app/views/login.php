@@ -29,12 +29,12 @@
                     <!-- end col -->
 
 
-                    <div class="col-sm-5">
+                    <div class="col-sm-10 col-lg-5">
 
                         <div class="signin-wrapper">
                             <div class="form-wrapper">
                                 <div class="row">
-                                    <div class="col-sm-8 mx-auto text-center">
+                                    <div class="col-sm-10  mx-auto text-center">
                                         <img src="<?=base_url();?>assets/img/logo.png" width="120" alt="logo" />
                                         <h6 class="mb-15 mt-25">Login</h6>
                                         <p class="text-sm mb-25">

@@ -73,7 +73,6 @@ function javascript() {
 <script>
 var base_url = "<?=URL;?>";
 </script>
-<script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
 <script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
 <script src="<?=URL;?>assets/js/autoCompleteMulti.js?v=1.2"></script>
 <!--<script src="<?=URL;?>assets/js/autoComplete.js"></script>-->

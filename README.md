@@ -6,13 +6,11 @@
 - for dashboard use https://apexcharts.com/
 
 # Task List
-- Input Multiple Stock `progress` `1`
-- chart gabungan stock in stock out monthly [https://jsfiddle.net/fdt9t2yr/1/] `2`
-- add current stock on update stock `3` 
-- aleft if stock approach to on input stock `4`
-- aleft if stock less than 5 put on top menu `5`
-- Tampilan ramah tablet 10 inch (install to apk) ... `progress` `6` 
-- multiple item on report, chart [https://codepen.io/pilotvijai/pen/KjEyyG] 
+- chart gabungan stock in stock out monthly [https://jsfiddle.net/fdt9t2yr/1/] `1`
+- add current stock on update stock `2` 
+- aleft if stock approach to on input stock `3`
+- Tampilan ramah tablet 10 inch (install to apk) ... `progress` `4` 
+- multiple item on report, chart [https://codepen.io/pilotvijai/pen/KjEyyG] `5`
 - deletion stock in / out
 - transaction commit, rollback on insert, edit, delete stock in / out
 - Tab: stock in, stock out, multiple in, multiple out
@@ -28,7 +26,9 @@ if delete stock out
 table stock increment qty from stock out by stock_id
 
 # **done**
-- Home menu with big cards button [https://bootsnipp.com/snippets/raZdP] **done**
+- aleft if stock less than 5 put on top menu **done**
+- Input Multiple Stock **done**
+- Home menu with big cards button **done**
 - bug stock all filter date **done**
 - Report ramah print/pdf (with headerfilename & title )... **done**
 - export files... **done**

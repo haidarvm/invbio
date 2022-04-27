@@ -7,6 +7,7 @@ class PublicController {
 
     public function __construct() {
         $this->var = "BioFarma";
+        // $data['alert']
         $this->session = new Session();
     }
 }
