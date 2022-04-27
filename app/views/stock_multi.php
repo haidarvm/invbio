@@ -20,7 +20,7 @@ require_once 'template/header.php';
                     $form->open(base_url().'stock/save_multi');
                     ?>
                     <div class="table-wrapper">
-                        <table class="table">
+                        <table class="table responsive">
                             <thead>
                                 <tr>
                                     <th>
@@ -43,11 +43,11 @@ require_once 'template/header.php';
                                         <?php $form->input_only_multi('text', 'item', 'Item','','','','col-sm-12'. '','autocomplete'.$x,'autoComplete');
                                         $form->input_hidden('autocomplete'.$x);?>
                                     </td>
-                                    <td class="min-width ">
-                                        <?php $form->input_only_multi('number', 'quantity_in', 'QTY IN', '',  '', '', 'col-sm-6');?>
+                                    <td class="min-width">
+                                        <?php $form->input_only_multi('number', 'quantity_in', 'QTY IN', '',  '', '', 'col-sm-12');?>
                                     </td>
                                     <td class="min-width">
-                                        <?php $form->input_only_multi('number', 'quantity_out', 'QTY OUT', '',  '', '', 'col-sm-6');?>
+                                        <?php $form->input_only_multi('number', 'quantity_out', 'QTY OUT', '',  '', '', 'col-sm-12');?>
                                     </td>
                                 </tr>
                                 <?php } 
