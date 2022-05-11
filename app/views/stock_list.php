@@ -27,7 +27,7 @@ require_once 'template/header.php';?>
                                 </p>
 
                                 <div class="table-wrapper table-responsive">
-                                    <table class="table" id="datatable">
+                                    <table class="table table-bordered" id="datatable">
                                         <thead>
                                             <tr>
                                                 <th>
