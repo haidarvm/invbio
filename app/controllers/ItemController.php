@@ -18,6 +18,7 @@ class ItemController extends Admin {
     }
 
     public function edit() {
+        $this->admin_only();
         $data['page_title'] = "Edit item";
         $data['action'] = "update";
         $data['category'] = $this->category->getAll();
@@ -27,6 +28,7 @@ class ItemController extends Admin {
     }
 
     public function add() {
+        $this->admin_only();
         $data['page_title'] = "Add item";
         $data['action'] = "insert";
         $data['category'] = $this->category->getAll();
@@ -34,6 +36,7 @@ class ItemController extends Admin {
     }
 
     public function save() {
+        $this->admin_only();
         $action = uri(3);
         $post = $this->request->request->all();
         // print_r($post);exit;

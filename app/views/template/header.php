@@ -1,3 +1,8 @@
+<?php
+use Symfony\Component\HttpFoundation\Session\Session as Session;
+$session = new Session();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Aplikasi Inventory BioFarma Electrical">
-    <meta name="title" content="InvBio">
+    <meta name="title" content="BioFarma Inv Electrical">
     <meta name="keywords" content="Inventory , Biofarma, electrical">
     <meta name="author" content="hydant">
     <meta name="googlebot-news" content="index,follow" />
@@ -66,7 +71,7 @@
                                     <i class="lni lni-alarm"></i>
                                     <span class="quantity">0</span>
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notification">
+                                <ul class="dropdown-menu notif dropdown-menu-end" aria-labelledby="notification">
                                     
                                 </ul>
                             </div>
@@ -77,7 +82,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="profile-info">
                                         <div class="info">
-                                            <h6>Ridwan Fauzi</h6>
+                                            <h6><?=$session->get("user_data")["username"];?> </h6>
                                             <div class="image">
                                                 <img src="<?=base_url();?>assets/images/profile/profile-image.png"
                                                     alt="" />

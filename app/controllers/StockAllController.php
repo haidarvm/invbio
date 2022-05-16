@@ -85,6 +85,7 @@ class StockAllController extends Admin{
     }
 
     public function edit() {
+        $this->admin_only();
         $data['page_title'] = 'Edit '.strtoupper($this->table);
         $data['table'] = $this->table;
         $data['stock'] = $this->stock->getStock(uri(3));
@@ -93,6 +94,7 @@ class StockAllController extends Admin{
     }
 
     public function update() {
+        $this->admin_only();
         $post = $this->request->request->all();
         // print_r($post);exit;
         // $this->stock->table = $table;

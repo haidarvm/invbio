@@ -3,7 +3,7 @@ function css() {
     ?>
 <link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/datatables.min.css">
 <link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/bootstrap-datepicker3.min.css">
-<link rel="stylesheet" href="<?=URL;?>assets/css/autoComplete.min.css">
+<link rel="stylesheet" href="<?=URL; ?>assets/css/autoComplete.min.css">
 <style>
 </style>
 <?php
@@ -21,9 +21,10 @@ require_once 'template/header.php';?>
                                 <?php
                                 require_once 'filter.php';
                                 ?>
-                                <h6 class="mb-10  mt-20"><?=str_unslug($page_title, '_');?> - <?= checkVal($item,'item_name');?> Available </h6>
+                                <h6 class="mb-10  mt-20"><?=str_unslug($page_title, '_');?> -
+                                    <?= checkVal($item, 'item_name');?> Available </h6>
                                 <p class="text-sm mb-20">
-                                    Available Stock All Item 
+                                    Available Stock All Item
                                 </p>
 
                                 <div class="table-wrapper table-responsive">
@@ -31,13 +32,13 @@ require_once 'template/header.php';?>
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <h6>Item Name</h6>
+                                                    <h6>No</h6>
                                                 </th>
                                                 <th>
-                                                    <h6>Item Code</h6>
+                                                    <h6>Nama Barang</h6>
                                                 </th>
                                                 <th>
-                                                    <h6>Acccount Name</h6>
+                                                    <h6>Spesifikasi</h6>
                                                 </th>
                                                 <?php
                                                 if (!empty($all)) {
@@ -46,30 +47,37 @@ require_once 'template/header.php';?>
                                                     <h6>Status</h6>
                                                 </th>
                                                 <?php
-                                                }?>
+                                                } ?>
                                                 <th>
-                                                    <h6>Quantity</h6>
+                                                    <h6>Qty <?=$table == 'stock_out' ? 'Pemakaian' : 'Masuk';?></h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Tanggal <?=$table == 'stock_out' ? 'Pemakaian' : 'Masuk';?></h6>
                                                 </th>
                                                 <?php
-                                                if (!empty($table) && $table == "stock_in") {
+                                                if (!empty($table) && $table != 'stock') {
                                                     ?>
                                                 <th>
-                                                    <h6>Rak</h6>
+                                                    <h6>Sisa Stock</h6>
                                                 </th>
                                                 <?php
-                                                }?>
-                                                <th>
-                                                    <h6>Last Date</h6>
-                                                </th>
-                                                <th>
+                                                } 
+                                                if($session->get("user_data")["level"] == 1) {?>
+                                                <th class="text-center">
                                                     <h6>Action</h6>
                                                 </th>
+                                                <?php } ?>
                                             </tr>
                                             <!-- end table row-->
                                         </thead>
                                         <tbody>
-                                            <?php foreach($stock as $row) { ?>
+                                            <?php
+                                            $i = 1;
+                                            foreach ($stock as $row) { ?>
                                             <tr>
+                                                <td class="min-width">
+                                                    <?=$i++;?>
+                                                </td>
                                                 <td class="min-width">
                                                     <div class="lead">
                                                         <div class="lead-image">
@@ -85,40 +93,40 @@ require_once 'template/header.php';?>
                                                     </div>
                                                 </td>
                                                 <td class="min-width">
-                                                    <p><?=$row->item_code;?></p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p><?=$row->category_name;?></p>
+                                                    <p><?=$row->item_code . ' ' . $row->category_name;?></p>
                                                 </td>
                                                 <?php
                                                 if (!empty($all)) {
                                                     ?>
                                                 <td class="min-width">
-                                                    <p class="text-danger"><?=strtoupper($row->status);?></p>
+                                                    <p class="text-danger"><?=strtoupper($row->status); ?></p>
                                                 </td>
                                                 <?php
-                                                    }?>
+                                                }?>
                                                 <td class="min-width">
                                                     <p class="text-danger">
-                                                        <?=$row->quantity. ' <span class="text-sm text-gray">'. $row->unit;?></span>
+                                                        <?=$row->quantity . ' <span class="text-sm text-gray">' . $row->unit;?></span>
                                                     </p>
                                                 </td>
-                                                <?php
-                                                if (!empty($table) && $table == "stock_in") {
-                                                    ?>
-                                                <td class="min-width">
-                                                    <p><?=$row->location;?></p>
-                                                </td>
-                                                <?php
-                                                    }?>
                                                 <td class="min-width datetime">
                                                     <p><?=$table == 'stock' ? tglJamDate($row->updated_at) : tglJamDate($row->created_at);?>
                                                     </p>
                                                 </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <span class="text-danger">
-                                                            <?php 
+                                                <?php
+                                                if (!empty($table) && $table != 'stock') {
+                                                    ?>
+                                                <td class="min-width">
+                                                    <p class="text-danger text-center">
+                                                        <?=$row->qty ?></span>
+                                                    </p>
+                                                </td>
+                                                <?php
+                                                }
+                                                if ($session->get('user_data')['level'] == 1) {?>
+                                                <td class="text-center">
+                                                    <div class="action text-center">
+                                                        <span class="text-danger ">
+                                                            <?php
                                                             // echo $item;
                                                             // echo $row->status;
                                                             // if(empty($item) && $table == "stock") {
@@ -128,8 +136,8 @@ require_once 'template/header.php';?>
                                                             // } else {
                                                             //     $edit = "href='".base_url().$table."/edit/".$row->stock_id."'";
                                                             // }
-                                                            $edit_id = $row->status == "stock" ? $row->item_id : $row->stock_id;
-                                                            $edit = "href='".base_url().$row->status."/edit/".$edit_id."'";
+                                                            $edit_id = $row->status == 'stock' ? $row->item_id : $row->stock_id;
+                                                            $edit = "href='" . base_url() . $row->status . '/edit/' . $edit_id . "'";
                                                             // $edit = empty($item) && $table == "stock" ? "href='".base_url().$table."/edit/".$row->item_id."'"  : "href='".base_url().$table."/edit/".$row->stock_id."'";
                                                             // $edit = !empty($item) && $table == "stock" ? "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'"  :  $edit;
                                                             ?>
@@ -141,7 +149,7 @@ require_once 'template/header.php';?>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php } ?>
+                                            <?php } }?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -155,32 +163,32 @@ require_once 'template/header.php';?>
 </section>
 <?php
 // Show Footer
-$order =  in_array($table,["stock_in", 'stock_all']) ? 5 : 4;
-define('ORDER', !empty($item) ? 5 : $order);
+$order =  4;
+define('ORDER', !empty($item) ? 4 : $order);
 $columns = !empty($column) ? $column : '[0,1,2,3,4]';
-define("COLUMNS",$table == "stock_in" ? '[0,1,2,3,4,5]' : $columns);
+define('COLUMNS', $table == 'stock_in' ? '[0,1,2,3,4,5]' : $columns);
 function javascript() {
     ?>
 <script>
-var base_url = "<?=URL;?>";
-var orderby = "<?= ORDER;?>";
+var base_url = "<?=URL; ?>";
+var orderby = "<?= ORDER; ?>";
 console.log(orderby);
 var pageshow = 50;
-var exportcolumns = <?=COLUMNS;?>;
+var exportcolumns = <?=COLUMNS; ?>;
 </script>
-<script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
-<script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
-<script src="<?=URL;?>assets/js/autoComplete.js?v=1.1"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/moment.min.js"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datetime-moment.js"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/datatable.js?v=1.2"></script>
-<script type="text/javascript" charset="utf8" src="<?=URL;?>assets/js/script.js?v=1.1"></script>
+<script src="<?=URL; ?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?=URL; ?>assets/js/autoComplete.min.js"></script>
+<script src="<?=URL; ?>assets/js/autoComplete.js?v=1.1"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/datatables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/datetime-moment.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/datatable.js?v=1.2"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/script.js?v=1.1"></script>
 
 <script>
 create_autocomplete("#autocomplete01");
-
 </script>
 <?php
 }

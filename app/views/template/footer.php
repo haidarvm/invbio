@@ -45,7 +45,7 @@
     $.getJSON("<?=base_url();?>api/alert", function(result) {
         $(".quantity").html(result.length)
         $.each(result, function(i, field) {
-            $(".dropdown-menu").append("<li><a href=\"#"+i+"\"><div class=\"content\"><h6>" +field.item_name + "</h6><p> QTY = " + field.quantity+ "</p></div></a></li> ");
+            $(".notif").append("<li><a href=\"#"+i+"\"><div class=\"content\"><h6>" +field.item_name + "</h6><p> QTY = " + field.quantity+ "</p></div></a></li> ");
         });
     });
     </script>

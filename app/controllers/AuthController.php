@@ -31,7 +31,7 @@ class AuthController extends PublicController {
             $user_data = ['user_id' => $logged_in->user_id,
                 'username' => $logged_in->username,
                 'fullname' => $logged_in->fullname,
-                'level' => $logged_in->level,
+                'level' => $logged_in->level_id,
                 'message' => 'Logged In'];
             $this->session->set("user_data", $user_data);
             // echo $this->session->get("user_data")["username"];

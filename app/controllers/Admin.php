@@ -17,10 +17,9 @@ class Admin {
     }
 
     public function admin_only() {
-        // $admin = [1, 0];
-        // if (in_array($this->acl_id, $admin)) {
-        //     return true;
-        // }
-        // header('Location: ' . base_url() . 'home');
+        if ($this->session->get("user_data")["level"] == 1) {
+            return true;
+        }
+        header('Location: ' . base_url() . 'home');
     }
 }

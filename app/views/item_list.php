@@ -43,9 +43,11 @@ require_once 'template/header.php';?>
                                                 <th>
                                                     <h6>Create Date</h6>
                                                 </th>
+                                                <?php if ($session->get('user_data')['level'] == 1) { ?>
                                                 <th>
                                                     <h6>Action</h6>
                                                 </th>
+                                                <?php } ?>
                                             </tr>
                                             <!-- end table row-->
                                         </thead>
@@ -70,6 +72,7 @@ require_once 'template/header.php';?>
                                                 <td class="min-width">
                                                     <p><?=tglJamDate($row->created_at);?></p>
                                                 </td>
+                                                <?php if ($session->get('user_data')['level'] == 1) { ?>
                                                 <td>
                                                     <div class="action">
                                                         <span class="text-danger">
@@ -81,6 +84,7 @@ require_once 'template/header.php';?>
                                                         </span>
                                                     </div>
                                                 </td>
+                                                <?php } ?>
                                             </tr>
                                             <?php } ?>
                                         </tbody>

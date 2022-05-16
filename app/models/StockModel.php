@@ -12,11 +12,13 @@ class StockModel extends Db  {
     }
 
     public function getAll($item_id=null, $category=null, $date_start=null, $date_end=null) {
-        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', 'quantity', 'unit', $this->table.'.created_at', $this->table.'.updated_at')
+        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name', $this->table.'.stock_id', $this->table.'.quantity', 'unit', $this->table.'.created_at', $this->table.'.updated_at')
         // ->from($this->table)
         ->leftJoin('item AS i', 'i.item_id', '=', $this->table.'.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
         $this->table == 'stock_in' ? $data->addSelect($this->table.".location") : '';
+        $this->table != "stock" ? $data->leftJoin('stock AS s', 's.item_id', '=', $this->table.'.item_id') : '';
+        $this->table != "stock" ? $data->addSelect("s.quantity as qty") : '';
         $data->addSelect($this->raw("'".$this->table."' as status"));
         $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
         !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
