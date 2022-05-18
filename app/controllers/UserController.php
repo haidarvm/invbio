@@ -17,6 +17,7 @@ class UserController extends Admin{
     }
 
     public function edit() {
+        $this->admin_only();
         $data['page_title'] = "Edit User";
         $data['action'] = "update";
         $data['user'] =  $this->user->getUser(uri(3));
@@ -24,6 +25,7 @@ class UserController extends Admin{
     }
 
     public function add() {
+        $this->admin_only();
         $data['page_title'] = "Add User";
         $data['action'] = "insert";
         view('user_form', $data);

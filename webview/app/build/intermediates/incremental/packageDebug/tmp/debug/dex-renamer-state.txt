@@ -1,9 +1,9 @@
-#Thu Apr 28 05:44:14 WIB 2022
-base.2=/home/haidar/public_html/test/webview/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
+#Wed May 18 14:08:59 WIB 2022
+base.2=/home/haidar/public_html/test/invbio/webview/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
 path.2=10/classes.dex
-base.1=/home/haidar/public_html/test/webview/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.1=/home/haidar/public_html/test/invbio/webview/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 path.1=0/classes.dex
-base.0=/home/haidar/public_html/test/webview/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.0=/home/haidar/public_html/test/invbio/webview/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex

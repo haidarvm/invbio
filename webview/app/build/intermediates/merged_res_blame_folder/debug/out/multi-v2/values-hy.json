@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/haidar/public_html/test/webview/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hy/values-hy.xml",
+            "outputFile": "/home/haidar/public_html/test/invbio/webview/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hy/values-hy.xml",
             "map": [
                 {
                     "source": "/home/haidar/.gradle/caches/transforms-3/66182adc5e9c2a2df131aacdb08cbf30/transformed/appcompat-1.0.0/res/values-hy/values-hy.xml",

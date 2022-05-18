@@ -39,7 +39,7 @@ class MainActivity : Activity() {
     internal var mLoaded = false
 
     // set your custom url here
-    internal var URL = "https://invbio.hyd-ant.app"
+    internal var URL = "https://electrical-biofarma.hyd-ant.app"
 
     //for attach files
     private var mCameraPhotoPath: String? = null

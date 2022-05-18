@@ -80,9 +80,9 @@
                         <li>
                             <a href="<?=base_url();?>user"><i class="lni lni-users"></i> User </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#"><i class="lni lni-sort-alpha-asc"></i> Acccount Name </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 <li class="nav-item nav-item-has-children">
