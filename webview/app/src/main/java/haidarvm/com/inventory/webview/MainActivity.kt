@@ -158,6 +158,25 @@ class MainActivity : Activity() {
 
         // this force use chromeWebClient
         mWebView.settings.setSupportMultipleWindows(false)
+
+
+
+        // Enable Javascript
+        mWebView.settings.javaScriptEnabled = true
+
+        // Use WideViewport and Zoom out if there is no viewport defined
+        mWebView.settings.useWideViewPort = true
+        mWebView.settings.loadWithOverviewMode = true
+        Log.d("settings", "setUpWebViewDefaults: " + mWebView.settings.toString())
+        // Enable pinch to zoom without the zoom buttons
+        mWebView.settings.builtInZoomControls = true
+
+
+        // We set the WebViewClient to ensure links are consumed by the WebView rather
+        // than passed to a browser if it can
+//        mWebView.webViewClient = WebViewClient()
+
+
         mWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 val value = true
@@ -168,6 +187,7 @@ class MainActivity : Activity() {
                     val mimeType = mime.getMimeTypeFromExtension(extension)
                     Log.e("mime", "shouldOverrideUrlLoading: "  + extension )
                     Log.e("mimeType", "shouldOverrideUrlLoading: "  + mimeType )
+                    Log.e("URL", "shouldOverrideUrlLoading: "  + URL )
                     if (mimeType != null) {
                         if (mimeType.toLowerCase().contains("pdf")
                             || extension.toLowerCase().contains("ppt")
@@ -362,32 +382,7 @@ class MainActivity : Activity() {
         mWebView.setWebViewClient(new WebViewClient());
     }*/
 
-      fun setUpWebViewDefaults(webView: WebView) {
-        val settings = webView.settings
 
-        // Enable Javascript
-        settings.javaScriptEnabled = true
-
-        // Use WideViewport and Zoom out if there is no viewport defined
-        settings.useWideViewPort = true
-        settings.loadWithOverviewMode = true
-
-        // Enable pinch to zoom without the zoom buttons
-        settings.builtInZoomControls = true
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-            // Hide the zoom controls for HONEYCOMB+
-            settings.displayZoomControls = false
-        }
-
-        // Enable remote debugging via chrome://inspect
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(true)
-        }
-
-        // We set the WebViewClient to ensure links are consumed by the WebView rather
-        // than passed to a browser if it can
-        mWebView.webViewClient = WebViewClient()
-    }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {

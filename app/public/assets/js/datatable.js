@@ -41,6 +41,7 @@ $(document).ready(function() {
                     exportOptions: {
                         columns: exportcolumns
                     },
+                    download: 'open',
                     messageTop: message,
                     title: title,
                     customize: function(xlsx) {
