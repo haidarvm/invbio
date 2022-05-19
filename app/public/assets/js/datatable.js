@@ -53,7 +53,7 @@ $(document).ready(function() {
                 },
                 {
                     extend: 'pdfHtml5',
-                    download: 'open',
+                    download: 'download',
                     exportOptions: {
                         columns: exportcolumns
                     },

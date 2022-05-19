@@ -2,6 +2,7 @@ package haidarvm.com.inventory.webview
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -31,8 +32,9 @@ import java.security.SecureRandom
 import java.security.spec.InvalidKeySpecException
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.crypto.*
+import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
+
 
 class MainActivity : Activity() {
     private lateinit var mContext: Context
@@ -157,33 +159,65 @@ class MainActivity : Activity() {
         // this force use chromeWebClient
         mWebView.settings.setSupportMultipleWindows(false)
         mWebView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
-
-                Log.d(TAG, "URL: " + url!!)
-                if (internetCheck(mContext)) {
-                    // If you wnat to open url inside then use
-                    view.loadUrl(url);
-
-                    // if you wanna open outside of app
-                    /*if (url.contains(URL)) {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                val value = true
+                val extension = MimeTypeMap.getFileExtensionFromUrl(URL)
+                Log.e("extension", "shouldOverrideUrlLoading: "  + extension )
+                if (extension != null) {
+                    val mime = MimeTypeMap.getSingleton()
+                    val mimeType = mime.getMimeTypeFromExtension(extension)
+                    Log.e("mime", "shouldOverrideUrlLoading: "  + extension )
+                    Log.e("mimeType", "shouldOverrideUrlLoading: "  + mimeType )
+                    if (mimeType != null) {
+                        if (mimeType.toLowerCase().contains("pdf")
+                            || extension.toLowerCase().contains("ppt")
+                            || extension.toLowerCase().contains("doc")
+                            || extension.toLowerCase().contains("rar")
+                            || extension.toLowerCase().contains("rtf")
+                            || extension.toLowerCase().contains("exe")
+                            || extension.toLowerCase().contains("apk")
+                            || extension.toLowerCase().contains("jpeg")
+                            || extension.toLowerCase().contains("png")
+                            || extension.toLowerCase().contains("xls")
+                            || extension.toLowerCase().contains("xlsx")
+                            || extension.toLowerCase().contains("zip")
+                            || extension.toLowerCase().contains("jpg")
+                        ) {
+                            val mdDownloadManager =
+                                getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                            val request = DownloadManager.Request(
+                                Uri.parse(url)
+                            )
+                            val name = URLUtil.guessFileName(
+                                url,
+                                null,
+                                MimeTypeMap.getFileExtensionFromUrl(url)
+                            )
+                            val destinationFile =
+                                File(Environment.getExternalStorageDirectory(), name)
+                            request.setDescription("Downloading...")
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            // request.setDestinationUri(Uri.fromFile(destinationFile));
+                            request.setDestinationInExternalPublicDir(
+                                Environment.DIRECTORY_DOWNLOADS,
+                                name
+                            )
+                            mdDownloadManager.enqueue(request)
+                            //value = false;
+                        }
+                    }
+                    if (value) {
                         view.loadUrl(url)
-                        return false
-                    }else {
-                        // Otherwise, give the default behavior (open in browser)
+                    }
+                    if (!url.contains(URL)) { // Could be cleverer and use a regex
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(intent)
                         return true
-                    }*/
-                } else {
-                    prgs.visibility = View.GONE
-                    mWebView.visibility = View.GONE
-                    layoutSplash.visibility = View.GONE
-                    layoutNoInternet.visibility = View.VISIBLE
+                    }
+                    return false
                 }
-
-                return true
+                return false
             }
-
             /* @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if(internetCheck(mContext)) {
@@ -327,6 +361,33 @@ class MainActivity : Activity() {
         // than passed to a browser if it can
         mWebView.setWebViewClient(new WebViewClient());
     }*/
+
+      fun setUpWebViewDefaults(webView: WebView) {
+        val settings = webView.settings
+
+        // Enable Javascript
+        settings.javaScriptEnabled = true
+
+        // Use WideViewport and Zoom out if there is no viewport defined
+        settings.useWideViewPort = true
+        settings.loadWithOverviewMode = true
+
+        // Enable pinch to zoom without the zoom buttons
+        settings.builtInZoomControls = true
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+            // Hide the zoom controls for HONEYCOMB+
+            settings.displayZoomControls = false
+        }
+
+        // Enable remote debugging via chrome://inspect
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true)
+        }
+
+        // We set the WebViewClient to ensure links are consumed by the WebView rather
+        // than passed to a browser if it can
+        mWebView.webViewClient = WebViewClient()
+    }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {

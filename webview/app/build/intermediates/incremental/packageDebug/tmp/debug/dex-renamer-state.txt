@@ -1,4 +1,4 @@
-#Wed May 18 14:08:59 WIB 2022
+#Thu May 19 22:28:45 WIB 2022
 base.2=/home/haidar/public_html/test/invbio/webview/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
 path.2=10/classes.dex
 base.1=/home/haidar/public_html/test/invbio/webview/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
