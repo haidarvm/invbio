@@ -26,7 +26,7 @@ require_once 'template/header.php';?>
                                 <p class="text-sm mb-20">
                                     Available Stock All Item
                                 </p>
-
+                                <a  href="http://inv.test/assets/bio.pdf" class="main-btn primary-btn rounded-md btn-hover mr-15 mb-20">PDF</a>
                                 <div class="table-wrapper table-responsive">
                                     <table class="table table-bordered" id="datatable">
                                         <thead>
