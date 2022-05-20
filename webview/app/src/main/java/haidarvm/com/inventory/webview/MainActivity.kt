@@ -180,14 +180,14 @@ class MainActivity : Activity() {
         mWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 val value = true
-                val extension = MimeTypeMap.getFileExtensionFromUrl(URL)
+                val extension = MimeTypeMap.getFileExtensionFromUrl(url)
                 Log.e("extension", "shouldOverrideUrlLoading: "  + extension )
                 if (extension != null) {
                     val mime = MimeTypeMap.getSingleton()
                     val mimeType = mime.getMimeTypeFromExtension(extension)
                     Log.e("mime", "shouldOverrideUrlLoading: "  + extension )
                     Log.e("mimeType", "shouldOverrideUrlLoading: "  + mimeType )
-                    Log.e("URL", "shouldOverrideUrlLoading: "  + URL )
+                    Log.e("URL", "shouldOverrideUrlLoading: "  + url )
                     if (mimeType != null) {
                         if (mimeType.toLowerCase().contains("pdf")
                             || extension.toLowerCase().contains("ppt")
