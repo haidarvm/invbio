@@ -1,5 +1,6 @@
 package haidarvm.com.inventory.webview
 
+import JavascriptInterfaces
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
@@ -183,30 +184,12 @@ class MainActivity : Activity() {
         // than passed to a browser if it can
 //        mWebView.webViewClient = WebViewClient()
 
+        val javascriptInterface = JavascriptInterfaces(applicationContext)
         mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
             val i = Intent(Intent.ACTION_VIEW)
-            if(url.contains("blob")) {
+            if(url.startsWith("blob:")) {
                 Log.e("downloadingblob", "downloading blob" )
-                val mdDownloadManager =
-                    getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                val request = DownloadManager.Request(
-                    Uri.parse(url)
-                )
-                val name = URLUtil.guessFileName(
-                    url,
-                    null,
-                    MimeTypeMap.getFileExtensionFromUrl(url)
-                )
-                val destinationFile =
-                    File(Environment.getExternalStorageDirectory(), name)
-                request.setDescription("Downloading...")
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                // request.setDestinationUri(Uri.fromFile(destinationFile));
-                request.setDestinationInExternalPublicDir(
-                    Environment.DIRECTORY_DOWNLOADS,
-                    name
-                )
-                mdDownloadManager.enqueue(request)
+                mWebView.evaluateJavascript(javascriptInterface.getBase64StringFromBlobUrl(url), null)
             } else {
                 i.data = Uri.parse(url)
                 startActivity(i)
