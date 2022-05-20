@@ -54,7 +54,6 @@ $(document).ready(function() {
                 },
                 {
                     extend: 'pdfHtml5',
-                    download: 'download',
                     exportOptions: {
                         columns: exportcolumns
                     },

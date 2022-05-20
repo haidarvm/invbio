@@ -1,8 +1,7 @@
 package haidarvm.com.inventory.webview
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.DownloadManager
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -14,10 +13,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.Base64.decode
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.webkit.*
+import android.webkit.URLUtil.decode
 import android.webkit.WebSettings.RenderPriority
 import android.widget.Button
 import android.widget.ProgressBar
@@ -25,11 +26,17 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationCompat
+import androidx.core.content.FileProvider
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.lang.Byte.decode
+import java.lang.Integer.decode
 import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.security.spec.InvalidKeySpecException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.SecretKey
@@ -176,6 +183,35 @@ class MainActivity : Activity() {
         // than passed to a browser if it can
 //        mWebView.webViewClient = WebViewClient()
 
+        mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
+            val i = Intent(Intent.ACTION_VIEW)
+            if(url.contains("blob")) {
+                Log.e("downloadingblob", "downloading blob" )
+                val mdDownloadManager =
+                    getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                val request = DownloadManager.Request(
+                    Uri.parse(url)
+                )
+                val name = URLUtil.guessFileName(
+                    url,
+                    null,
+                    MimeTypeMap.getFileExtensionFromUrl(url)
+                )
+                val destinationFile =
+                    File(Environment.getExternalStorageDirectory(), name)
+                request.setDescription("Downloading...")
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                // request.setDestinationUri(Uri.fromFile(destinationFile));
+                request.setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOWNLOADS,
+                    name
+                )
+                mdDownloadManager.enqueue(request)
+            } else {
+                i.data = Uri.parse(url)
+                startActivity(i)
+            }
+        }
 
         mWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
@@ -381,6 +417,7 @@ class MainActivity : Activity() {
         // than passed to a browser if it can
         mWebView.setWebViewClient(new WebViewClient());
     }*/
+
 
 
 
