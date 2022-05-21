@@ -1,7 +1,7 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class StockAllController extends Admin{
+class StockAllController extends Admin {
     protected $stock;
     protected $item;
     protected $request;
@@ -18,10 +18,10 @@ class StockAllController extends Admin{
 
     public function index() {
         $get = $this->request->query->all();
-        $item_id = checkValAr($get,'item_id');
+        $item_id = checkValAr($get, 'item_id');
         if (!empty($get['date_start'])) {
-            $date_start = checkValAr($get,'date_start');
-            $date_end = checkValAr($get,'date_end');
+            $date_start = checkValAr($get, 'date_start');
+            $date_end = checkValAr($get, 'date_end');
             $data['date_start'] = $date_start;
             $data['date_end'] = $date_end;
             $data['stock'] = $this->stock->getAll($item_id, '', toSqlDate($date_start), toSqlDate($date_end));
@@ -57,7 +57,7 @@ class StockAllController extends Admin{
         } else {
             $data['stock'] = $this->stock->getAllTrxu(uri(3));
         }
-        $data['page_title'] = 'Edit '.strtoupper($this->table);
+        $data['page_title'] = 'Edit ' . strtoupper($this->table);
         $data['table'] = $this->table;
         $data['item'] = uri(3);
         $data['column'] = '[0,1,2,3,4,5]';
@@ -66,7 +66,7 @@ class StockAllController extends Admin{
 
     public function list_all() {
         $get = $this->request->query->all();
-        $item_id = checkValAr($get,'item_id');
+        $item_id = checkValAr($get, 'item_id');
         if (!empty($get['date_start'])) {
             $date_start = $get['date_start'];
             $date_end = $get['date_end'];
@@ -78,7 +78,7 @@ class StockAllController extends Admin{
         }
         $data['item_id'] = $item_id;
         $data['item'] = checkIf($this->item->getItem($item_id));
-        $data['page_title'] = "STOCK ALL";
+        $data['page_title'] = 'STOCK ALL';
         $data['table'] = 'stock_all';
         $data['all'] = 'all';
         view('stock_list', $data);
@@ -86,7 +86,7 @@ class StockAllController extends Admin{
 
     public function edit() {
         $this->admin_only();
-        $data['page_title'] = 'Edit '.strtoupper($this->table);
+        $data['page_title'] = 'Edit ' . strtoupper($this->table);
         $data['table'] = $this->table;
         $data['stock'] = $this->stock->getStock(uri(3));
         // print_r($data['stock']);exit;
@@ -101,8 +101,8 @@ class StockAllController extends Admin{
         // echo $this->table;
         // edit current stock
         $this->stock->editStock($post['item_id'], $this->table, $post['old_quantity'], $post['quantity']);
-        unset($post['old_quantity']);
-        unset($post['item_id']);
+        unset($post['old_quantity'], $post['item_id']);
+
         // echo $this->table;exit;
         $this->stock->table = uri(3);
         // echo $this->stock->table;exit;
@@ -113,43 +113,49 @@ class StockAllController extends Admin{
     public function save() {
         $post = $this->request->request->all();
         // print_r($post);exit;
-        $data = ['item_id' => $post['item_id'], 'desc' =>  $post['desc'] , 'user_id' => 1];
+        $data = ['item_id' => $post['item_id'], 'desc' =>  $post['desc'], 'user_id' => 1];
         !empty($post['rak']) ? $data['rak'] = $post['rak'] : '';
         $data['quantity'] = !empty($post['quantity_in']) ? $post['quantity_in'] : $post['quantity_out'];
         // print_r($data);exit;
         $this->stock->table = $post['table'];
         $this->stock->insertLatest($data);
-        $this->stock->updateStock($data['item_id'], $post['table'],$data['quantity']);
-        $href = $post['table'] == 'stock_out' ? "#out" : "#in"; 
+        $this->stock->updateStock($data['item_id'], $post['table'], $data['quantity']);
+        $href = $post['table'] == 'stock_out' ? '#out' : '#in';
         header('Location: ' . base_url() . 'stock/new' . $href);
     }
 
     public function save_multi() {
         $post = $this->request->request->all();
         // print("<pre>".print_r($post,true)."</pre>");
-        foreach($post['quantity_in']  as $key => $qty_in ) {
+        foreach ($post['quantity_in']  as $key => $qty_in) {
             if (!empty($qty_in)) {
                 // echo 'key :' . $key . ' QTY in : ' . $qty_in . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
-                $this->stock->updateStock($post['autocomplete' . $key] , 'stock_in',$qty_in);
+                $this->stock->updateStock($post['autocomplete' . $key], 'stock_in', $qty_in);
                 $this->stock->table = 'stock_in';
-                $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_in ,'user_id' => 1];
+                $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_in, 'user_id' => 1];
                 $this->stock->insertLatest($data);
             }
         }
-        foreach($post['quantity_out']  as $key => $qty_out ) {
+        foreach ($post['quantity_out']  as $key => $qty_out) {
             if (!empty($qty_out)) {
                 // echo 'key :' . $key . ' QTY out : ' . $qty_out . ' item_id :' . $post['autocomplete' . $key] . ' - '. $post['item'][$key] .' <br />' ;
-                $this->stock->updateStock($post['autocomplete' . $key] , 'stock_out',$qty_out);
+                $this->stock->updateStock($post['autocomplete' . $key], 'stock_out', $qty_out);
                 $this->stock->table = 'stock_out';
-                $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_out ,'user_id' => 1];
+                $data = ['item_id' => $post['autocomplete' . $key], 'quantity' => $qty_out, 'user_id' => 1];
                 $this->stock->insertLatest($data);
             }
         }
         // exit;
         header('Location: ' . base_url() . 'stock');
     }
-    
+
     public function table() {
         echo $this->stock->table;
+    }
+
+    public function pdf() {
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML('<h1>Hello world!</h1>');
+        $mpdf->Output();
     }
 }

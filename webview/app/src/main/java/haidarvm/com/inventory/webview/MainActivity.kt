@@ -173,23 +173,18 @@ class MainActivity : Activity() {
         mWebView.settings.javaScriptEnabled = true
 
         // Use WideViewport and Zoom out if there is no viewport defined
-        mWebView.settings.useWideViewPort = true
-        mWebView.settings.loadWithOverviewMode = true
         Log.d("settings", "setUpWebViewDefaults: " + mWebView.settings.toString())
         // Enable pinch to zoom without the zoom buttons
-        mWebView.settings.builtInZoomControls = true
 
 
         // We set the WebViewClient to ensure links are consumed by the WebView rather
         // than passed to a browser if it can
 //        mWebView.webViewClient = WebViewClient()
 
-        val javascriptInterface = JavascriptInterfaces(applicationContext)
         mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
             val i = Intent(Intent.ACTION_VIEW)
             if(url.startsWith("blob:")) {
                 Log.e("downloadingblob", "downloading blob" )
-                mWebView.evaluateJavascript(javascriptInterface.getBase64StringFromBlobUrl(url), null)
             } else {
                 i.data = Uri.parse(url)
                 startActivity(i)
@@ -222,26 +217,27 @@ class MainActivity : Activity() {
                             || extension.toLowerCase().contains("zip")
                             || extension.toLowerCase().contains("jpg")
                         ) {
-                            val mdDownloadManager =
-                                getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                            val request = DownloadManager.Request(
-                                Uri.parse(url)
-                            )
-                            val name = URLUtil.guessFileName(
-                                url,
-                                null,
-                                MimeTypeMap.getFileExtensionFromUrl(url)
-                            )
-                            val destinationFile =
-                                File(Environment.getExternalStorageDirectory(), name)
-                            request.setDescription("Downloading...")
-                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                            // request.setDestinationUri(Uri.fromFile(destinationFile));
-                            request.setDestinationInExternalPublicDir(
-                                Environment.DIRECTORY_DOWNLOADS,
-                                name
-                            )
-                            mdDownloadManager.enqueue(request)
+                            Log.e("downloading", "shouldOverrideUrlLoading: "  + url )
+//                            val mdDownloadManager =
+//                                getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+//                            val request = DownloadManager.Request(
+//                                Uri.parse(url)
+//                            )
+//                            val name = URLUtil.guessFileName(
+//                                url,
+//                                null,
+//                                MimeTypeMap.getFileExtensionFromUrl(url)
+//                            )
+//                            val destinationFile =
+//                                File(Environment.getExternalStorageDirectory(), name)
+//                            request.setDescription("Downloading...")
+//                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//                            // request.setDestinationUri(Uri.fromFile(destinationFile));
+//                            request.setDestinationInExternalPublicDir(
+//                                Environment.DIRECTORY_DOWNLOADS,
+//                                name
+//                            )
+//                            mdDownloadManager.enqueue(request)
                             //value = false;
                         }
                     }

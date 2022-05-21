@@ -91,6 +91,11 @@ Basic::route('GET', '/chart_all', function()  { // Set homepage
     $chart->list_all();
 });
 
+Basic::route('GET', '/pdf', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->pdf();
+});
+
 Basic::route('GET', '/stock', function()  { // Set homepage
     $stock = new StockAllController("stock");
     $stock->index();
