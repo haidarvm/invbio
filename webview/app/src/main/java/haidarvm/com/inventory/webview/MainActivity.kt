@@ -1,6 +1,6 @@
 package haidarvm.com.inventory.webview
 
-import JavascriptInterfaces
+import android.R.attr.mimeType
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
@@ -14,12 +14,10 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.util.Base64.decode
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.webkit.*
-import android.webkit.URLUtil.decode
 import android.webkit.WebSettings.RenderPriority
 import android.widget.Button
 import android.widget.ProgressBar
@@ -27,17 +25,11 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.NotificationCompat
-import androidx.core.content.FileProvider
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.lang.Byte.decode
-import java.lang.Integer.decode
 import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.security.spec.InvalidKeySpecException
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.SecretKey
@@ -184,12 +176,33 @@ class MainActivity : Activity() {
         mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
             val i = Intent(Intent.ACTION_VIEW)
             Log.d("downloadings", "webview downloading: "  + url )
-            if(url.startsWith("blob:")) {
-                Log.e("downloadingblob", "downloading blob" )
-            } else {
-                i.data = Uri.parse(url)
-                startActivity(i)
-            }
+            val request = DownloadManager.Request(
+                Uri.parse(url)
+            )
+            request.setMimeType("pdf")
+            val cookies = CookieManager.getInstance().getCookie(url)
+            request.addRequestHeader("cookie", cookies)
+            request.addRequestHeader(
+                "User-Agent",userAgent
+            )
+            request.setDescription("Downloading File...")
+            request.setTitle("mpdf.pdf")
+            request.allowScanningByMediaScanner()
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            request.setDestinationInExternalPublicDir(
+                Environment.DIRECTORY_DOWNLOADS, "mpdf.pdf"
+            )
+            val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+            dm.enqueue(request)
+            Toast.makeText(applicationContext, "Downloading File", Toast.LENGTH_LONG).show()
+//            if(url.startsWith("blob:")) {
+//                Log.e("downloadingblob", "downloading blob" )
+//            } else {
+//                Log.e("downloading", "shouldOverrideUrlLoading: "  + url )
+//
+////                i.data = Uri.parse(url)
+////                startActivity(i)
+//            }
         }
 
         mWebView.webViewClient = object : WebViewClient() {
@@ -263,7 +276,7 @@ class MainActivity : Activity() {
                                 name
                             )
                             mdDownloadManager.enqueue(request)
-                            value = false;
+                            value = false
                         }
                     }
                     if (value) {

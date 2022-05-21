@@ -18,7 +18,7 @@ $(document).ready(function() {
             target: orderby, //index of column
             type: 'datetime-moment'
         }],
-        // dom: "Bfrtip",
+        dom: "Bfrtip",
         // buttons: [{
         //     extend: "collection",
         //     text: "Export",
