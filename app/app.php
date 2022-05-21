@@ -93,7 +93,7 @@ Basic::route('GET', '/chart_all', function()  { // Set homepage
 
 Basic::route('GET', '/pdf', function()  { // Set homepage
     $stock = new StockAllController("stock");
-    $stock->pdf();
+    $stock->pdf('stock');
 });
 
 Basic::route('GET', '/stock', function()  { // Set homepage

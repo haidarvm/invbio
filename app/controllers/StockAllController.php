@@ -153,9 +153,17 @@ class StockAllController extends Admin {
         echo $this->stock->table;
     }
 
-    public function pdf() {
-        $mpdf = new \Mpdf\Mpdf();
-        $mpdf->WriteHTML('<h1>Hello world!</h1>');
-        $mpdf->Output();
+    public function pdf($stock) {
+        $get = $this->request->query->all();
+        print_r($get);exit;
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp']);
+        $mpdf->WriteHTML('<h1>Haidar Mansur Marie 2</h1>');
+        $mpdf->Output('bio.pdf', 'D');
+        // $filename = 'mpdf.pdf';
+        // if (file_exists($filename)) {
+        //     header('Content-type: application/force-download');
+        //     header('Content-Disposition: attachment; filename=' . $filename);
+        //     readfile($filename);
+        // }
     }
 }
