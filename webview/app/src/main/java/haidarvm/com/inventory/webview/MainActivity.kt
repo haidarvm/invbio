@@ -179,63 +179,47 @@ class MainActivity : Activity() {
 
         // We set the WebViewClient to ensure links are consumed by the WebView rather
         // than passed to a browser if it can
-//        mWebView.webViewClient = WebViewClient()
+        mWebView.webViewClient = WebViewClient()
 
-//        mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
-//            val i = Intent(Intent.ACTION_VIEW)
-//            Log.d("downloadings", "webview downloading: "  + url )
-//            val mdDownloadManager =
-//                getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-//            val request = DownloadManager.Request(
-//                Uri.parse(url)
-//            )
-//            val name = "bio.pdf"
-//            val destinationFile =
-//                File(Environment.getExternalStorageDirectory(), name)
-//            request.setDescription("Downloading...")
-//            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-//            // request.setDestinationUri(Uri.fromFile(destinationFile));
-//            request.setDestinationInExternalPublicDir(
-//                Environment.DIRECTORY_DOWNLOADS,
-//                name
-//            )
-//            mdDownloadManager.enqueue(request)
-//            if(url.startsWith("blob:")) {
-//                Log.e("downloadingblob", "downloading blob" )
-//            } else {
-//                i.data = Uri.parse(url)
-//                startActivity(i)
-//            }
-//        }
+        mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
+            val i = Intent(Intent.ACTION_VIEW)
+            Log.d("downloadings", "webview downloading: "  + url )
+            if(url.startsWith("blob:")) {
+                Log.e("downloadingblob", "downloading blob" )
+            } else {
+                i.data = Uri.parse(url)
+                startActivity(i)
+            }
+        }
 
         mWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 var value = true
                 val extension = MimeTypeMap.getFileExtensionFromUrl(url)
                 Log.e("extension", "shouldOverrideUrlLoading: "  + extension )
-                if(url.contains("pdf")) {
-                    val mdDownloadManager =
-                        getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                    val request = DownloadManager.Request(
-                        Uri.parse(url)
-                    )
-                    val name = URLUtil.guessFileName(
-                        url,
-                        null,
-                        MimeTypeMap.getFileExtensionFromUrl(url)
-                    )
-                    val destinationFile =
-                        File(Environment.getExternalStorageDirectory(), name)
-                    request.setDescription("Downloading...")
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    // request.setDestinationUri(Uri.fromFile(destinationFile));
-                    request.setDestinationInExternalPublicDir(
-                        Environment.DIRECTORY_DOWNLOADS,
-                        name
-                    )
-                    mdDownloadManager.enqueue(request)
-                    value = false
-                }
+//                if(url.contains("pdf")) {
+//                    val mdDownloadManager =
+//                        getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+//                    val request = DownloadManager.Request(
+//                        Uri.parse(url)
+//                    )
+//                    val name = URLUtil.guessFileName(
+//                        url,
+//                        null,
+//                        MimeTypeMap.getFileExtensionFromUrl(url)
+//                    )
+//                    val destinationFile =
+//                        File(Environment.getExternalStorageDirectory(), name)
+//                    request.setDescription("Downloading...")
+//                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//                    // request.setDestinationUri(Uri.fromFile(destinationFile));
+//                    request.setDestinationInExternalPublicDir(
+//                        Environment.DIRECTORY_DOWNLOADS,
+//                        name
+//                    )
+//                    mdDownloadManager.enqueue(request)
+//                    value = false
+//                }
                 if (extension != null) {
                     val mime = MimeTypeMap.getSingleton()
                     val mimeType = mime.getMimeTypeFromExtension(extension)
