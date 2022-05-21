@@ -156,7 +156,7 @@ class StockAllController extends Admin {
     public function pdf($stock) {
         $get = $this->request->query->all();
         // print_r($get);exit;
-        $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp']);
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => $_SERVER['DOCUMENT_ROOT'] . '/tmp']);
         $mpdf->WriteHTML('<h1>Haidar Mansur Marie 2 '.$get['table'].'</h1>');
         $mpdf->Output('bio.pdf', 'D');
         $filename = 'mpdf.pdf';
