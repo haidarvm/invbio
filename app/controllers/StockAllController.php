@@ -158,12 +158,12 @@ class StockAllController extends Admin {
         // print_r($get);exit;
         $mpdf = new \Mpdf\Mpdf(['tempDir' => $_SERVER['DOCUMENT_ROOT'] . '/tmp']);
         $mpdf->WriteHTML('<h1>Haidar Mansur Marie 2 '.$get['table'].'</h1>');
-        $mpdf->Output('bio.pdf', 'D');
-        $filename = 'mpdf.pdf';
-        if (file_exists($filename)) {
-            header('Content-type: application/force-download');
-            header('Content-Disposition: attachment; filename=' . $filename);
-            readfile($filename);
-        }
+        $mpdf->Output();
+        // $filename = 'mpdf.pdf';
+        // if (file_exists($filename)) {
+        //     header('Content-type: application/force-download');
+        //     header('Content-Disposition: attachment; filename=' . $filename);
+        //     readfile($filename);
+        // }
     }
 }
