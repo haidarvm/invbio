@@ -143,9 +143,13 @@ require_once 'template/header.php';?>
                                                             ?>
                                                             
                                                             <a class="text-success" <?=$edit;?>><i
-                                                                    class="lni lni-pencil"></i></a> |
-                                                            <a class="text-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"  href="<?=base_url(). 'stock/delete/'. $table. '/'. $row->stock_id . '/'. $row->item_id .'/'. $row->quantity ?>"><i
+                                                                    class="lni lni-pencil"></i></a> 
+                                                                    
+                                                                <?php if ($table != 'stock') {
+                                                            } ?> |
+                                                            <a class="text-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"  href="<?=base_url() . 'stock/delete/' . $table . '/' . $row->stock_id . '/' . $row->item_id . '/' . $row->quantity ?>"><i
                                                                     class="lni lni-trash-can"></a></i>
+                                                                    <?php } ?>
                                                         </span>
                                                     </div>
                                                 </td>
