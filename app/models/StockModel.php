@@ -107,6 +107,16 @@ class StockModel extends Db  {
         return $type == 'stock_in' ? $this->where($item)->increment('quantity', $quantity) : $this->where($item)->decrement('quantity', $quantity) ;
     }
 
+    public function deleteStock($table, $stock_id, $item_id, $old_quantity) {
+        // $stock = $this
+        if ($table == 'stock_in') {
+            $this->where('item_id', $item_id)->decrement('quantity', $old_quantity);
+        } elseif($table == 'stock_out') {
+            $this->where('item_id', $item_id)->increment('quantity', $old_quantity);
+        }
+        return $this->from($table)->where('stock_id', $stock_id)->delete();
+    }
+
     public function getTable() {
         return $this->table;
     }

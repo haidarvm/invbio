@@ -149,6 +149,12 @@ class StockAllController extends Admin {
         header('Location: ' . base_url() . 'stock');
     }
 
+    public function delete($table, $stock_id, $item_id, $old_quantity ) {
+        $this->admin_only();
+        $this->stock->deleteStock($table, $stock_id, $item_id, $old_quantity);
+        header('Location: ' . base_url() . '/stock/'.$table);
+    }
+
     public function table() {
         echo $this->stock->table;
     }

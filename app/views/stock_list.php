@@ -141,9 +141,10 @@ require_once 'template/header.php';?>
                                                             // $edit = empty($item) && $table == "stock" ? "href='".base_url().$table."/edit/".$row->item_id."'"  : "href='".base_url().$table."/edit/".$row->stock_id."'";
                                                             // $edit = !empty($item) && $table == "stock" ? "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'"  :  $edit;
                                                             ?>
+                                                            
                                                             <a class="text-success" <?=$edit;?>><i
                                                                     class="lni lni-pencil"></i></a> |
-                                                            <a class="text-danger" href="#"><i
+                                                            <a class="text-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"  href="<?=base_url(). 'stock/delete/'. $table. '/'. $row->stock_id . '/'. $row->item_id .'/'. $row->quantity ?>"><i
                                                                     class="lni lni-trash-can"></a></i>
                                                         </span>
                                                     </div>

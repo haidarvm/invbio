@@ -121,6 +121,12 @@ Basic::route('POST', '/stock/save', function()  { // Set homepage
     $stock->save();
 });
 
+Basic::route('GET', '/stock/delete/(:any)/(:num)/(:num)/(:num)', function()  { // Set homepage
+    $stock = new StockAllController("stock");
+    $stock->delete(uri(3), uri(4), uri(5), uri(6));
+});
+
+
 Basic::route('POST', '/stock/save_multi', function()  { // Set homepage
     $stock = new StockAllController("stock");
     $stock->save_multi();
