@@ -84,6 +84,7 @@ var base_url = "<?=URL;?>";
 <script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
 <script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
 <script src="<?=URL;?>assets/js/autoComplete.js"></script>
+<script src="<?=URL;?>assets/js/sweetalert.min.js"></script>
 <script>
 create_autocomplete("#autocomplete01");
 
@@ -128,7 +129,14 @@ $(function() {
         $("input[name=quantity_out]").val("");
         $("input[name=table]").val("stock_in");
     }
- 
+  
+    showSwal();
+    function showSwal() {
+        var urlParams = new URLSearchParams(window.location.search);
+        if(window.location.hash){ 
+            swal("Alert!", "Berhasil", "success");
+        }
+    }
 });
 </script>
 <?php
