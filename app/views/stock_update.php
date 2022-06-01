@@ -134,7 +134,7 @@ $(function() {
     function showSwal() {
         var urlParams = new URLSearchParams(window.location.search);
         if(window.location.hash){ 
-            swal("Alert!", "Berhasil", "success");
+            swal("Alert!", "Anda berhasil update data", "success");
         }
     }
 });
