@@ -18,65 +18,65 @@ $(document).ready(function() {
             target: orderby, //index of column
             type: 'datetime-moment'
         }],
-        // dom: "Bfrtip",
-        // buttons: [{
-        //     extend: "collection",
-        //     text: "Export",
-        //     buttons: [{
-        //             extend: 'copyHtml5',
-        //             exportOptions: {
-        //                 columns: exportcolumns
-        //             }
-        //         },
-        //         {
-        //             extend: 'print',
-        //             exportOptions: {
-        //                 columns: exportcolumns
-        //             },
-        //             messageTop: message,
-        //             title: title,
-        //         },
-        //         {
-        //             extend: 'excelHtml5',
-        //             exportOptions: {
-        //                 columns: exportcolumns
-        //             },
-        //             messageTop: message,
-        //             title: title,
-        //             footer: "haidar",
-        //             customize: function(xlsx) {
-        //                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
+        dom: "Bfrtip",
+        buttons: [{
+            extend: "collection",
+            text: "Export",
+            buttons: [{
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: exportcolumns
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: exportcolumns
+                    },
+                    messageTop: message,
+                    title: title,
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: exportcolumns
+                    },
+                    messageTop: message,
+                    title: title,
+                    footer: "haidar",
+                    customize: function(xlsx) {
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
 
-        //                 // jQuery selector to add a border
-        //                 $('row c[r*="3"]', sheet).attr('s', '2');
-        //                 $('row c[r^="D"]', sheet).attr('s', '2');
-        //             }
-        //         },
-        //         {
-        //             extend: 'pdfHtml5',
-        //             filename: 'biofarma',
-        //             exportOptions: {
-        //                 columns: exportcolumns
-        //             },
-        //             messageTop: message,
-        //             // title: title,
-        //             customize: function(doc) {
-        //                 doc.styles.title = {
-        //                         color: 'black',
-        //                         fontSize: '30',
-        //                         background: '',
-        //                         alignment: 'center'
-        //                     },
-        //                     doc.styles.message = {
-        //                         color: 'black',
-        //                         fontSize: '15',
-        //                         background: '',
-        //                         alignment: 'left'
-        //                     }
-        //             }
-        //         },
-        //     ]
-        // }]
+                        // jQuery selector to add a border
+                        $('row c[r*="3"]', sheet).attr('s', '2');
+                        $('row c[r^="D"]', sheet).attr('s', '2');
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    filename: 'biofarma',
+                    exportOptions: {
+                        columns: exportcolumns
+                    },
+                    messageTop: message,
+                    // title: title,
+                    customize: function(doc) {
+                        doc.styles.title = {
+                                color: 'black',
+                                fontSize: '30',
+                                background: '',
+                                alignment: 'center'
+                            },
+                            doc.styles.message = {
+                                color: 'black',
+                                fontSize: '15',
+                                background: '',
+                                alignment: 'left'
+                            }
+                    }
+                },
+            ]
+        }]
     });
 
 });
