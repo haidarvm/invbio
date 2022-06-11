@@ -51,8 +51,11 @@
                             <a href="<?=base_url();?>item"><i class="lni lni-cog"></i> Item </a>
                         </li>
                         <li>
-                            <a href="#"><i class="lni lni-sort-alpha-asc"></i> Acccount Name </a>
+                            <a href="<?=base_url();?>config/edit/1"><i class="lni lni-sort-alpha-asc"></i> Config </a>
                         </li>
+                        <!-- <li>
+                            <a href="#"><i class="lni lni-sort-alpha-asc"></i> Acccount Name </a>
+                        </li> -->
                     </ul>
                 </li>
                 <li class="nav-item nav-item-has-children">
