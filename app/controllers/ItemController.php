@@ -1,10 +1,11 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class ItemController {
+class ItemController extends Admin {
     protected $item;
 
     public function __construct() {
+        parent::__construct();
         $this->item = new ItemModel();
         $this->category = new CategoryModel();
         $this->request =  Request::createFromGlobals();
@@ -17,6 +18,7 @@ class ItemController {
     }
 
     public function edit() {
+        $this->admin_only();
         $data['page_title'] = "Edit item";
         $data['action'] = "update";
         $data['category'] = $this->category->getAll();
@@ -26,6 +28,7 @@ class ItemController {
     }
 
     public function add() {
+        $this->admin_only();
         $data['page_title'] = "Add item";
         $data['action'] = "insert";
         $data['category'] = $this->category->getAll();
@@ -33,6 +36,7 @@ class ItemController {
     }
 
     public function save() {
+        $this->admin_only();
         $action = uri(3);
         $post = $this->request->request->all();
         // print_r($post);exit;

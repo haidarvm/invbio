@@ -1,44 +1,14 @@
-$(document).ready(function () {
-    $("#datatable").DataTable({
-        colReorder: true,
-        ordering: true,
-        pageLength: pageshow,
-        order: [
-            [orderby, "desc"]
-        ],
-        dom: "Bfrtip",
-        buttons: [
-            {
-                extend: "collection",
-                text: "Export",
-                buttons: [
-                    {
-                        extend: 'copyHtml5',
-                        exportOptions: {
-                            columns: exportcolumns
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: exportcolumns
-                        }
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: exportcolumns
-                        }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: exportcolumns
-                        }
-                    },
-                ]
-            }
-        ]
-    });
+$(document).ready(function() {
+
     $('.btn').addClass("main-btn btn-hover");
+
+    $(".datepicker").datepicker({
+        format: "dd-mm-yyyy"
+    });
+    $("#all-date").click(function(e) {
+        e.preventDefault();
+        $("input[name=date_start]").val("");
+        $("input[name=date_end]").val("");
+        $("input[name=item_name]").val("");
+    });
 });

@@ -12,25 +12,39 @@ class StockModel extends Db  {
     }
 
     public function getAll($item_id=null, $category=null, $date_start=null, $date_end=null) {
-        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', 'quantity', 'unit', $this->table.'.created_at')
+        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name', $this->table.'.stock_id', $this->table.'.quantity', 'unit', $this->table.'.created_at', $this->table.'.updated_at')
         // ->from($this->table)
         ->leftJoin('item AS i', 'i.item_id', '=', $this->table.'.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
         $this->table == 'stock_in' ? $data->addSelect($this->table.".location") : '';
+        $this->table != "stock" ? $data->leftJoin('stock AS s', 's.item_id', '=', $this->table.'.item_id') : '';
+        $this->table != "stock" ? $data->addSelect("s.quantity as qty") : '';
+        $data->addSelect($this->raw("'".$this->table."' as status"));
+        $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
         !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
-        !empty($date_start) ? $data->whereDate($this->table.'.created_at', '>=', $date_start) : '';
-        !empty($date_end) ? $data->whereDate($this->table.'.created_at', '<=', $date_end) : '';
+        !empty($date_start) ? $data->whereDate($dates, '>=', $date_start) : '';
+        !empty($date_end) ? $data->whereDate($dates, '<=', $date_end) : '';
+        $query = $data->orderByDesc($dates);
+        return $query->get();
+    }
+
+    public function getAllApiChart($item_id=null,$date_start=null, $date_end=null) {
+        $dates = $this->table == 'stock' ? $this->table.'.updated_at' : $this->table.'.created_at'; 
+        $data = $this->select($this->raw('REPLACE(UNIX_TIMESTAMP('.DB_PREFIX.$dates.'),".","") as dateunix'), 'quantity');
+        !empty($item_id) ? $data->where($this->table.'.item_id', $item_id) : "";
+        !empty($date_start) ? $data->whereDate($dates, '>=', $date_start) : '';
+        !empty($date_end) ? $data->whereDate($dates, '<=', $date_end) : '';
         // echo $item_id;exit;
-        return $data->orderByDesc($this->table.'.created_at')->get();
+        return $data->orderBy($dates)->get();
     }
 
     public function getAllTrxu($item_id=null, $category=null,$date_start=null, $date_end=null) {
-        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'in' as status"), 'quantity', 'unit','in.created_at')
+        $data = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'stock_in' as status"), 'quantity', 'unit','in.created_at', 'in.updated_at')
         ->leftJoin('item AS i', 'i.item_id', '=', 'in.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id');
         $stock_in = $data->from("stock_in AS in");
         !empty($item_id) ? $stock_in->where('in.item_id', $item_id) : "";
-        $stock_out = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'out' as status"),'quantity', 'unit','out.created_at')
+        $stock_out = $this->select('item_name', 'i.item_id', 'item_code', 'category_name','stock_id', $this->raw("'stock_out' as status"),'quantity', 'unit','out.created_at', 'out.updated_at')
         ->leftJoin('item AS i', 'i.item_id', '=', 'out.item_id')
         ->leftJoin('category AS c', 'c.category_id', '=', 'i.category_id')->from('stock_out as out')->union($stock_in);
         !empty($item_id) ? $stock_out->where('out.item_id', $item_id) : "";
@@ -55,8 +69,6 @@ class StockModel extends Db  {
     }
 
     public function insertLatest($data) {
-        // echo $this->table;exit;
-        // print_r($data);exit;
        return $this->insertGetId($data);
     }
 
@@ -93,6 +105,16 @@ class StockModel extends Db  {
         } 
         // return $this->where($item)->increment('quantity', $quantity);
         return $type == 'stock_in' ? $this->where($item)->increment('quantity', $quantity) : $this->where($item)->decrement('quantity', $quantity) ;
+    }
+
+    public function deleteStock($table, $stock_id, $item_id, $old_quantity) {
+        // $stock = $this
+        if ($table == 'stock_in') {
+            $this->where('item_id', $item_id)->decrement('quantity', $old_quantity);
+        } elseif($table == 'stock_out') {
+            $this->where('item_id', $item_id)->increment('quantity', $old_quantity);
+        }
+        return $this->from($table)->where('stock_id', $stock_id)->delete();
     }
 
     public function getTable() {

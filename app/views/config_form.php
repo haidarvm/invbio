@@ -1,9 +1,5 @@
 <?php
-$css  = '
-        <style>
-        </style>';
 require_once 'template/header.php';
-// require_once 'template/menu.php';
 ?>
 <!-- ========== section start ========== -->
 <section class="section">

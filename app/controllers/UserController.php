@@ -1,10 +1,11 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController {
+class UserController extends Admin{
     protected $user;
 
     public function __construct() {
+        parent::__construct();
         $this->user = new UserModel();
         $this->request =  Request::createFromGlobals();
     }
@@ -16,6 +17,7 @@ class UserController {
     }
 
     public function edit() {
+        $this->admin_only();
         $data['page_title'] = "Edit User";
         $data['action'] = "update";
         $data['user'] =  $this->user->getUser(uri(3));
@@ -23,6 +25,7 @@ class UserController {
     }
 
     public function add() {
+        $this->admin_only();
         $data['page_title'] = "Add User";
         $data['action'] = "insert";
         view('user_form', $data);

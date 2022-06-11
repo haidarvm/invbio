@@ -1,11 +1,13 @@
 <?php
 
-class HomeController {
+class HomeController extends Admin {
     protected $stock;
     protected $item;
     public $table;
 
     public function __construct() {
+        parent::__construct();
+        $this->stockc = new StockAllController('stock');
         $this->stock = new StockModel;
         $this->table = "stock";
         $this->stock->table = "stock";
@@ -13,14 +15,8 @@ class HomeController {
     }
 
     public function index() {
-        $data['page_title'] = 'Inventory BioFarma Electrical';
-        $data['table'] = $this->table;
-        $data['stock'] = $this->stock->getAll();
-        view('stock_list', $data);
+        $data['page_title'] = 'home';
+        view('home', $data);
     }
 
-    public function new() {
-        $data['page_title'] = 'New Stock';
-        view('stock_new_line', $data);
-    }
 }

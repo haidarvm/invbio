@@ -1,8 +1,13 @@
 <?php
-$css  = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/datatables.min.css">
-<link rel="stylesheet" type="text/css" href="' . base_url() . 'assets/css/bootstrap-datepicker3.min.css">
-        <style>
-      </style>';
+function css() {
+    ?>
+<link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/datatables.min.css">
+<link rel="stylesheet" type="text/css" href="<?=URL; ?>assets/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="<?=URL; ?>assets/css/autoComplete.min.css">
+<style>
+</style>
+<?php
+}
 require_once 'template/header.php';?>
 <section class="section">
     <div class="container-fluid">
@@ -14,135 +19,147 @@ require_once 'template/header.php';?>
                         <div class="col-lg-12">
                             <div class="card-style mb-30">
                                 <?php
-                                $form = new Bas_Form;
-                                $form->open(base_url().$table, '', 'get');
-                                echo '<div class="row">';
-                                $form->input_on('text', 'date_start','Start Date',!empty($date_start) ? $date_start : dateIndo(),'','','datepicker', 'input_start');
-                                $form->input_on('text', 'date_end','End Date', !empty($date_end) ? $date_end : dateIndo() ,'','','datepicker','input_end');
-                                $form->button_xs('Filter', 'primary-btn mt-30');
-                                echo '</div>';
+                                require_once 'filter.php';
                                 ?>
-                                <h6 class="mb-10"><?=$page_title;?> Available </h6>
+                                <h6 class="mb-10  mt-20"><?=str_unslug($page_title, '_');?> -
+                                    <?= checkVal($item, 'item_name');?> Available </h6>
                                 <p class="text-sm mb-20">
                                     Available Stock All Item
                                 </p>
-                                
+                                <!-- <a  href="<?=URL?>pdf" class="main-btn primary-btn rounded-md btn-hover mr-15 mb-20">PDF</a> -->
                                 <div class="table-wrapper table-responsive">
-                                    <table class="table" id="datatable">
+                                    <table class="table table-bordered" id="datatable">
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <h6>Item Name</h6>
+                                                    <h6>No</h6>
                                                 </th>
                                                 <th>
-                                                    <h6>Item Code</h6>
+                                                    <h6>Nama Barang</h6>
                                                 </th>
                                                 <th>
-                                                    <h6>Acccount Name</h6>
+                                                    <h6>Spesifikasi</h6>
                                                 </th>
                                                 <?php
-                                                if (!empty($item)) {
+                                                if (!empty($all)) {
                                                     ?>
                                                 <th>
                                                     <h6>Status</h6>
                                                 </th>
                                                 <?php
-                                                }?>
+                                                } ?>
                                                 <th>
-                                                    <h6>Quantity</h6>
+                                                    <h6>Qty <?=$table == 'stock_out' ? 'Pemakaian' : 'Masuk';?></h6>
+                                                </th>
+                                                <th>
+                                                    <h6>Tanggal <?=$table == 'stock_out' ? 'Pemakaian' : 'Masuk';?></h6>
                                                 </th>
                                                 <?php
-                                                if (!empty($table) && $table == "stock_in") {
+                                                if (!empty($table) && $table != 'stock') {
                                                     ?>
                                                 <th>
-                                                    <h6>Rak</h6>
+                                                    <h6>Sisa Stock</h6>
                                                 </th>
                                                 <?php
-                                                }?>
-                                                <th>
-                                                    <h6>Last Date</h6>
-                                                </th>
-                                                <th>
+                                                } 
+                                                if($session->get("user_data")["level"] == 1) {?>
+                                                <th class="text-center">
                                                     <h6>Action</h6>
                                                 </th>
+                                                <?php } ?>
                                             </tr>
                                             <!-- end table row-->
                                         </thead>
                                         <tbody>
-                                            <?php foreach($stock as $row) { ?>
+                                            <?php
+                                            $i = 1;
+                                            foreach ($stock as $row) { ?>
                                             <tr>
+                                                <td class="min-width">
+                                                    <?=$i++;?>
+                                                </td>
                                                 <td class="min-width">
                                                     <div class="lead">
                                                         <div class="lead-image">
                                                             <img src="<?=base_url();?>assets/img/powermonitor.jpg"
                                                                 alt="" />
                                                         </div>
+                                                        <?php
+                                                        $class = $row->quantity <= '5' ? 'text-danger' : '';
+                                                        ?>
                                                         <div class="lead-text">
-                                                            <p><?=$row->item_name;?></p>
+                                                            <p class="<?=$class;?>"><?=$row->item_name;?></p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="min-width">
-                                                    <p><?=$row->item_code;?></p>
-                                                </td>
-                                                <td class="min-width">
-                                                    <p><?=$row->category_name;?></p>
+                                                    <p><?=$row->item_code . ' ' . $row->category_name;?></p>
                                                 </td>
                                                 <?php
-                                                if (!empty($item)) {
+                                                if (!empty($all)) {
                                                     ?>
                                                 <td class="min-width">
-                                                    <p class="text-danger"><?=strtoupper($row->status);?></p>
+                                                    <p class="text-danger"><?=strtoupper($row->status); ?></p>
                                                 </td>
                                                 <?php
-                                                    }?>
+                                                }?>
                                                 <td class="min-width">
                                                     <p class="text-danger">
-                                                        <?=$row->quantity. ' <span class="text-sm text-gray">'. $row->unit;?></span>
+                                                        <?=$row->quantity . ' <span class="text-sm text-gray">' . $row->unit;?></span>
+                                                    </p>
+                                                </td>
+                                                <td class="min-width datetime">
+                                                    <p><?=$table == 'stock' ? tglJamDate($row->updated_at) : tglJamDate($row->created_at);?>
                                                     </p>
                                                 </td>
                                                 <?php
-                                                if (!empty($table) && $table == "stock_in") {
+                                                if (!empty($table) && $table != 'stock') {
                                                     ?>
                                                 <td class="min-width">
-                                                    <p><?=$row->location;?></p>
+                                                    <p class="text-danger text-center">
+                                                        <?=$row->qty ?></span>
+                                                    </p>
                                                 </td>
                                                 <?php
-                                                    }?>
-                                                <td class="min-width">
-                                                    <p><?=tglJamDate($row->created_at);?></p>
-                                                </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <span class="text-danger">
-                                                            <?php 
+                                                }
+                                                if ($session->get('user_data')['level'] == 1) {?>
+                                                <td class="text-center">
+                                                    <div class="action text-center">
+                                                        <span class="text-danger ">
+                                                            <?php
                                                             // echo $item;
-                                                            if(empty($item) && $table == "stock") {
-                                                                $edit = "href='".base_url().$table."/edit/".$row->item_id."'";
-                                                            } elseif(!empty($item) && $table == "stock") {
-                                                                $edit = "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'";
-                                                            } else {
-                                                                $edit = "href='".base_url().$table."/edit/".$row->stock_id."'";
-                                                            }
+                                                            // echo $row->status;
+                                                            // if(empty($item) && $table == "stock") {
+                                                            //     $edit = "href='".base_url().$table."/edit/".$row->item_id."'";
+                                                            // } elseif(!empty($item) && $table == "stock") {
+                                                            //     $edit = "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'";
+                                                            // } else {
+                                                            //     $edit = "href='".base_url().$table."/edit/".$row->stock_id."'";
+                                                            // }
+                                                            $edit_id = $row->status == 'stock' ? $row->item_id : $row->stock_id;
+                                                            $edit = "href='" . base_url() . $row->status . '/edit/' . $edit_id . "'";
                                                             // $edit = empty($item) && $table == "stock" ? "href='".base_url().$table."/edit/".$row->item_id."'"  : "href='".base_url().$table."/edit/".$row->stock_id."'";
                                                             // $edit = !empty($item) && $table == "stock" ? "href='".base_url()."stock_".$row->status."/edit/".$row->stock_id."'"  :  $edit;
                                                             ?>
+                                                            
                                                             <a class="text-success" <?=$edit;?>><i
-                                                                    class="lni lni-pencil"></i></a> |
-                                                            <a class="text-danger" href="#"><i
+                                                                    class="lni lni-pencil"></i></a> 
+                                                                    
+                                                                <?php if($table != 'stock') { ?> |
+                                                            <a class="text-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"  href="<?=base_url(). 'stock/delete/'. $table. '/'. $row->stock_id . '/'. $row->item_id .'/'. $row->quantity ?>"><i
                                                                     class="lni lni-trash-can"></a></i>
+                                                                    <?php } ?>
                                                         </span>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php } ?>
+                                            <?php } }?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -150,26 +167,34 @@ require_once 'template/header.php';?>
 </section>
 <?php
 // Show Footer
-$order = $table == "stock_in" ? 5 : 4;
-$order = !empty($item) ? 5 : $order;
+$order =  4;
+define('ORDER', !empty($item) ? 4 : $order);
 $columns = !empty($column) ? $column : '[0,1,2,3,4]';
-$columns = $table == "stock_in" ? '[0,1,2,3,4,5]' : $columns;
-$javascript ='<script>            
-              var base_url = "' . base_url() . '";
-              var orderby = "'.$order.'";
-              console.log(orderby);
-              var pageshow = 50;
-              var exportcolumns = '.$columns.';
-              </script>
-              <script src="' . base_url() . 'assets/js/jquery-3.6.0.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/datatables.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/bootstrap-datepicker.min.js"></script>
-              <script type="text/javascript" charset="utf8" src="' . base_url() . 'assets/js/script.js?v=1"></script>
-              <script>
-                $(".datepicker").datepicker({
-                    format: "dd-mm-yyyy"
-                });
-              </script>
-            ';
+define('COLUMNS', $table == 'stock_in' ? '[0,1,2,3,4,5]' : $columns);
+function javascript() {
+    ?>
+<script>
+var base_url = "<?=URL; ?>";
+var orderby = "<?= ORDER; ?>";
+console.log(orderby);
+var pageshow = 50;
+var exportcolumns = <?=COLUMNS; ?>;
+</script>
+<script src="<?=URL; ?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?=URL; ?>assets/js/autoComplete.min.js"></script>
+<script src="<?=URL; ?>assets/js/autoComplete.js?v=1.1"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/datatables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/datetime-moment.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/datatable.js?v=1.2"></script>
+<script type="text/javascript" charset="utf8" src="<?=URL; ?>assets/js/script.js?v=1.1"></script>
+
+<script>
+create_autocomplete("#autocomplete01");
+</script>
+<?php
+}
 require_once 'template/footer.php';
 ?>

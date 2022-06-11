@@ -1,10 +1,11 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 
-class ConfigController {
+class ConfigController extends Admin{
     protected $config;
 
     public function __construct() {
+        parent::__construct();
         $this->config = new ConfigModel();
         $this->request =  Request::createFromGlobals();
     }
@@ -35,6 +36,6 @@ class ConfigController {
         $post = $this->request->request->all();
         // print_r($post);exit;
         $action == "insert" ? $this->config->insertGetId($post) : $this->config->where("config_id", $post['config_id'])->update($post);
-        header('Location: ' . base_url() . 'item');
+        header('Location: ' . base_url() . 'stock');
     }
 }

@@ -1,92 +1,83 @@
-# BasicPHP
+- bug if stock less than actual stock than alert 
+- Add current stock on choose auto complete item (add current stock in query)
+- Style on autocomplate should be red 
+- php back url before
+# chart using highcharts stock line `progress`
+- for dashboard use https://apexcharts.com/
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ray-ang_basicphp&metric=alert_status)](https://sonarcloud.io/dashboard?id=ray-ang_basicphp)
+# Task List
+- chart gabungan stock in stock out monthly [https://jsfiddle.net/fdt9t2yr/1/] `1`
+- add current stock on update stock `2` 
+- aleft if stock approach to on input stock `3`
+- Tampilan ramah tablet 10 inch (install to apk) ... `progress` `4` 
+- multiple item on report, chart [https://codepen.io/pilotvijai/pen/KjEyyG] `5`
+- deletion stock in / out
+- transaction commit, rollback on insert, edit, delete stock in / out
+- Tab: stock in, stock out, multiple in, multiple out
+- Stock alert if threshold config / kurang dari 5pcs
+- Pas menu update stock ada info: qty dan location. Sekalian alert kalau qty kurang dari 5pcs
+- menu active by url
+- Item Image upload
 
-A frameworkless class library for building web applications and application programming interfaces or API's. The aim of the project is for developers to build applications that are framework-independent using native PHP functions and API's.
+# new task for deletion stock in / out
+if delete stock in  
+table stock decrement qty from stock in by stock_id
+if delete stock out
+table stock increment qty from stock out by stock_id
 
-To integrate BasicPHP class library (Basic.php) to any framework or application, include/require Basic.php at the top of the front controller script. This is usually the index.php of an application.
+# **done**
+- aleft if stock less than 5 put on top menu **done**
+- Input Multiple Stock **done**
+- Home menu with big cards button **done**
+- bug stock all filter date **done**
+- Report ramah print/pdf (with headerfilename & title )... **done**
+- export files... **done**
+- Report Filter with product only **done**
+- bug if date empty **done**
+- Add All date in report / chart ,,, **done**
+- Design Filter Date **done**
+- chart with export plugin **done**
+- chart stock  **done**
+- chart stock in **done**
+- chart stock out **done**
+- bug shorting date on stock should use update_at ... **done** still bug should repair JS datatable add moment js datetime
+- bugs on script.js if no datepicker ... **done**
+- change logo **done**
+- Menu update stock:  **done**
+- Login Authentication  admin, operator ... **done**
+- Rubah/Update table tambah kolom lokasi rak ... **done**
+- detail nama barang + lokasi rak ... **done**
+- report with date from to ... **done** 
+- Master CRUD employee ... **done**
+- Master CRUD ITEM  ... **done**
+- Custom report ada features filter ... **done**
+- add Description / Keterangan .. **done**
+- add desc .. **done**
 
-Features include class autoloading, REST and JSON-RPC routing, functions/middleware, and security (HTTPS, web application firewall, XSS and CSRF protection, and encryption). The use of PHP Data Objects (PDO) is encouraged to prevent SQL injection.
+# Bug
+- on stock filter by date not work ... **done**
+# EDIT STOCK IN / OUT Task **done**
+- kalau edit di stock maka list semua stok in & out per item itu
+- kalau edit stock in / out maka update lalu update juga di table stok cara nya :
+    stock in 20 (edit jadi 18)
+    stock out 5 (edit jadi 3)
+    maka stock = 15
+    # if edit Stock out
+    -5 + -3
+    decrement dulu value sebelum nya lalu decrement value baru
 
-<br />
+    # if edit Stock in
+    decrement dulu value sebelum nya lalu increment value baru
 
-## Features
 
-1. Frameworkless library-based approach
-2. Can be used in Model-View-Controller (MVC) architectural pattern
-3. Class library functions and middleware
-4. Multitier Architecture for API (REST and JSON-RPC)
-5. Fast, unopinionated and minimalist
-6. Security-first
+return $this->where($item)->increment('quantity', $quantity);
 
-<br />
+# android kotlin webview
+https://camposha.info/android-examples/android-webview/#gsc.tab=0
 
-## Configuration
+# sample playground autocomplete
+https://codepen.io/tarekraafat/embed/rQopdW?height=265&theme-id=dark&default-tab=js,result#result-box
 
-The Sample Site default configuration is set to a development environment with 'basicphp' folder located under the server DocumentRoot (localhost). Once installed under the server root directory for development use, the site can be accessed at:
-
-```
-http://localhost/basicphp/app/public/
-```
-
-In production, the 'public' folder is set as DocumentRoot. You can access the application using the domain name.
-
-```
-https://domain-name.com/
-```
-<br />
-
-## Model-View-Controller (MVC) Architecture
-
-The BasicPHP Sample Site initially used a modified MVC approach where there is still separation between the Controller and View, but the Model is embedded in the Controller. Business logic and database layer (Model) is embedded in the Controller using the PDO abstraction layer. The Controller handles user input, passes data to and renders the View. The main function of the Controller is to define variables and functions, prepare conditional statements or iterations, and pass variables to the View using 'require' or 'include' statements. An abstraction layer using the templating Basic::view() helper function is added to pass data, and render the 'require' or 'include' statements in the View for code efficiency. The View gets its data from the Controller, with the Controller passing the $data variable containing the necessary variable names and their values using compact() function, or placing the variable names and values in an array using the shorthand [ ] or array(), and converting array keys to variables through the extract() function in the Basic::view() helper function. Native PHP templating can then be used in rendering the layout while escaping output, such as:
-
-```
-<p><?= htmlspecialchars($variable) ?></p>
-```
-
-### Passing Data
-
-Use the Basic::view() helper function to render the View for templating, and data handling purposes.
-
-```
-// Prepare data as data payload
-$variable1 = ['name' => 'John', 'age' => 32]; // Associative array
-$variable2 = 'value2';
-$variable3 = 'value3';
-
-$data = compact('variable1', 'variable2', 'variable3');
-Basic::view('page_view', $data);
-```
-
-OR
-
-```
-$data = ['variable1' => $variable1, 'variable2' => $variable2, 'variable3' => $variable3];
-Basic::view('page_view', $data);
-```
-
-### View
-
-When using Basic::view() helper function to render the View
-
-```
-<?php foreach( $variable1 as $row ): ?>
-<p>The person's name is <?= htmlspecialchars($row['name']) ?>, and the age is <?= htmlspecialchars($row['age']) ?>.</p>
-<?php endforeach ?>
-```
-
-#### As of May 23, 2019, BasicPHP Sample Site is compliant with the MVC approach. The Model is no longer embedded with the Controller, and has its own folder and classes.
-
-<br />
-
-## Creator and Project Lead
-
-*Raymund John Ang*
-
-### Contributors
-
-Jake Pomperada - *User Interface Testing*
-
-## License
-
-This project is licensed under the MIT License.
+# Multiple Auto select example
+https://jsfiddle.net/tarekraafat/6p5j4Lzh/2/
+https://github.com/TarekRaafat/autoComplete.js/issues/82
