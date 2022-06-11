@@ -28,6 +28,8 @@ class StockAllController extends Admin {
         } else {
             $data['stock'] = $this->stock->getAll($item_id);
         }
+        $config = new ConfigModel();
+        $data['minimal'] = $config->getConfig(1)->value;
         $data['item_id'] = $item_id;
         $data['item'] = checkIf($this->item->getItem($item_id));
         $data['page_title'] = strtoupper($this->table);
@@ -76,6 +78,8 @@ class StockAllController extends Admin {
         } else {
             $data['stock'] = $this->stock->getAllTrxu(uri(3));
         }
+        $config = new ConfigModel();
+        $data['minimal'] = $config->getConfig(1)->value;
         $data['item_id'] = $item_id;
         $data['item'] = checkIf($this->item->getItem($item_id));
         $data['page_title'] = 'STOCK ALL';

@@ -85,7 +85,7 @@ require_once 'template/header.php';?>
                                                                 alt="" />
                                                         </div>
                                                         <?php
-                                                        $class = $row->quantity <= '5' ? 'text-danger' : '';
+                                                        $class = $row->quantity <= $minimal ? 'text-danger' : '';
                                                         ?>
                                                         <div class="lead-text">
                                                             <p class="<?=$class;?>"><?=$row->item_name;?></p>

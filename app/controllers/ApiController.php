@@ -10,12 +10,10 @@ class ApiController extends PublicController {
     protected $product;
     protected $request;
     protected $response;
-    protected $configm;
 
     public function __construct() {
         parent::__construct();
         $this->stock = new StockModel;
-        $this->configm = new ConfigModel;
         $this->item = new ItemModel;
         $this->request =  Request::createFromGlobals();
         $this->response = new Response(
@@ -75,9 +73,10 @@ class ApiController extends PublicController {
 
     public function alert() {
         $alert = new AlertModel;
-        // $config = new ConfigModel();
-        // $minimal = $this->configm->getConfig(1);
-        $min = 10;
+        $config = new ConfigModel();
+        $minimal = $config->getConfig(1)->value;
+        // echo  $minimal;exit;
+        $min = $minimal;
         $data = $alert->getLessQty($min);
         $response = new JsonResponse($data);
         return $response->send();
