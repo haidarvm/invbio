@@ -35,7 +35,7 @@ class Bas_Form
     <div class="mb-3 row input-style-1">
         <label for="<?= $type ?>" class="col-sm-2 col-form-label <?= $style ?>"><?= $label ?> :</label>
         <div class="col-sm-10">
-            <input type="<?= $type ?>" <?= !empty($id) ? 'id="'.$id.'"' : '' ?>  <?= !empty($class) ? 'class="'.$class.'"' : '' ?>
+            <input type="<?= $type ?>" <?= $type =='number' ? 'min=1' : '';?> <?= !empty($id) ? 'id="'.$id.'"' : '' ?>  <?= !empty($class) ? 'class="'.$class.'"' : '' ?>
                 <?= !empty($placeholder) ? 'id="'.$placeholder.'"' : '' ?> name="<?= $name ?>" value="<?= $value ?>"
                 <?php if ($required === TRUE) echo 'required'; ?> <?php if ($disabled === TRUE) echo 'disabled'; ?> />
         </div>
