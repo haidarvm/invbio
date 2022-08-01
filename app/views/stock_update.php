@@ -129,25 +129,27 @@ $(function() {
         $("input[name=quantity_out]").val("");
         $("input[name=table]").val("stock_in");
     }
+    console.log(getParam("update"));
 
     showSwal();
 
     function showSwal() {
+        if(getParam("update") == "in" || getParam("update") == "out") {
+            swal("Alert!", "Anda berhasil update data", "success");
+        }
         // var urlParams = new URLSearchParams(window.location.search);
         // if (window.location.hash) {
         //     swal("Alert!", "Anda berhasil update data", "success");
         // }
-        console.log(location.search); 
-            // swal("Alert!", "Anda berhasil update data", "success");
+        // console.log(location.search);
+        // swal("Alert!", "Anda berhasil update data", "success");
     }
 
-    function getParam(name, url) {
-        if (!url) url = location.href;
-        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-        var regexS = "[\\?&]" + name + "=([^&#]*)";
-        var regex = new RegExp(regexS);
-        var results = regex.exec(url);
-        return results == null ? null : results[1];
+
+    function getParam(name) {
+        return decodeURI(
+            (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
+        );
     }
 });
 </script>
