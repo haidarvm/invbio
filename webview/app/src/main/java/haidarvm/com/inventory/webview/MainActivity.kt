@@ -1,8 +1,7 @@
 package haidarvm.com.inventory.webview
 
-import android.R.attr.mimeType
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -32,16 +31,15 @@ import java.security.SecureRandom
 import java.security.spec.InvalidKeySpecException
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.crypto.SecretKey
+import javax.crypto.*
 import javax.crypto.spec.SecretKeySpec
-
 
 class MainActivity : Activity() {
     private lateinit var mContext: Context
     internal var mLoaded = false
 
     // set your custom url here
-    internal var URL = "https://electrical-biofarma.hyd-ant.app"
+    internal var URL = "https://electrical-biofarma.hyd-ant.app/"
 
     //for attach files
     private var mCameraPhotoPath: String? = null
@@ -149,148 +147,44 @@ class MainActivity : Activity() {
         mWebView.settings.setRenderPriority(RenderPriority.HIGH)
         mWebView.settings.cacheMode = WebSettings.LOAD_DEFAULT
         mWebView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-
+        mWebView.settings.setLoadWithOverviewMode(true);
+        mWebView.settings.setUseWideViewPort(true);
         mWebView.settings.domStorageEnabled = true
-        mWebView.settings.setAppCacheEnabled(true)
+        mWebView.settings.setAppCacheEnabled(false)
         mWebView.settings.databaseEnabled = true
         //mWebView.getSettings().setDatabasePath(
         //        this.getFilesDir().getPath() + this.getPackageName() + "/databases/");
 
         // this force use chromeWebClient
         mWebView.settings.setSupportMultipleWindows(false)
-
-
-
-        // Enable Javascript
-        mWebView.settings.javaScriptEnabled = true
-
-        // Use WideViewport and Zoom out if there is no viewport defined
-        Log.d("settings", "setUpWebViewDefaults: " + mWebView.settings.toString())
-        // Enable pinch to zoom without the zoom buttons
-
-
-        // We set the WebViewClient to ensure links are consumed by the WebView rather
-        // than passed to a browser if it can
-        mWebView.webViewClient = WebViewClient()
-
-        mWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
-            val i = Intent(Intent.ACTION_VIEW)
-            Log.d("downloadings", "webview downloading: "  + url )
-            val request = DownloadManager.Request(
-                Uri.parse(url)
-            )
-            request.setMimeType("pdf")
-            val cookies = CookieManager.getInstance().getCookie(url)
-            request.addRequestHeader("cookie", cookies)
-            request.addRequestHeader(
-                "User-Agent",userAgent
-            )
-            request.setDescription("Downloading File...")
-            request.setTitle("mpdf.pdf")
-            request.allowScanningByMediaScanner()
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            request.setDestinationInExternalPublicDir(
-                Environment.DIRECTORY_DOWNLOADS, "mpdf.pdf"
-            )
-            val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-            dm.enqueue(request)
-            Toast.makeText(applicationContext, "Downloading File", Toast.LENGTH_LONG).show()
-//            if(url.startsWith("blob:")) {
-//                Log.e("downloadingblob", "downloading blob" )
-//            } else {
-//                Log.e("downloading", "shouldOverrideUrlLoading: "  + url )
-//
-////                i.data = Uri.parse(url)
-////                startActivity(i)
-//            }
-        }
-
         mWebView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                var value = true
-                val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-                Log.e("extension", "shouldOverrideUrlLoading: "  + extension )
-//                if(url.contains("pdf")) {
-//                    val mdDownloadManager =
-//                        getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-//                    val request = DownloadManager.Request(
-//                        Uri.parse(url)
-//                    )
-//                    val name = URLUtil.guessFileName(
-//                        url,
-//                        null,
-//                        MimeTypeMap.getFileExtensionFromUrl(url)
-//                    )
-//                    val destinationFile =
-//                        File(Environment.getExternalStorageDirectory(), name)
-//                    request.setDescription("Downloading...")
-//                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-//                    // request.setDestinationUri(Uri.fromFile(destinationFile));
-//                    request.setDestinationInExternalPublicDir(
-//                        Environment.DIRECTORY_DOWNLOADS,
-//                        name
-//                    )
-//                    mdDownloadManager.enqueue(request)
-//                    value = false
-//                }
-                if (extension != null) {
-                    val mime = MimeTypeMap.getSingleton()
-                    val mimeType = mime.getMimeTypeFromExtension(extension)
-                    Log.e("mime", "shouldOverrideUrlLoading: "  + extension )
-                    Log.e("mimeType", "shouldOverrideUrlLoading: "  + mimeType )
-                    Log.e("URL", "shouldOverrideUrlLoading: "  + url )
+            override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
 
-                    if (mimeType != null) {
-                        if (mimeType.toLowerCase().contains("pdf")
-                            || extension.toLowerCase().contains("ppt")
-                            || extension.toLowerCase().contains("doc")
-                            || extension.toLowerCase().contains("rar")
-                            || extension.toLowerCase().contains("rtf")
-                            || extension.toLowerCase().contains("exe")
-                            || extension.toLowerCase().contains("apk")
-                            || extension.toLowerCase().contains("jpeg")
-                            || extension.toLowerCase().contains("png")
-                            || extension.toLowerCase().contains("xls")
-                            || extension.toLowerCase().contains("xlsx")
-                            || extension.toLowerCase().contains("zip")
-                            || extension.toLowerCase().contains("jpg")
-                        ) {
-                            Log.e("downloading", "shouldOverrideUrlLoading: "  + url )
-                            val mdDownloadManager =
-                                getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                            val request = DownloadManager.Request(
-                                Uri.parse(url)
-                            )
-                            val name = URLUtil.guessFileName(
-                                url,
-                                null,
-                                MimeTypeMap.getFileExtensionFromUrl(url)
-                            )
-                            val destinationFile =
-                                File(Environment.getExternalStorageDirectory(), name)
-                            request.setDescription("Downloading...")
-                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                            // request.setDestinationUri(Uri.fromFile(destinationFile));
-                            request.setDestinationInExternalPublicDir(
-                                Environment.DIRECTORY_DOWNLOADS,
-                                name
-                            )
-                            mdDownloadManager.enqueue(request)
-                            value = false
-                        }
-                    }
-                    if (value) {
+                Log.d(TAG, "URL: " + url!!)
+                if (internetCheck(mContext)) {
+                    // If you wnat to open url inside then use
+                    view.loadUrl(url);
+
+                    // if you wanna open outside of app
+                    if (url.contains(URL)) {
                         view.loadUrl(url)
-                    }
-                    if (!url.contains(URL)) { // Could be cleverer and use a regex
+                        return false
+                    }else {
+                        // Otherwise, give the default behavior (open in browser)
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(intent)
                         return true
                     }
-                    return false
+                } else {
+                    prgs.visibility = View.GONE
+                    mWebView.visibility = View.GONE
+                    layoutSplash.visibility = View.GONE
+                    layoutNoInternet.visibility = View.VISIBLE
                 }
-                return false
+
+                return true
             }
+
             /* @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if(internetCheck(mContext)) {
@@ -334,8 +228,8 @@ class MainActivity : Activity() {
         //file attach request
         mWebView.webChromeClient = object : WebChromeClient() {
             override fun onShowFileChooser(
-                    webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
-                    fileChooserParams: WebChromeClient.FileChooserParams): Boolean {
+                webView: WebView, filePathCallback: ValueCallback<Array<Uri>>,
+                fileChooserParams: WebChromeClient.FileChooserParams): Boolean {
                 if (mFilePathCallback != null) {
                     mFilePathCallback!!.onReceiveValue(null)
                 }
@@ -357,7 +251,7 @@ class MainActivity : Activity() {
                     if (photoFile != null) {
                         mCameraPhotoPath = "file:" + photoFile.absolutePath
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                                Uri.fromFile(photoFile))
+                            Uri.fromFile(photoFile))
                     } else {
                         takePictureIntent = null
                     }
@@ -393,11 +287,11 @@ class MainActivity : Activity() {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES)
+            Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-                imageFileName, /* prefix */
-                ".jpg", /* suffix */
-                storageDir      /* directory */
+            imageFileName, /* prefix */
+            ".jpg", /* suffix */
+            storageDir      /* directory */
         )
     }
 
@@ -434,9 +328,6 @@ class MainActivity : Activity() {
         // than passed to a browser if it can
         mWebView.setWebViewClient(new WebViewClient());
     }*/
-
-
-
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {

@@ -1,7 +1,7 @@
 <?php
 function css() {
     ?>
-<link rel="stylesheet" href="<?=URL;?>assets/css/autoComplete.min.css">
+<link rel="stylesheet" href="<?=URL; ?>assets/css/autoComplete.min.css">
 <style>
 </style>
 <?php
@@ -32,7 +32,7 @@ require_once 'template/header.php';
                     </div>
                     <?php
                         $form = new Bas_Form;
-                        $form->open(base_url().'stock/save');
+                        $form->open(base_url() . 'stock/save');
                         ?>
 
                     <div class="profile-info">
@@ -41,7 +41,7 @@ require_once 'template/header.php';
                         </div>
                     </div>
                     <?php
-                        $form->input_line('text', 'item_name', 'Item', '', '', '', '','','autocomplete01');
+                        $form->input_line('text', 'item_name', 'Item', '', '', '', '', '', 'autocomplete01');
                         ?>
                     <div class="tab-content" id="myTabContent">
                         <!-- Stock IN -->
@@ -64,7 +64,7 @@ require_once 'template/header.php';
                         $form->input_hidden('item_id');
                         $form->input_hidden('table');
                         $form->button('Save', 'primary-btn ');
-                        $form->a_button( base_url().'stock', "Cancel",'danger-btn-outline');
+                        $form->a_button(base_url() . 'stock', 'Cancel', 'danger-btn-outline');
                         $form->close();
                         ?>
                 </div>
@@ -77,14 +77,14 @@ require_once 'template/header.php';
 </section>
 <?php
 function javascript() {
-    ?>
+                            ?>
 <script>
-var base_url = "<?=URL;?>";
+var base_url = "<?=URL; ?>";
 </script>
-<script src="<?=URL;?>assets/js/autoComplete.min.js"></script>
-<script src="<?=URL;?>assets/js/jquery-3.6.0.min.js"></script>
-<script src="<?=URL;?>assets/js/autoComplete.js"></script>
-<script src="<?=URL;?>assets/js/sweetalert.min.js"></script>
+<script src="<?=URL; ?>assets/js/autoComplete.min.js"></script>
+<script src="<?=URL; ?>assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?=URL; ?>assets/js/autoComplete.js"></script>
+<script src="<?=URL; ?>assets/js/sweetalert.min.js"></script>
 <script>
 create_autocomplete("#autocomplete01");
 
@@ -112,7 +112,7 @@ $(function() {
     var hash = window.location.hash;
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
     hash == '#out' ? $("#in").hide() : $("#out").hide();
-    if(hash == "#out") {
+    if (hash == "#out") {
         $("#in").hide();
         $("#in-tab").removeClass("active");
         $("#out-tab").addClass("active");
@@ -129,17 +129,29 @@ $(function() {
         $("input[name=quantity_out]").val("");
         $("input[name=table]").val("stock_in");
     }
-  
+
     showSwal();
+
     function showSwal() {
-        var urlParams = new URLSearchParams(window.location.search);
-        if(window.location.hash){ 
-            swal("Alert!", "Anda berhasil update data", "success");
-        }
+        // var urlParams = new URLSearchParams(window.location.search);
+        // if (window.location.hash) {
+        //     swal("Alert!", "Anda berhasil update data", "success");
+        // }
+        console.log(location.search); 
+            // swal("Alert!", "Anda berhasil update data", "success");
+    }
+
+    function getParam(name, url) {
+        if (!url) url = location.href;
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regexS = "[\\?&]" + name + "=([^&#]*)";
+        var regex = new RegExp(regexS);
+        var results = regex.exec(url);
+        return results == null ? null : results[1];
     }
 });
 </script>
 <?php
-}
+                        }
 require_once 'template/footer.php';
 ?>

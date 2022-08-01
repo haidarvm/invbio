@@ -124,7 +124,7 @@ class StockAllController extends Admin {
         $this->stock->table = $post['table'];
         $this->stock->insertLatest($data);
         $this->stock->updateStock($data['item_id'], $post['table'], $data['quantity']);
-        $href = $post['table'] == 'stock_out' ? '#out' : '#in';
+        $href = $post['table'] == 'stock_out' ? '?update=out' : '?update=in';
         header('Location: ' . base_url() . 'stock/new' . $href);
     }
 

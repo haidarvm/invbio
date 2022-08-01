@@ -41,7 +41,7 @@ require_once __DIR__ . '/functions.php';
 
 Basic::capsulate();
 
-Basic::setErrorReporting(); // Error reporting
+Basic::setErrorReporting(true); // Error reporting
 // Basic::setJsonBodyAsPOST(); // JSON as $_POST
 // Basic::setFirewall(); // Enable firewall
 // Basic::setHttps(); // Require TLS/HTTPS
