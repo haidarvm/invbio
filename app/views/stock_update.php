@@ -77,7 +77,7 @@ require_once 'template/header.php';
 </section>
 <?php
 function javascript() {
-                            ?>
+?>
 <script>
 var base_url = "<?=URL; ?>";
 </script>

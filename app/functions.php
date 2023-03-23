@@ -90,3 +90,13 @@ function str_slug($string, $separator = '-') {
 function str_unslug($string, $separator = '-') {
     return ucwords(str_replace($separator, ' ', $string));
 }
+
+function hassed($pwd, $pepper) {
+    $pwd_peppered = hash_hmac('sha256', $pwd, $pepper);
+    $pwd_hashed = password_hash($pwd_peppered, PASSWORD_ARGON2ID);
+    return $pwd_hashed;
+}
+
+function preppered($pwd, $pepper) {
+    return hash_hmac('sha256', $pwd, $pepper);
+}
