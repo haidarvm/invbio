@@ -9,6 +9,7 @@ $ini = parse_ini_file(__DIR__ . '/../config.ini');
 
 define('URL_PROTOCOL', '//');
 define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
+define('CONF', __DIR__.'/../config.ini' );
 // define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
 define('URL', URL_PROTOCOL . URL_DOMAIN .'/');
 

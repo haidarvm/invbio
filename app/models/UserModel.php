@@ -8,6 +8,10 @@ class UserModel extends Db {
 
     public $timestamps = false;
 
+    public function __construct() {
+        $this->ini = parse_ini_file(CONF);
+    }
+
     public function login($username, $pass) {
         $pwd_peppered = preppered($pass, $this->ini["PR"]);
         $login =  $this->where(['username' => $username])->first();
