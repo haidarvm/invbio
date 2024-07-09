@@ -54,7 +54,7 @@ require_once 'template/header.php';?>
                                         <tbody>
                                             <?php foreach($item as $row) { ?>
                                             <tr>
-                                                <td class="min-width">
+                                                <td >
                                                     <p><?=$row->item_id;?></p>
                                                 </td>
                                                 <td class="min-width">

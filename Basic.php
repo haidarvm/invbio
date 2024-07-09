@@ -44,7 +44,7 @@ class Basic
         $capsule = new Capsule;
         $capsule->addConnection([
             'driver' => 'mysql',
-            'host' => 'localhost',
+            'host' => DB_HOST,
             'database' => DB_NAME,
             'username' => DB_USER,
             'password' => DB_PASS,

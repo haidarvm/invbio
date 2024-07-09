@@ -15,8 +15,17 @@ class UserModel extends Db {
     public function login($username, $pass) {
         $pwd_peppered = preppered($pass, $this->ini["PR"]);
         $login =  $this->where(['username' => $username])->first();
+        // echo $pwd_peppered . ' test '.$pass . $login->password;
+        // if ($pwd_peppered == $login->password) {
+        // if (password_verify($pass, $pwd_peppered)) {
+        //     echo  'match';
+        // } else {
+        //     echo ' salah';
+        // }
+        // exit;
         if (!empty($login->user_id)) {
-            if (password_verify($pwd_peppered, $login->password)) {
+            if ($pwd_peppered == $login->password) {
+            // if (password_verify($pwd_peppered, $login->password)) {
                 return $login;
             } else {
                 return false;

@@ -75,7 +75,7 @@ require_once 'template/header.php';?>
                                             $i = 1;
                                             foreach ($stock as $row) { ?>
                                             <tr>
-                                                <td class="min-width">
+                                                <td >
                                                     <?=$i++;?>
                                                 </td>
                                                 <td class="min-width">

@@ -45,7 +45,7 @@ require_once 'template/header.php';
                                         <tbody>
                                             <?php foreach($user as $row) { ?>
                                             <tr>
-                                                <td class="min-width">
+                                                <td>
                                                     <p><?=$row->user_id;?></p>
                                                 </td>
                                                 <td class="min-width">
